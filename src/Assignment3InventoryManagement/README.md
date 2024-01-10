@@ -1,16 +1,82 @@
-# 🎯 How to use C# Starter Repo for C# assignments 
- 1. While creating new repo add the “CSharp_Starter_Repo” template repository
-![Using Template repo](https://github.com/solitontech/CSharp_Starter_Repo/blob/main/docs/assets/Images/HowToUseStarterRepo_Images/HowToUseStarterRepo.jpg) 
- 2. Make your account as the owner of the repository and include all the branches.
- 3. Add description to your repository if needed.
- 4. Select private/public repository based on the needs.
- 5. Now click create repository and your repository will be created.
- 6. Add git hooks scripts - [How to add git hooks](https://github.com/solitontech/CSharp_Starter_Repo/blob/main/docs/GitHooks.md)
- 7. Ensure that your branch names and commit messages follow this syntax: [GuideLines](https://github.com/solitontech/CSharp_Starter_Repo/blob/313030ea36043f4d2a6eb4258c68b31737cacc26/docs/Guidelines%20for%20GIT.md)
- 8. Add VSIX template -  [How to add VSIX template](https://github.com/solitontech/CSharp_Starter_Repo/blob/main/docs/VSIX%20template%20Manual.md)
- 9. Open the solution file in the root directory.
- 10. While adding new project select the CSharpStarterTemplate and select the appropriate folder location.
-     (src - for assignments and tests/unit - for unit tests)
- 11. For every assignments create a new branch from main and add your project to the solution.
- 12. When build is susccessful and the project runs perfectly give PR to main branch.
- 13. After merging to main, create new branch and add new project for next assignment.
+# Inventory Management Console
+
+## Features
+ -User friendly Console
+ -Error free Product Entry
+ -Stores in Memory (Run Time)
+ -Ale to search edit and delete with product name and IDs
+ -Easy to debug as uses different methods inside the class
+ -Menu Bar for easy access 
+
+ ## Class
+
+ The parent class Product is used and the Each product is created as objects in that instance. 
+ Lis of objects were created to store products with its aspects. This list of objects makes easily accesbile 
+ and user friendly
+
+ ## Methods
+
+ ### AddProduct()
+
+  Product product = new Product(proName, proID, proPrice, proQuantity);
+  _productList.Add(product);
+
+ It uses List.Add() to add the objects in the list _productLit
+ Only add the elements as defined, .i.e
+ Name - String, ProductID - String, Price - Double or Int, Quantity - Int
+ Used do while loop and try parse to have this error handling
+ Each Product will have objects of the CLass Product. 
+ 
+ ### DeleteProduct()
+
+ The index of the object in the list _productList is acceses via a for loop which is iterated with count of list
+ by the index value the element i.e object is deleted via a fuction
+
+  _productList.RemoveAt(i);
+
+  Removes the particular element i.e object craeted for the product
+
+
+ ### ViewProducts()
+
+ Foreach loop is used to acces the filed of the objects which is stored in the list. which will print the all details of 
+ all products in the list
+
+   foreach (var products in _productList)
+                {
+                    Console.WriteLine("Product Name" + "\t" + "Product ID" + "\t" + "Product Price" + "Available Quantity");
+                    Console.WriteLine(products.ProductName + "\t" + products.ProductID + "\t" + products.ProductPrice + "\t" + products.ProductQuantity);
+                }
+this above code snippet is used to print the values
+****It will only executed if the list has some items in it. it will show no pruducts if the list is empty
+
+ ### EditProduct()
+
+ Same as delete product a for loop which returns the index of the object is retuned the specific 
+
+  _productList[i].ProductName = proName;
+  _productList[i].ProductID = proID;
+  _productList[i].ProductPrice = proPrice;
+  _productList[i].ProductQuantity = proQuantity;
+
+  this is edited with syntax used in the above code snippets
+
+
+****It will only executed if the list has some items in it. it will show no pruducts if the list is empty
+
+ ## SearchProduct()
+
+ This method is as same as we used in edit and delete products. But it just checks the entered product ID or Name is equal to the existing 
+ one in the list if its same it print the details. 
+
+ foreach (var products in _productList)
+                {
+                    if (products.ProductName == searchName || products.ProductID == searchName)
+                    {
+                        Console.WriteLine("You Might Want");
+                        Console.WriteLine("ProductName :" + products.ProductName + "\n" + "ProductID:" + products.ProductID +
+                            "\n" + "ProductPrice: " + products.ProductPrice + "\n" + "ProductQuantity" + products.ProductQuantity + "\t");
+                    }
+                }
+this code snippet expians the method
+ ****It will only executed if the list has some items in it. it will show no pruducts if the list is empty  
