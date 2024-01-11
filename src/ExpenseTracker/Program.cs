@@ -5,6 +5,9 @@
     /// </summary>
     internal partial class Program
     {
+        private static ExpenseTracker _expenseTracker = new ExpenseTracker();
+        private static IncomeTracker _incomeTracker = new IncomeTracker();
+
         private static void Main(string[] args)
         {
             string option;
@@ -25,14 +28,21 @@
             switch (option)
             {
                 case "1":
-                    IncomeTracker incomeTracker; incomeTracker = new IncomeTracker();
-                    incomeTracker.AddIncome();
+                    _expenseTracker.AddExpense();
                     break;
                 case "2":
-                    ExpenseTracker expenseTracker; expenseTracker = new ExpenseTracker();
-                    expenseTracker.AddExpense();
+                    _incomeTracker.AddIncome();
+                    break;
+               
+                case "3":
+                    ShowRecord();
                     break;
             }
+        }
+        private static void ShowRecord()
+        {
+            _expenseTracker.ViewExpense();
+            _incomeTracker.ViewIncome();
         }
     }
 }

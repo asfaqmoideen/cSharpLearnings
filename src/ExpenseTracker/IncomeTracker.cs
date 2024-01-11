@@ -12,7 +12,6 @@
         public void AddIncome()
         {
             bool temp;
-            int proQuantity;
             double newIncome;
 
             do
@@ -29,10 +28,15 @@
             Console.WriteLine("Enter notes if any ");
             string notes = Console.ReadLine();
 
-            Console.WriteLine("Product Added");
-            FinanceManager incometracker = new FinanceManager{ Amount = newIncome, Category = incomeCategory, Date = date, Notes = notes};
-            this._incomes.Add(incometracker);
-
+            Console.WriteLine("Income Added");
+            FinanceManager incometracker = new FinanceManager
+            {
+                Amount = newIncome,
+                Category = incomeCategory,
+                Date = date,
+                Notes = notes
+            };
+            _incomes.Add(incometracker );
             Console.WriteLine("[A]dd another Income or [M]enu");
             string option = Console.ReadLine();
             if (option == "A" || option == "a")
@@ -43,7 +47,30 @@
             {
                 Console.WriteLine("-------------------------------------------------------------------------------------------------");
                 Console.WriteLine("Redirecing to Menu");
-                // Main();
+            }
+        }
+        /// <summary>
+        /// Method inside this calss to show incomes
+        /// </summary>
+        public void ViewIncome()
+        {
+            Console.WriteLine("Income");
+            {
+                if (_incomes.Count > 0)
+                {
+                    Console.WriteLine("History of Incomes");
+                    foreach (var incomes in _incomes)
+                    {
+                       // Console.WriteLine("P" + "\t" + "Product ID" + "\t" + "Product Price" + "Available Quantity");
+                        Console.WriteLine(incomes.Amount+ "\t" + incomes.Category + "\t" + incomes.Date + "\t" + incomes.Notes);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No Incomes History");
+                    Console.WriteLine("-------------------------------------------------------------------------------------------------");
+                    Console.WriteLine("Redirecing to Menu");
+                }
             }
         }
     }

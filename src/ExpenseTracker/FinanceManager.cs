@@ -1,7 +1,7 @@
 ﻿namespace Assignments
 {/// <summary>
 /// rthe
-/// </summary>
+/// </summary>  
         public class FinanceManager
         {
         /// <summary>
@@ -32,6 +32,5 @@
         /// notes
         /// </value>
         public string Notes { get; set; }
-
-    }
+        }
 }

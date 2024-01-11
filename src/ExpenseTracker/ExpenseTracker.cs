@@ -5,13 +5,13 @@
     internal class ExpenseTracker
     {
         private List<FinanceManager> _expense = new List<FinanceManager>();
+
         /// <summary>
-        /// skjnksd
+        /// This is the Method to Add a Expense
         /// </summary>
         public void AddExpense()
         {
             bool temp;
-            int proQuantity;
             double newExpense;
 
             do
@@ -28,12 +28,17 @@
             Console.WriteLine("Enter notes if any ");
             string notes = Console.ReadLine();
 
-            Console.WriteLine("Product Added");
-            FinanceManager expensetracker = new FinanceManager { Amount = newExpense, Category = expenseCategory, Date = date, Notes = notes };
+            Console.WriteLine("Expense Added");
+            FinanceManager expensetracker = new FinanceManager
+            {
+                Amount = newExpense,
+                Category = expenseCategory,
+                Date = date,
+                Notes = notes,
+            };
             this._expense.Add(expensetracker);
-
             Console.WriteLine("[A]dd another Expense or [M]enu");
-            string option = Console.ReadLine();
+            string? option = Console.ReadLine();
             if (option == "A" || option == "a")
             {
                 AddExpense();
@@ -42,7 +47,31 @@
             {
                 Console.WriteLine("-------------------------------------------------------------------------------------------------");
                 Console.WriteLine("Redirecing to Menu");
-                // Main();
+            }
+        }
+
+        /// <summary>
+        /// This is the Method to View All Expenses
+        /// </summary>
+        public void ViewExpense()
+        {
+            Console.WriteLine("Loading Expenses");
+            {
+                if (this._expense.Count > 0)
+                {
+                    Console.WriteLine("History of Expense");
+                    foreach (var expense in this._expense)
+                    {
+                        Console.WriteLine("Expense Amouny" + "\t" + "Category" + "\t" + "Expended Date" + "Notes");
+                        Console.WriteLine(expense.Amount + "\t" + expense.Category + "\t" + expense.Date + "\t" + expense.Notes);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No Expense History");
+                    Console.WriteLine("-------------------------------------------------------------------------------------------------");
+                    Console.WriteLine("Redirecing to Menu");
+                }
             }
         }
     }
