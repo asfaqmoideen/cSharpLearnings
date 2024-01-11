@@ -24,7 +24,7 @@
         /// <value>
         /// date of the income
         /// </value>
-        public string Date { get; set; }
+        public DateOnly Date { get; set; }
         /// <summary>
         /// Gets or sets notes
         /// </summary>
