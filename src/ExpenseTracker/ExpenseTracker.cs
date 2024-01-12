@@ -1,13 +1,13 @@
 ﻿namespace Assignments
 {/// <summary>
-/// /hnjb
+/// This class stores all the expense entities and methods
 /// </summary>
     internal class ExpenseTracker
     {
         private List<FinanceManager> _expense = new List<FinanceManager>();
 
         /// <summary>
-        /// This is the Method to Add a Expense
+        /// Method to Add a Expense
         /// </summary>
         public void AddExpense()
         {
@@ -57,7 +57,7 @@
         }
 
         /// <summary>
-        /// This is the Method to View All Expenses
+        /// Method to View All Expenses
         /// </summary>
         public void ViewExpense()
         {
@@ -76,14 +76,12 @@
                 }
                 else
                 {
-                    Console.WriteLine("No Expense History");
-                    Console.WriteLine("-------------------------------------------------------------------------------------------------");
-                    Console.WriteLine("Redirecing to Menu");
+                    NoExpenseYet();
                 }
             }
         }
         /// <summary>
-        /// khg
+        /// To delete a past expense
         /// </summary>
         public void DeleteExpense()
         { 
@@ -125,13 +123,11 @@
             }
             else
             {
-                Console.WriteLine("No Expenses yet");
-                Console.WriteLine("-------------------------------------------------------------------------------------------------");
-                Console.WriteLine("Redirecing to Menu");
+                NoExpenseYet();
             }
         }
         /// <summary>
-        /// juhj
+        /// To edit past expense
         /// </summary>
         public void EditExpense()
         { 
@@ -161,7 +157,6 @@
 
                             if (option == "Y" || option == "y")
                         {
-                            editExpense = expense;
                             Console.Write("Enter New details");
                             bool temp, temp2;
                             double newExpense;
@@ -184,16 +179,10 @@
                             while (temp1 != true);
                             Console.WriteLine("Enter notes if any ");
                             string notes = Console.ReadLine();
-
-                            Console.WriteLine("Expense Added");
-                            FinanceManager expensetracker = new FinanceManager
-                            {
-                                Amount = newExpense,
-                                Category = expenseCategory,
-                                Date = date,
-                                Notes = notes,
-                            };
-                            this._expense.Add(editExpense);
+                            expense.Amount = newExpense;
+                            expense.Category = expenseCategory;
+                            expense.Date = date;
+                            expense.Notes = notes;
                             Console.WriteLine("Expense Edited :)");
                             Console.WriteLine("-------------------------------------------------------------------------------------------------");
                             break;
@@ -203,9 +192,7 @@
                 }
             else
             {
-                Console.WriteLine("No Expenses yet");
-                Console.WriteLine("-------------------------------------------------------------------------------------------------");
-                Console.WriteLine("Redirecing to Menu");
+                NoExpenseYet();
             }
         }
         /// <summary>
@@ -215,11 +202,20 @@
         public double GenerateExpenserecord()
         {
             double sumOfExpense = 0;
-            foreach(var expense in this._expense)
+            foreach (var expense in this._expense)
             {
                 sumOfExpense += expense.Amount;
             }
             return sumOfExpense;
         }
+        /// <summary>
+        /// A function to print no expenses
+        /// </summary>
+        public void NoExpenseYet()
+        {
+            Console.WriteLine("No Expenses yet");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+            Console.WriteLine("Redirecing to Menu");
+        }
     }
- }
+}

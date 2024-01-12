@@ -90,7 +90,7 @@
             accbalance = accbalance + totalIncome - totalExpense;
             Console.WriteLine("\tTotal Balance = "+  accbalance);
             Console.WriteLine("\tTotal Incomes = "+  totalIncome);
-            Console.WriteLine("\tTotal Balance = " + totalExpense);
+            Console.WriteLine("\tTotal Expense = " + totalExpense);
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
         }
     }

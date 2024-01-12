@@ -1,17 +1,17 @@
 ﻿namespace Assignments
 {
     /// <summary>
-    /// fg
+    /// Class to have methods and a list of Incomes
     /// </summary>
     public class IncomeTracker
     {
         private List<FinanceManager> _incomes = new List<FinanceManager>();
         /// <summary>
-        /// uhfdjis
+        /// funtion to add incomes as a list of objects
         /// </summary>
         public void AddIncome()
         {
-            bool temp, temp1 ;
+            bool temp, temp1;
             double newIncome;
             DateOnly date;
 
@@ -30,7 +30,7 @@
                 string tempDate = Console.ReadLine();
                 temp1 = DateOnly.TryParse(tempDate, out date);
             }
-            while (temp1 != true);
+            while (temp1 != true );
 
             Console.WriteLine("Enter notes if any ");
             string notes = Console.ReadLine();
@@ -57,7 +57,7 @@
             }
         }
         /// <summary>
-        /// Method inside this calss to show incomes
+        /// Funtion to shpw incomes
         /// </summary>
         public void ViewIncome()
         {
@@ -76,14 +76,12 @@
                 }  
                 else
                 {
-                    Console.WriteLine("No Incomes History");
-                    Console.WriteLine("-------------------------------------------------------------------------------------------------");
-                    Console.WriteLine("Redirecing to Menu");
+                    NoIncomesYet();
                 }
             }
         }
         /// <summary>
-        /// /sjdksl
+        /// Function to delete a Income
         /// </summary>
         public void DeleteIncome()
         {
@@ -124,9 +122,7 @@
             }
             else
             {
-                Console.WriteLine("No Incomes added yet");
-                Console.WriteLine("-------------------------------------------------------------------------------------------------");
-                Console.WriteLine("Redirecing to Menu");
+                NoIncomesYet();
             }
         }
         /// <summary>
@@ -198,9 +194,7 @@
 
             else
             {
-                Console.WriteLine("No Incomes added yet");
-                Console.WriteLine("-------------------------------------------------------------------------------------------------");
-                Console.WriteLine("Redirecing to Menu");
+                NoIncomesYet();
             }
         }
         /// <summary>
@@ -210,11 +204,20 @@
         public double GenerateIncomerecord()
         {
             double sumofIncome = 0;
-            foreach ( var income in this._incomes)
+            foreach (var income in this._incomes)
             {
                 sumofIncome = income.Amount;
             }
             return sumofIncome;
+        }
+/// <summary>
+/// dkfsj
+/// </summary>
+        public void NoIncomesYet()
+        {
+            Console.WriteLine("No Incomes added yet");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+            Console.WriteLine("Redirecing to Menu");
         }
     }
 }
