@@ -1,13 +1,13 @@
 ﻿namespace Assignments
 {/// <summary>
-/// Parent class called product
-/// </summary>
-        public class Product
+ ///  Manipulates the Lists created with the instances <see cref="Product"/>s.
+ /// </summary>
+    public class Product
         {
-        //public string ProductName;
-        //public string ProductID;
-        //public double ProductPrice;
-        //public int ProductQuantity;
+         //public string ProductName;
+         //public string ProductID;
+         //public double ProductPrice;
+         //public int ProductQuantity;
         /// <summary>
         /// Initializes a new instance of the <see cref="Product"/> class.
         /// T
@@ -24,7 +24,7 @@
                 this.ProductQuantity = productQunatity;
             }
         /// <summary>
-        /// Gets or sets ProductName
+        /// Thus 
         /// </summary>
         /// <value>
         /// Mouse
