@@ -3,18 +3,15 @@ using System.Runtime.CompilerServices;
 
 namespace Assignments
 { /// <summary>
-/// JKbdnck
+/// Initialies the program execution
 /// </summary>
     internal partial class Program
-    {
-        private static List<Product> _productList = new List<Product>();
-        /// <summary>
-        /// Method to add products
-        /// </summary>
-        /// <param name="productName">Mouse</param>
-        /// <param name="productID">ele12</param>
-        /// <param name="productPrice">500</param>
-        /// <param name="productQunatity">100</param>
+    { 
+    /// <summary>
+    /// The is the list of products stored as list of objects
+    /// </summary>
+        private static List<Product> _productList = new List<Product>(); 
+
         private static void Main()
         {
             string option;
@@ -38,7 +35,7 @@ namespace Assignments
                     }
                     else if (option == "A" || option == "a")
                     {
-                        AddPrducts();
+                        AddProducts();
                     }
                     else if (option == "E" || option == "e")
                     {
@@ -60,7 +57,7 @@ namespace Assignments
             }
             while (option != "Q" && option != "q");
         }
-        private static void AddPrducts()
+        private static void AddProducts()
         {
             bool temp, temp1;
             int proQuantity;
@@ -86,20 +83,26 @@ namespace Assignments
             while(temp1 != true);
 
             Console.WriteLine("Product Added");
-            Product product = new Product(proName, proID, proPrice, proQuantity);
+            Product product = new Product
+            {
+                ProductName = proName,
+                ProductID = proID,
+                ProductPrice = proPrice,
+                ProductQuantity = proQuantity,
+            };
+
             _productList.Add(product);
 
             Console.WriteLine("[A]dd another Product or [M]enu");
             string option = Console.ReadLine();
             if (option == "A" || option == "a")
             {
-                AddPrducts();
+                AddProducts();
             }
             else
             {
                 Console.WriteLine("-------------------------------------------------------------------------------------------------");
                 Console.WriteLine("Redirecing to Menu");
-              // Main();
             }
         }
         private static void ViewProducts()
@@ -109,16 +112,13 @@ namespace Assignments
                 Console.WriteLine("List of Products");
                 foreach (var products in _productList)
                 {
-                    Console.WriteLine("Product Name" + "\t" + "Product ID" + "\t" + "Product Price" + "Available Quantity");
+                    Console.WriteLine("Product Name" + "\t" + "Product ID" + "\t" + "Price" + "Quantity");
                     Console.WriteLine(products.ProductName + "\t" + products.ProductID + "\t" + products.ProductPrice + "\t" + products.ProductQuantity);
                 }
             }
             else
             {
-                Console.WriteLine("No Products yet");
-                Console.WriteLine("-------------------------------------------------------------------------------------------------");
-                Console.WriteLine("Redirecing to Menu");
-               // Main();
+                NoProductsYet();
             }
         }
         private static void SearchProducts()
@@ -126,10 +126,10 @@ namespace Assignments
             if (_productList.Count > 0)
             {
                 Console.WriteLine("Enter Name or ID of the Product");
-                string searchName = Console.ReadLine();
+                string searchNameOrID = Console.ReadLine();
                 foreach (var products in _productList)
                 {
-                    if (products.ProductName == searchName || products.ProductID == searchName)
+                    if (products.ProductName == searchNameOrID || products.ProductID == searchNameOrID)
                     {
                         Console.WriteLine("You Might Want");
                         Console.WriteLine("ProductName :" + products.ProductName + "\n" + "ProductID:" + products.ProductID +
@@ -139,10 +139,7 @@ namespace Assignments
             }
             else
             {
-                Console.WriteLine("No Products yet");
-                Console.WriteLine("-------------------------------------------------------------------------------------------------");
-                Console.WriteLine("Redirecing to Menu");
-                //Main();
+                NoProductsYet();
             }
         } 
         private static void DeleteProduct()
@@ -150,12 +147,11 @@ namespace Assignments
             if (_productList.Count > 0)
             {
                 Console.WriteLine("Enter Name or ID of the Product to Delete");
-                string searchName = Console.ReadLine();
-                for (int i = 0; i < _productList.Count; i++)
-                {
-                    foreach (var products in _productList)
+                string searchNameOrID = Console.ReadLine();
+
+                foreach (var products in _productList)
                     {
-                        if (products.ProductName == searchName || products.ProductID == searchName)
+                        if (products.ProductName == searchNameOrID || products.ProductID == searchNameOrID)
                         {
                             Console.WriteLine("You Might Want to delete");
                             Console.WriteLine("ProductName :" + products.ProductName + "\n" + "ProductID:" + products.ProductID +
@@ -165,9 +161,8 @@ namespace Assignments
 
                             if (option == "Y" || option == "y")
                             {
-                                _productList.RemoveAt(i);
+                                _productList.Remove(products);
                                 Console.WriteLine("Product Deleted :(");
-                                Main();
                             }
                             else if (option == "C" || option == "c")
                             {
@@ -175,29 +170,25 @@ namespace Assignments
                             }
                         }
                     }
-                }
             }
             else
             {
-                Console.WriteLine("No Products yet");
-                Console.WriteLine("-------------------------------------------------------------------------------------------------");
-                Console.WriteLine("Redirecing to Menu");
-                Main();
+                NoProductsYet();
             }
         }
         private static void EditProduct()
         {
+            Product editproduct;
             if (_productList.Count > 0) 
             {
                 Console.WriteLine("Enter Name or ID of the Product to Edit");
                 string searchName = Console.ReadLine();
-                for (int i = 0; i < _productList.Count; i++)
-                {
-                    foreach (var products in _productList)
+
+                foreach (var products in _productList)
                     {
                         if (products.ProductName == searchName || products.ProductID == searchName)
                         {
-                            Console.WriteLine("You Might Want to delete");
+                            Console.WriteLine("You Might Want to Edit");
                             Console.WriteLine("ProductName :" + products.ProductName + "\n" + "ProductID:" + products.ProductID +
                                 "\n" + "ProductPrice: " + products.ProductPrice + "\n" + "ProductQuantity: " + products.ProductQuantity + "\t");
                             Console.WriteLine("Confirm Editing the Product - [Y]es - [C]ancel");
@@ -205,6 +196,7 @@ namespace Assignments
 
                             if (option == "Y" || option == "y")
                             {
+                                editproduct = products;
                                 bool temp, temp1;
                                 int proQuantity;
                                 double proPrice;
@@ -227,10 +219,11 @@ namespace Assignments
                                     temp1 = int.TryParse(tempQuan, out proQuantity);
                                 }
                                 while (temp1 != true);
-                                _productList[i].ProductName = proName;
-                                _productList[i].ProductID = proID;
-                                _productList[i].ProductPrice = proPrice;
-                                _productList[i].ProductQuantity = proQuantity;
+                                products.ProductName = proName;
+                                products.ProductID = proID;
+                                products.ProductPrice = proPrice;
+                                products.ProductQuantity = proQuantity;
+
                                 Console.WriteLine("Product Edited Succesfully :)");
                             }
                             else if (option == "C" || option == "c")
@@ -238,15 +231,22 @@ namespace Assignments
                                 Main();
                             }
                         }
-                    }
+                        break;
                 }
             }
             else
             {
-                Console.WriteLine("No Products yet");
-                Console.WriteLine("-------------------------------------------------------------------------------------------------");
-                Console.WriteLine("Redirecing to Menu");
+                NoProductsYet();
             }
+        }
+        /// <summary>
+        /// Prints no products if the list is empty
+        /// </summary>
+        private static void NoProductsYet()
+        {
+            Console.WriteLine("No Products yet");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+            Console.WriteLine("Redirecing to Menu");
         }
     }
 }
