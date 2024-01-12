@@ -11,6 +11,61 @@ namespace Assignments
     /// The is the list of products stored as list of objects
     /// </summary>
         private static List<Product> _productList = new List<Product>();
+        /// <summary>
+        /// Method to get Product Name
+        /// </summary>
+        /// <returns>The product name</returns>
+        private static string  GetProductName()
+        {
+            Console.WriteLine("Enter Product Name");
+            string productName = Console.ReadLine();
+            return (productName != null) ? productName : "-";
+        }
+        /// <summary>
+        /// Method to get product ID
+        /// </summary>
+        /// <returns>Product ID</returns>
+        private static string GetProductID()
+        {
+            Console.WriteLine("Enter Product !D");
+            string productID = Console.ReadLine();
+            return (productID != null) ? productID : "_";
+        }
+        /// <summary>
+        /// Method to get product Price
+        /// </summary>
+        /// <returns>Product Price</returns>
+        private static double GetProductPrice()
+        {
+            bool isPriceDouble;
+            double productPrice;
+
+            do
+            {
+                Console.WriteLine("Enter Product Price (Type - Double)");
+                string tempPrice = Console.ReadLine();
+                isPriceDouble = double.TryParse(tempPrice, out productPrice);
+            }
+            while (isPriceDouble != true);
+            return productPrice;
+        }
+        /// <summary>
+        /// Function to get product quantity
+        /// </summary>
+        /// <returns>the product quantity as int</returns>
+        private static int GetProductQuantity()
+        {
+            bool isQuantityDouble;
+            int productQuantity;
+            do
+            {
+                Console.WriteLine("Enter Product Quantity (Type - Integer)");
+                string tempQuan = Console.ReadLine();
+                isQuantityDouble = int.TryParse(tempQuan, out productQuantity);
+            }
+            while (isQuantityDouble != true);
+            return (productQuantity);
+        }
 
         private static void Main()
         {
@@ -27,9 +82,7 @@ namespace Assignments
                 Console.WriteLine("[Q]uit");
                 option = Console.ReadLine();
 
-                if (option != null)
-                {
-                    if (option == "V" || option == "v")
+                if (option == "V" || option == "v")
                     {
                         ViewProducts();
                     }
@@ -51,37 +104,18 @@ namespace Assignments
                     }
                     else
                     {
-                        Console.WriteLine("Enter a valid option");
+                       Console.WriteLine("Enter a valid option");
                     }
-                }
             }
             while (option != "Q" && option != "q");
         }
 
         private static void AddProducts()
         {
-            bool isPriceDouble, isQuantityDouble;
-            int proQuantity;
-            double productPrice;
-            Console.WriteLine("Enter Product Name");
-            string productName = Console.ReadLine();
-            Console.WriteLine("Enter Product !D");
-            string productID = Console.ReadLine();
-
-            do
-            {
-               Console.WriteLine("Enter Product Price (Type - Double)");
-               string tempPrice = Console.ReadLine();
-               isPriceDouble = double.TryParse(tempPrice, out productPrice);
-            }
-            while (isPriceDouble != true);
-            do
-            {
-                Console.WriteLine("Enter Product Quantity (Type - Integer)");
-                string tempQuan = Console.ReadLine();
-                isQuantityDouble = int.TryParse(tempQuan, out proQuantity);
-            }
-            while(isQuantityDouble != true);
+            string productName = GetProductName();  
+            string productID = GetProductID();
+            double productPrice = GetProductPrice();
+            int productQuantity = GetProductQuantity();
 
             Console.WriteLine("Product Added");
             Product product = new Product
@@ -89,7 +123,7 @@ namespace Assignments
                 ProductName = productName,
                 ProductID = productID,
                 ProductPrice = productPrice,
-                ProductQuantity = proQuantity,
+                ProductQuantity = productQuantity,
             };
 
             _productList.Add(product);
@@ -154,7 +188,7 @@ namespace Assignments
                     {
                         if (products.ProductName == searchNameOrID || products.ProductID == searchNameOrID)
                         {
-                            Console.WriteLine("You Might Want to delete");
+                            Console.WriteLine("You Might Want");
                             Console.WriteLine("ProductName :" + products.ProductName + "\n" + "ProductID:" + products.ProductID +
                                 "\n" + "ProductPrice: " + products.ProductPrice + "\n" + "ProductQuantity: " + products.ProductQuantity + "\t");
                             Console.WriteLine("Confirm Deletion of Product - [Y]es - [C]ancel");
@@ -167,9 +201,11 @@ namespace Assignments
                             }
                             else if (option == "C" || option == "c")
                             {
-                                Main();
-                            }
+                            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+                            Console.WriteLine("Redirecing to Menu");
                         }
+                        }
+                        break;
                     }
             }
             else
@@ -189,7 +225,7 @@ namespace Assignments
                     {
                         if (products.ProductName == searchNameorID || products.ProductID == searchNameorID)
                         {
-                            Console.WriteLine("You Might Want to Edit");
+                            Console.WriteLine("You Might Want");
                             Console.WriteLine("ProductName :" + products.ProductName + "\n" + "ProductID:" + products.ProductID +
                                 "\n" + "ProductPrice: " + products.ProductPrice + "\n" + "ProductQuantity: " + products.ProductQuantity + "\t");
                             Console.WriteLine("Confirm Editing the Product - [Y]es - [C]ancel");
@@ -197,40 +233,23 @@ namespace Assignments
 
                             if (option == "Y" || option == "y")
                             {
-                                editproduct = products;
-                                bool isPriceDouble, isPriceQuantity;
-                                int proQuantity;
-                                double proPrice;
-                                Console.WriteLine("Enter Product Name");
-                                string productName = Console.ReadLine();
-                                Console.WriteLine("Enter Product !D");
-                                string productID = Console.ReadLine();
+                            string productName = GetProductName();
+                            string productID = GetProductID();
+                            double productPrice = GetProductPrice();
+                            int productQuantity = GetProductQuantity();
+                            products.ProductName = productName;
+                            products.ProductID = productID;
+                            products.ProductPrice = productPrice;
+                            products.ProductQuantity = productQuantity;
 
-                                do
-                                {
-                                    Console.WriteLine("Enter Product Price (Type - Double)");
-                                    string tempPrice = Console.ReadLine();
-                                    isPriceQuantity = double.TryParse(tempPrice, out proPrice);
-                                }
-                                while (isPriceQuantity != true);
-                                do
-                                {
-                                    Console.WriteLine("Enter Product Quantity (Type - Integer)");
-                                    string tempQuan = Console.ReadLine();
-                                    isPriceQuantity = int.TryParse(tempQuan, out proQuantity);
-                                }
-                                while (isPriceQuantity != true);
-                                products.ProductName = productName;
-                                products.ProductID = productID;
-                                products.ProductPrice = proPrice;
-                                products.ProductQuantity = proQuantity;
-
-                                Console.WriteLine("Product Edited Succesfully :)");
+                            Console.WriteLine("Product Edited Succesfully :)");
                             }
                             else if (option == "C" || option == "c")
                             {
-                                Main();
-                            }
+                            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+                            Console.WriteLine("Redirecing to Menu");
+                            break;
+                        }
                         }
                         break;
                 }
