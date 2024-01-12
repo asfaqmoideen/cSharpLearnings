@@ -10,7 +10,7 @@ namespace Assignments
     /// <summary>
     /// The is the list of products stored as list of objects
     /// </summary>
-        private static List<Product> _productList = new List<Product>(); 
+        private static List<Product> _productList = new List<Product>();
 
         private static void Main()
         {
@@ -57,37 +57,38 @@ namespace Assignments
             }
             while (option != "Q" && option != "q");
         }
+
         private static void AddProducts()
         {
-            bool temp, temp1;
+            bool isPriceDouble, isQuantityDouble;
             int proQuantity;
-            double proPrice;
+            double productPrice;
             Console.WriteLine("Enter Product Name");
-            string proName = Console.ReadLine();
+            string productName = Console.ReadLine();
             Console.WriteLine("Enter Product !D");
-            string proID = Console.ReadLine();
+            string productID = Console.ReadLine();
 
             do
             {
                Console.WriteLine("Enter Product Price (Type - Double)");
                string tempPrice = Console.ReadLine();
-               temp = double.TryParse(tempPrice, out proPrice);   
-            } 
-            while(temp != true);
+               isPriceDouble = double.TryParse(tempPrice, out productPrice);
+            }
+            while (isPriceDouble != true);
             do
             {
                 Console.WriteLine("Enter Product Quantity (Type - Integer)");
                 string tempQuan = Console.ReadLine();
-                temp1 = int.TryParse(tempQuan, out proQuantity);
+                isQuantityDouble = int.TryParse(tempQuan, out proQuantity);
             }
-            while(temp1 != true);
+            while(isQuantityDouble != true);
 
             Console.WriteLine("Product Added");
             Product product = new Product
             {
-                ProductName = proName,
-                ProductID = proID,
-                ProductPrice = proPrice,
+                ProductName = productName,
+                ProductID = productID,
+                ProductPrice = productPrice,
                 ProductQuantity = proQuantity,
             };
 
@@ -179,14 +180,14 @@ namespace Assignments
         private static void EditProduct()
         {
             Product editproduct;
-            if (_productList.Count > 0) 
+            if (_productList.Count > 0)
             {
                 Console.WriteLine("Enter Name or ID of the Product to Edit");
-                string searchName = Console.ReadLine();
+                string searchNameorID = Console.ReadLine();
 
                 foreach (var products in _productList)
                     {
-                        if (products.ProductName == searchName || products.ProductID == searchName)
+                        if (products.ProductName == searchNameorID || products.ProductID == searchNameorID)
                         {
                             Console.WriteLine("You Might Want to Edit");
                             Console.WriteLine("ProductName :" + products.ProductName + "\n" + "ProductID:" + products.ProductID +
@@ -197,30 +198,30 @@ namespace Assignments
                             if (option == "Y" || option == "y")
                             {
                                 editproduct = products;
-                                bool temp, temp1;
+                                bool isPriceDouble, isPriceQuantity;
                                 int proQuantity;
                                 double proPrice;
                                 Console.WriteLine("Enter Product Name");
-                                string proName = Console.ReadLine();
+                                string productName = Console.ReadLine();
                                 Console.WriteLine("Enter Product !D");
-                                string proID = Console.ReadLine();
+                                string productID = Console.ReadLine();
 
                                 do
                                 {
                                     Console.WriteLine("Enter Product Price (Type - Double)");
                                     string tempPrice = Console.ReadLine();
-                                    temp = double.TryParse(tempPrice, out proPrice);
+                                    isPriceQuantity = double.TryParse(tempPrice, out proPrice);
                                 }
-                                while (temp != true);
+                                while (isPriceQuantity != true);
                                 do
                                 {
                                     Console.WriteLine("Enter Product Quantity (Type - Integer)");
                                     string tempQuan = Console.ReadLine();
-                                    temp1 = int.TryParse(tempQuan, out proQuantity);
+                                    isPriceQuantity = int.TryParse(tempQuan, out proQuantity);
                                 }
-                                while (temp1 != true);
-                                products.ProductName = proName;
-                                products.ProductID = proID;
+                                while (isPriceQuantity != true);
+                                products.ProductName = productName;
+                                products.ProductID = productID;
                                 products.ProductPrice = proPrice;
                                 products.ProductQuantity = proQuantity;
 
