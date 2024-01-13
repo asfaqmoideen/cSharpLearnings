@@ -6,49 +6,31 @@
     public class IncomeTracker
     {
         private List<FinanceManager> _incomes = new List<FinanceManager>();
+
         /// <summary>
         /// funtion to add incomes as a list of objects
         /// </summary>
         public void AddIncome()
         {
-            bool temp, temp1;
-            double newIncome;
-            DateOnly date;
+            double newIncome = this.GetIncome();
+            DateOnly incomeDate = this.GetIncomeDate();
+            string incomeCategory = this.GetIncomeCategory();
+            string incomeNotes = this.GetIncomeNotes();
 
-            do
-            {
-                Console.WriteLine("Enter Income (Type - Double)");
-                string tempIncome = Console.ReadLine();
-                temp = double.TryParse(tempIncome, out newIncome);
-            }
-            while (temp != true);
-            Console.WriteLine("Enter Category");
-            string incomeCategory = Console.ReadLine();
-            do
-            {
-                Console.WriteLine("Enter Date (YYYY-MM-DD");
-                string tempDate = Console.ReadLine();
-                temp1 = DateOnly.TryParse(tempDate, out date);
-            }
-            while (temp1 != true );
-
-            Console.WriteLine("Enter notes if any ");
-            string notes = Console.ReadLine();
-
-            Console.WriteLine("Income Added");
             FinanceManager incometracker = new FinanceManager
             {
                 Amount = newIncome,
                 Category = incomeCategory,
-                Date = date,
-                Notes = notes
+                Date = incomeDate,
+                Notes = incomeNotes
             };
-            _incomes.Add(incometracker );
+
+            this._incomes.Add(incometracker );
             Console.WriteLine("[A]dd another Income or [M]enu");
             string option = Console.ReadLine();
             if (option == "A" || option == "a")
             {
-                AddIncome();
+                this.AddIncome();
             }
             else
             {
@@ -56,8 +38,9 @@
                 Console.WriteLine("Redirecing to Menu");
             }
         }
+
         /// <summary>
-        /// Funtion to shpw incomes
+        /// Funtion to show incomes
         /// </summary>
         public void ViewIncome()
         {
@@ -76,10 +59,11 @@
                 }  
                 else
                 {
-                    NoIncomesYet();
+                    this.NoIncomesYet();
                 }
             }
         }
+
         /// <summary>
         /// Function to delete a Income
         /// </summary>
@@ -118,13 +102,14 @@
                                 break;
                         }
                     }
-                    }   
+                }
             }
             else
             {
-                NoIncomesYet();
+                this.NoIncomesYet();
             }
         }
+
         /// <summary>
         /// eijw
         /// </summary>
@@ -156,31 +141,14 @@
 
                         if (option == "Y" || option == "y")
                         {
-                            bool temp, temp2;
-                            double newIncome;
-                            DateOnly date;
+                            double newIncome = this.GetIncome();
+                            DateOnly incomeDate = this.GetIncomeDate();
+                            string incomeCategory = this.GetIncomeCategory();
+                            string incomeNotes = this.GetIncomeNotes();
 
-                            do
-                            {
-                                Console.WriteLine("Enter Income (Type - Double)");
-                                string tempIncome = Console.ReadLine();
-                                temp = double.TryParse(tempIncome, out newIncome);
-                            }
-                            while (temp != true);
-                            Console.WriteLine("Enter Category");
-                            string incomeCategory = Console.ReadLine();
-                            do
-                            {
-                                Console.WriteLine("Enter Date (YYYY-MM-DD");
-                                string tempDate = Console.ReadLine();
-                                temp2 = DateOnly.TryParse(tempDate, out date);
-                            }
-                            while (temp1 != true);
-
-                            Console.WriteLine("Enter notes if any ");
                             string notes = Console.ReadLine();
                             income.Amount = newIncome;
-                            income.Date = date;
+                            income.Date = incomeDate;
                             income.Category = incomeCategory;
                             income.Notes = notes;
 
@@ -191,12 +159,12 @@
                     }
                 }
             }
-
             else
             {
-                NoIncomesYet();
+                this.NoIncomesYet();
             }
         }
+
         /// <summary>
         /// Method to generate the total income record
         /// </summary>
@@ -210,14 +178,56 @@
             }
             return sumofIncome;
         }
-/// <summary>
-/// dkfsj
-/// </summary>
+        /// <summary>
+        /// dkfsj
+        /// </summary>
         public void NoIncomesYet()
         {
             Console.WriteLine("No Incomes added yet");
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
             Console.WriteLine("Redirecing to Menu");
+        }
+
+        private double GetIncome()
+        {
+            double newIncome;
+            bool isIncomeDouble;
+            do
+            {
+                Console.WriteLine("Enter Income (Type - Double)");
+                string tempIncome = Console.ReadLine();
+                isIncomeDouble = double.TryParse(tempIncome, out newIncome);
+            }
+            while (isIncomeDouble != true);
+            return newIncome;
+        }
+
+        private string GetIncomeCategory()
+        {
+            Console.WriteLine("Enter Category");
+            string incomeCategory = Console.ReadLine();
+            return (incomeCategory != null) ? incomeCategory : "-";
+        }
+
+        private string GetIncomeNotes()
+        {
+            Console.WriteLine("Enter Income Notes");
+            string incomeNotes = Console.ReadLine();
+            return incomeNotes != null ? incomeNotes : "-";
+        }
+
+        private DateOnly GetIncomeDate()
+        {
+            DateOnly incomedate;
+            bool isIncomedateDateonly;
+            do
+            {
+                Console.WriteLine("Enter Date (YYYY-MM-DD");
+                string tempDate = Console.ReadLine();
+                isIncomedateDateonly = DateOnly.TryParse(tempDate, out incomedate);
+            }
+            while (isIncomedateDateonly != true);
+            return incomedate;
         }
     }
 }

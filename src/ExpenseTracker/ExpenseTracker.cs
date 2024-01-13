@@ -12,43 +12,26 @@
         public void AddExpense()
         {
             Console.Write("Adding a Expense\n");
-            bool temp, temp1;
-            double newExpense;
-            DateOnly date;
-            do
-            {
-                Console.WriteLine("Enter Expense (Type - Double)");
-                string tempExpense = Console.ReadLine();
-                temp = double.TryParse(tempExpense, out newExpense);
-            }
-            while (temp != true);
-            Console.WriteLine("Enter Category");
-            string expenseCategory = Console.ReadLine();
-            do
-            {
-                Console.WriteLine("Enter Date (YYYY-MM-DD");
-                string tempDate = Console.ReadLine();
-                temp1 = DateOnly.TryParse(tempDate, out date);
-            }
-            while (temp1 != true);
-            Console.WriteLine("Enter notes if any ");
-            string notes = Console.ReadLine();
-
+            double newExpense = this.GetExpenseAmount();
+            DateOnly expenseDate = this.GetExpenseDate();
+            string expenseCategory = this.GetExpenseCategory();
+            string expenseNotes = this.GetExpenseNotes();
             Console.WriteLine("Expense Added");
             FinanceManager expensetracker = new FinanceManager
             {
                 Amount = newExpense,
                 Category = expenseCategory,
-                Date = date,
-                Notes = notes,
+                Date = expenseDate,
+                Notes = expenseNotes
             };
+
             this._expense.Add(expensetracker);
             Console.WriteLine("[A]dd another Expense or [M]enu");
             string? option = Console.ReadLine();
             if (option == "A" || option == "a")
             {
-                AddExpense();
-            }
+                this.AddExpense();
+             }
             else
             {
                 Console.WriteLine("-------------------------------------------------------------------------------------------------");
@@ -76,15 +59,16 @@
                 }
                 else
                 {
-                    NoExpenseYet();
+                    this.NoExpenseYet();
                 }
             }
         }
+
         /// <summary>
         /// To delete a past expense
         /// </summary>
         public void DeleteExpense()
-        { 
+        {
             if (this._expense.Count > 0)
             {
                 bool temp1; DateOnly searchDate;
@@ -98,7 +82,7 @@
                     temp1 = DateOnly.TryParse(tempDate, out searchDate);
                 }
                 while (temp1 != true);
-                { 
+                {
                     foreach (var expense in this._expense)
                     {
                         if (expense.Category == searchCategory || expense.Date == searchDate)
@@ -123,14 +107,15 @@
             }
             else
             {
-                NoExpenseYet();
+                this.NoExpenseYet();
             }
         }
+
         /// <summary>
         /// To edit past expense
         /// </summary>
         public void EditExpense()
-        { 
+        {
             FinanceManager editExpense;
             if (this._expense.Count > 0)
             {
@@ -146,53 +131,35 @@
                 }
                 while (temp1 != true);
                 foreach (var expense in this._expense)
+                {
+                    if (expense.Category == searchCategory || expense.Date == searchDate)
                     {
-                        if (expense.Category == searchCategory || expense.Date == searchDate)
-                        {
-                            Console.WriteLine("You Might Want to Edit");
-                            Console.WriteLine("Amount :" + expense.Amount + "\n" + "Category :" + expense.Category +
-                                "\n" + "Date " + expense.Date + "\n" + "Notes: " + expense.Notes + "\t");
-                            Console.WriteLine("Confirm  Edit of Expense - [Y]es - [C]ancel");
-                            string option = Console.ReadLine();
+                        Console.WriteLine("You Might Want to Edit");
+                        Console.WriteLine("Amount :" + expense.Amount + "\n" + "Category :" + expense.Category +
+                            "\n" + "Date " + expense.Date + "\n" + "Notes: " + expense.Notes + "\t");
+                        Console.WriteLine("Confirm  Edit of Expense - [Y]es - [C]ancel");
+                        string option = Console.ReadLine();
 
-                            if (option == "Y" || option == "y")
+                        if (option == "Y" || option == "y")
                         {
-                            Console.Write("Enter New details");
-                            bool temp, temp2;
-                            double newExpense;
-                            DateOnly date;
-                            do
-                            {
-                                Console.WriteLine("Enter Expense (Type - Double)");
-                                string tempExpense = Console.ReadLine();
-                                temp = double.TryParse(tempExpense, out newExpense);
-                            }
-                            while (temp != true);
-                            Console.WriteLine("Enter Category");
-                            string expenseCategory = Console.ReadLine();
-                            do
-                            {
-                                Console.WriteLine("Enter Date (YYYY-MM-DD");
-                                string tempDate = Console.ReadLine();
-                                temp2 = DateOnly.TryParse(tempDate, out date);
-                            }
-                            while (temp1 != true);
-                            Console.WriteLine("Enter notes if any ");
-                            string notes = Console.ReadLine();
+                            double newExpense = this.GetExpenseAmount();
+                            DateOnly expenseDate = this.GetExpenseDate();
+                            string expenseCategory = this.GetExpenseCategory();
+                            string expenseNotes = this.GetExpenseNotes();
                             expense.Amount = newExpense;
                             expense.Category = expenseCategory;
-                            expense.Date = date;
-                            expense.Notes = notes;
+                            expense.Date = expenseDate;
+                            expense.Notes = expenseNotes;
                             Console.WriteLine("Expense Edited :)");
                             Console.WriteLine("-------------------------------------------------------------------------------------------------");
                             break;
-                            }
                         }
                     }
                 }
+            }
             else
             {
-                NoExpenseYet();
+                this.NoExpenseYet();
             }
         }
         /// <summary>
@@ -216,6 +183,54 @@
             Console.WriteLine("No Expenses yet");
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
             Console.WriteLine("Redirecing to Menu");
+        }
+        /// <summary>
+        /// Function to get expense amount from th user
+        /// </summary>
+        /// <returns>Amount as double</returns>
+        public double GetExpenseAmount()
+        {
+            bool isExpenseDouble;
+            double expenseAmount;
+            do
+            {
+                Console.WriteLine("Enter Expense (Type - Double)");
+                string tempExpense = Console.ReadLine();
+                isExpenseDouble = double.TryParse(tempExpense, out expenseAmount);
+            }
+            while (isExpenseDouble != true);
+            return expenseAmount;
+        }
+        /// <summary>
+        /// Function to get expense date
+        /// </summary>
+        /// <returns> Expense date </returns>
+        private DateOnly GetExpenseDate()
+        {
+            bool isExpenseDateDateonly;
+            DateOnly expenseDateOnly;
+            do
+            {
+                Console.WriteLine("Enter Date (YYYY-MM-DD");
+                string tempDate = Console.ReadLine();
+                isExpenseDateDateonly = DateOnly.TryParse(tempDate, out expenseDateOnly);
+            }
+            while (isExpenseDateDateonly != true);
+            return expenseDateOnly;
+        }
+
+        private string GetExpenseCategory()
+        {
+            Console.WriteLine("Expense Category");
+            string expenseCategory = Console.ReadLine();
+            return (expenseCategory != null) ? expenseCategory : "-";
+        }
+
+        private string GetExpenseNotes()
+        {
+            Console.WriteLine("Enter notes if any ");
+            string expensenotes = Console.ReadLine();
+            return (expensenotes != null) ? expensenotes : "-";
         }
     }
 }
