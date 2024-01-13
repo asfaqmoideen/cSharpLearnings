@@ -16,8 +16,9 @@
 
             Console.WriteLine("Account Balance after withdraw" + _accBalance);
         }
+
         /// <summary>
-        /// MEthod to deposit amount
+        /// Method to deposit amount
         /// </summary>
         /// <param name="depositAmount">1000</param>
         public void Deposit(double depositAmount)

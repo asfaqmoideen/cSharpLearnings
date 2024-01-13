@@ -7,6 +7,7 @@
     {
        private double _salary;
        private string _name;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Manager"/> class.
         /// </summary>
@@ -15,17 +16,19 @@
        public Manager(string name, double salary)
             : base(name)
         {
-            _salary = salary;
-            _name = name;
+            this._salary = salary;
+            this._name = name;
         }
+
         /// <summary>
         /// The Method to calculate bonus
         /// </summary>
         /// <returns>Bonus</returns>
        public override double CalculateBonus()
         {
-            return _salary*.15;
+            return this._salary*.15;
         }
+
         /// <summary>
         /// Method to print details
         /// </summary>

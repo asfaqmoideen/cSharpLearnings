@@ -6,6 +6,7 @@
     {
         private double _accBalance;
         private string _accNumber;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CheckingAccount"/> class.
         /// </summary>
@@ -13,9 +14,10 @@
         /// <param name="accBalance">1000</param>
         public CheckingAccount(string accNum, double accBalance) 
         {
-            _accBalance = accBalance;
-            _accNumber = accNum;
+            this._accBalance = accBalance;
+            this._accNumber = accNum;
         }
+
         /// <summary>
         /// Method to deposit
         /// </summary>
@@ -24,6 +26,7 @@
         {
             base.Deposit(depositAmount);
         }
+
         /// <summary>
         /// Withdraw amount
         /// </summary>
@@ -32,5 +35,5 @@
         {
             base.Withdraw(withdrawAmonut);
         }
-    }  
+    }
 }

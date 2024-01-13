@@ -1,8 +1,6 @@
-﻿using static Program;
-//using System.Xml.Linq;
-//using static System.Runtime.InteropServices.JavaScript.JSType;
-using System;
+﻿using System;
 using Assignments;
+
 /// <summary>
 /// This is main class called Program
 /// </summary>
@@ -33,6 +31,7 @@ internal partial class Program
 
         Console.ReadKey();
     }
+
     /// <summary>
     /// This is
     /// </summary>
@@ -43,11 +42,13 @@ internal partial class Program
         /// </summary>
         /// <returns> Area of the Shape</returns>
         public abstract double CalculateArea();
+
         /// <summary>
         /// This is the method specfied to print the details
         /// </summary>
         public abstract void PrintDetails();
     }
+
     /// <summary>
     ///  Class 
     /// </summary>
@@ -56,19 +57,22 @@ internal partial class Program
     /// variable to store name
     /// </summary>
         private string _name;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Employee"/> class.
         /// </summary>
         /// <param name="name">name of the employee</param>
         public Employee(string name)
         {
-            _name = name;
+            this._name = name;
         }
+
         /// <summary>
         /// Method initialization
         /// </summary>
         /// <returns> bonus</returns>
         public abstract double CalculateBonus();
+
         /// <summary>
         /// method Print details initialization
         /// </summary>

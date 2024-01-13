@@ -5,14 +5,17 @@
     public class Rectangle : Shape
     {
         private string _colour;
+
         /// <summary>
         /// This is the height of the rectangle
         /// </summary>
         private double _height;
+
         /// <summary>
         /// This is the width of the width
         /// </summary>
         private double _width;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle"/> class.
         /// </summary>
@@ -22,10 +25,11 @@
         public Rectangle(string colour, double height, double width) 
             : base(colour)
         {
-            _colour = colour;
-            _height = height;
-            _width = width;
+            this._colour = colour;
+            this._height = height;
+            this._width = width;
         }
+
         /// <summary>
         /// This is the Method for calculating Area
         /// </summary>
@@ -34,6 +38,7 @@
         {
             return _height * _width;
         }
+
         /// <summary>
         /// This is the Methos to print the details 
         /// </summary>
