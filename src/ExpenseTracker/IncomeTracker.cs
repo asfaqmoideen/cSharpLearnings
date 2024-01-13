@@ -111,7 +111,7 @@
         }
 
         /// <summary>
-        /// eijw
+        /// Method to edit incomes
         /// </summary>
         public void EditIncome()
         {
@@ -179,7 +179,7 @@
             return sumofIncome;
         }
         /// <summary>
-        /// dkfsj
+        /// Method to prit if no incomes in the list
         /// </summary>
         public void NoIncomesYet()
         {
