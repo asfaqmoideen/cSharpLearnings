@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit", "unit", "{C778E127-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "acceptance", "acceptance", "{93EBAE55-A8BA-40FF-93AA-7D9E4359B6B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignement2-ShapeAccountsBonus", "src\Assignement2-ShapeAccountsBonus\Assignement2-ShapeAccountsBonus.csproj", "{06A3F125-C3D8-46D7-9989-71D51D9A0711}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment1-ContactManager", "src\Assignment1-ContactManager\Assignment1-ContactManager.csproj", "{CCA45B55-EB15-49D3-9571-C67EF9ADDBE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{06A3F125-C3D8-46D7-9989-71D51D9A0711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06A3F125-C3D8-46D7-9989-71D51D9A0711}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06A3F125-C3D8-46D7-9989-71D51D9A0711}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06A3F125-C3D8-46D7-9989-71D51D9A0711}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCA45B55-EB15-49D3-9571-C67EF9ADDBE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCA45B55-EB15-49D3-9571-C67EF9ADDBE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCA45B55-EB15-49D3-9571-C67EF9ADDBE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCA45B55-EB15-49D3-9571-C67EF9ADDBE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
