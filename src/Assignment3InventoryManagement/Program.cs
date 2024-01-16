@@ -1,25 +1,28 @@
-﻿using System.ComponentModel.Design;
-using System.Runtime.CompilerServices;
-
-namespace Assignments
-{ /// <summary>
-/// Initialies the program execution
-/// </summary>
+﻿namespace Assignments
+{
+    /// <summary>
+    /// Initialies the program execution
+    /// </summary>
     internal partial class Program
     {
         /// <summary>
-        /// The is the list of products stored as list of objects
+        /// list of products
         /// </summary>
         private static List<Product> _productList = new List<Product>();
 
-        /// <summary>
-        /// Method to get Product Name
-        /// </summary>
-        /// <returns>The product name</returns>
-        private static string  GetProductName()
+        private static string GetProductName()
         {
-            Console.WriteLine("Enter Product Name");
+        x: Console.WriteLine("Enter Product Name");
             string productName = Console.ReadLine();
+
+            foreach (var products in _productList)
+            {
+                if (products.ProductName.ToLower() == productName.ToLower())
+                {
+                    Console.WriteLine("Name and ID already exists ");
+                    goto x;
+                }
+            }
             return (productName != null) ? productName : "-";
         }
 
@@ -29,8 +32,17 @@ namespace Assignments
         /// <returns>Product ID</returns>
         private static string GetProductID()
         {
-            Console.WriteLine("Enter Product !D");
+            y: Console.WriteLine("Enter Product !D");
             string productID = Console.ReadLine();
+            foreach (var products in _productList)
+            {
+                if (products.ProductName.ToLower() == productID.ToLower())
+                {
+                    Console.WriteLine("Name and ID already exists ");
+                    goto y;
+                }
+            }
+
             return (productID != null) ? productID : "_";
         }
 
@@ -87,51 +99,42 @@ namespace Assignments
                 option = Console.ReadLine();
 
                 if (option == "V" || option == "v")
-                    {
-                        ViewProducts();
-                    }
-                    else if (option == "A" || option == "a")
-                    {
-                        AddProducts();
-                    }
-                    else if (option == "E" || option == "e")
-                    {
-                        EditProduct();
-                    }
-                    else if (option == "D" || option == "d")
-                    {
-                        DeleteProduct();
-                    }
-                    else if (option == "S" || option == "s")
-                    {
-                        SearchProducts();
-                    }
-                    else
-                    {
-                       Console.WriteLine("Enter a valid option");
-                    }
+                {
+                    ViewProducts();
+                }
+                else if (option == "A" || option == "a")
+                {
+                    AddProducts();
+                }
+                else if (option == "E" || option == "e")
+                {
+                    EditProduct();
+                }
+                else if (option == "D" || option == "d")
+                {
+                    DeleteProduct();
+                }
+                else if (option == "S" || option == "s")
+                {
+                    SearchProducts();
+                }
+                else
+                {
+                    Console.WriteLine("Enter a valid option");
+                }
             }
             while (option != "Q" && option != "q");
         }
 
         private static void AddProducts()
         {
-            string productName = GetProductName();  
+            string productName = GetProductName();
             string productID = GetProductID();
             double productPrice = GetProductPrice();
             int productQuantity = GetProductQuantity();
-
             Console.WriteLine("Product Added");
-            Product product = new Product
-            {
-                ProductName = productName,
-                ProductID = productID,
-                ProductPrice = productPrice,
-                ProductQuantity = productQuantity,
-            };
-
+            Product product = new Product(productName, productID, productPrice, productQuantity);
             _productList.Add(product);
-
             Console.WriteLine("[A]dd another Product or [M]enu");
             string option = Console.ReadLine();
             if (option == "A" || option == "a")
@@ -170,9 +173,9 @@ namespace Assignments
                 string searchNameOrID = Console.ReadLine();
                 foreach (var products in _productList)
                 {
-                    if (products.ProductName == searchNameOrID || products.ProductID == searchNameOrID)
+                    if (products.ProductName.ToLower() == searchNameOrID.ToLower() || products.ProductID.ToLower() == searchNameOrID.ToLower())
                     {
-                        Console.WriteLine("You Might Want");
+                        Console.WriteLine("Search Results: ");
                         Console.WriteLine("ProductName :" + products.ProductName + "\n" + "ProductID:" + products.ProductID +
                             "\n" + "ProductPrice: " + products.ProductPrice + "\n" + "ProductQuantity" + products.ProductQuantity + "\t");
                     }
@@ -192,28 +195,27 @@ namespace Assignments
                 string searchNameOrID = Console.ReadLine();
 
                 foreach (var products in _productList)
+                {
+                    if (products.ProductName.ToLower() == searchNameOrID.ToLower() || products.ProductID.ToLower() == searchNameOrID.ToLower())
                     {
-                        if (products.ProductName == searchNameOrID || products.ProductID == searchNameOrID)
-                        {
-                            Console.WriteLine("You Might Want");
-                            Console.WriteLine("ProductName :" + products.ProductName + "\n" + "ProductID:" + products.ProductID +
-                                "\n" + "ProductPrice: " + products.ProductPrice + "\n" + "ProductQuantity: " + products.ProductQuantity + "\t");
-                            Console.WriteLine("Confirm Deletion of Product - [Y]es - [C]ancel");
-                            string option = Console.ReadLine();
+                        Console.WriteLine("ProductName :" + products.ProductName + "\n" + "ProductID:" + products.ProductID +
+                            "\n" + "ProductPrice: " + products.ProductPrice + "\n" + "ProductQuantity: " + products.ProductQuantity + "\t");
+                        Console.WriteLine("Confirm Deletion of Product - [Y]es - [C]ancel");
+                        string option = Console.ReadLine();
 
-                            if (option == "Y" || option == "y")
-                            {
-                                _productList.Remove(products);
-                                Console.WriteLine("Product Deleted :(");
-                            }
-                            else if (option == "C" || option == "c")
-                            {
+                        if (option == "Y" || option == "y")
+                        {
+                            _productList.Remove(products);
+                            Console.WriteLine("Product Deleted :(");
+                        }
+                        else if (option == "C" || option == "c")
+                        {
                             Console.WriteLine("-------------------------------------------------------------------------------------------------");
                             Console.WriteLine("Redirecing to Menu");
                         }
-                        }
-                        break;
                     }
+                    break;
+                }
             }
             else
             {
@@ -230,17 +232,16 @@ namespace Assignments
                 string searchNameorID = Console.ReadLine();
 
                 foreach (var products in _productList)
+                {
+                    if (products.ProductName.ToLower() == searchNameorID.ToLower() || products.ProductID.ToLower() == searchNameorID.ToLower())
                     {
-                        if (products.ProductName == searchNameorID || products.ProductID == searchNameorID)
-                        {
-                            Console.WriteLine("You Might Want");
-                            Console.WriteLine("ProductName :" + products.ProductName + "\n" + "ProductID:" + products.ProductID +
-                                "\n" + "ProductPrice: " + products.ProductPrice + "\n" + "ProductQuantity: " + products.ProductQuantity + "\t");
-                            Console.WriteLine("Confirm Editing the Product - [Y]es - [C]ancel");
-                            string option = Console.ReadLine();
+                        Console.WriteLine("ProductName :" + products.ProductName + "\n" + "ProductID:" + products.ProductID +
+                            "\n" + "ProductPrice: " + products.ProductPrice + "\n" + "ProductQuantity: " + products.ProductQuantity + "\t");
+                        Console.WriteLine("Confirm Editing the Product - [Y]es - [C]ancel");
+                        string option = Console.ReadLine();
 
-                            if (option == "Y" || option == "y")
-                            {
+                        if (option == "Y" || option == "y")
+                        {
                             string productName = GetProductName();
                             string productID = GetProductID();
                             double productPrice = GetProductPrice();
@@ -251,15 +252,15 @@ namespace Assignments
                             products.ProductQuantity = productQuantity;
 
                             Console.WriteLine("Product Edited Succesfully :)");
-                            }
-                            else if (option == "C" || option == "c")
-                            {
+                        }
+                        else if (option == "C" || option == "c")
+                        {
                             Console.WriteLine("-------------------------------------------------------------------------------------------------");
                             Console.WriteLine("Redirecing to Menu");
                             break;
                         }
-                        }
-                        break;
+                    }
+                    break;
                 }
             }
             else

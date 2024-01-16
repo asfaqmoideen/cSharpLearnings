@@ -5,17 +5,25 @@
     public class Product
     {
         /// <summary>
-        /// Gets or sets initializes a new instance of the <see cref="Product"/> class.
+        /// Initializes a new instance of the <see cref="Product"/> class.
         /// </summary>
-        /// <param name="productName">Mouse</param>
-        /// <param name="productID">ELe12</param>
-        /// <param name="productPrice">500</param>
-        /// <param name="productQunatity">100</param>
+        /// <param name="productName"> Mouse </param>
+        /// <param name="productID"> ELE12</param>
+        /// <param name="productPrice"> 500</param>
+        /// <param name="productQuantity">120 </param>
+        public Product(string productName, string productID, double productPrice, double productQuantity)
+        {
+            ProductName = productName;
+            ProductID = productID;
+            ProductPrice = productPrice;
+            ProductQuantity = productQuantity;
+        }
+
         /// <summary>
-        /// Gets or sets Product Name
+        /// Gets or sets ProductName
         /// </summary>
         /// <value>
-        /// ele12
+        /// Mouse
         /// </value>
         public string ProductName { get; set; }
 
