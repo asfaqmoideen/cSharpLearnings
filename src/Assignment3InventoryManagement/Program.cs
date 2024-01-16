@@ -1,50 +1,54 @@
-﻿namespace Assignments
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace Assignments
 {
     /// <summary>
     /// Initialies the program execution
     /// </summary>
     internal partial class Program
     {
+        private static ProductManager _productManager = new ProductManager();
+
+      /// <summary>
+      /// udhfskj
+      /// </summary>
+      /// <param name="productName">sfs</param>
+      /// <param name="productID">s</param>
+      /// <param name="productPrice">dsfsd</param>
+      /// <param name="productQuantity">dsfsds</param>
+      /// <returns>sdfss</returns>
+
         /// <summary>
-        /// list of products
+        /// checks whether the product name is unique
         /// </summary>
-        private static List<Product> _productList = new List<Product>();
+        /// <returns>returns the product name</returns>
 
         private static string GetProductName()
         {
-        x: Console.WriteLine("Enter Product Name");
-            string productName = Console.ReadLine();
-
-            foreach (var products in _productList)
+            string productName;
+            do
             {
-                if (products.ProductName.ToLower() == productName.ToLower())
-                {
-                    Console.WriteLine("Name and ID already exists ");
-                    goto x;
-                }
+                Console.WriteLine("Enter Product Name");
+                productName = Console.ReadLine();
             }
-            return (productName != null) ? productName : "-";
+            while (_productManager.ValidateProductNameIfUnique(productName)==true);
+            return productName;
+        } 
+        private static string GetProductID()
+        {
+            string productID;
+            do
+            {
+                Console.WriteLine("Enter ID Name");
+                productID = Console.ReadLine();
+            }
+            while (_productManager.ValidateProductIDIfUnique(productID)==true);
+            return productID;
         }
-
         /// <summary>
         /// Method to get product ID
         /// </summary>
         /// <returns>Product ID</returns>
-        private static string GetProductID()
-        {
-            y: Console.WriteLine("Enter Product !D");
-            string productID = Console.ReadLine();
-            foreach (var products in _productList)
-            {
-                if (products.ProductName.ToLower() == productID.ToLower())
-                {
-                    Console.WriteLine("Name and ID already exists ");
-                    goto y;
-                }
-            }
-
-            return (productID != null) ? productID : "_";
-        }
 
         /// <summary>
         /// Method to get product Price
@@ -133,8 +137,9 @@
             double productPrice = GetProductPrice();
             int productQuantity = GetProductQuantity();
             Console.WriteLine("Product Added");
-            Product product = new Product(productName, productID, productPrice, productQuantity);
-            _productList.Add(product);
+
+            bool ifAdded = _productManager.AddProductsInTheList(productName, productID, productPrice, productQuantity);
+
             Console.WriteLine("[A]dd another Product or [M]enu");
             string option = Console.ReadLine();
             if (option == "A" || option == "a")
@@ -242,7 +247,7 @@
 
                         if (option == "Y" || option == "y")
                         {
-                            string productName = GetProductName();
+                            string productName = GetProductNameIfUnique();
                             string productID = GetProductID();
                             double productPrice = GetProductPrice();
                             int productQuantity = GetProductQuantity();
@@ -278,5 +283,6 @@
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
             Console.WriteLine("Redirecing to Menu");
         }
+
     }
 }
