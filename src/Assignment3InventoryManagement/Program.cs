@@ -3,7 +3,7 @@
 namespace Assignments
 {
     /// <summary>
-    /// Initialies the program execution
+    /// Starts the program execution
     /// </summary>
     internal partial class Program
     {

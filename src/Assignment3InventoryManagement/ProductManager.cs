@@ -3,7 +3,7 @@
 namespace Assignments
 {
     /// <summary>
-    /// dsojfsdo
+    /// Manages and executes methods of Products
     /// </summary>
     public class ProductManager
     {
@@ -15,8 +15,8 @@ namespace Assignments
         /// </summary>
         public ProductManager()
         {
-            _productList = new List<Product>();
-            _userInterface = new UserInterface(this);
+            this._productList = new List<Product>();
+            this._userInterface = new UserInterface(this);
         }
 
         /// <summary>
@@ -29,10 +29,10 @@ namespace Assignments
         }
 
         /// <summary>
-        /// irkf
+        /// Checks Whether product is already existing
         /// </summary>
         /// <param name="productName">sdds</param>
-        /// <returns>true or false</returns>
+        /// <returns>true if product name existing else false</returns>
         public bool ISProductNameUnique(string productName)
         {
             var check = this._productList.Any(p => p.ProductName.ToLower() == productName.ToLower());
@@ -48,7 +48,7 @@ namespace Assignments
         /// uwerhweijr
         /// </summary>
         /// <param name="productID">ewr</param>
-        /// <returns>erewr</returns>
+        /// <returns>true if product ID existing else false</returns>
         public bool IsProductIDUnique(string productID)
         {
             var check = this._productList.Any(p => p.ProductID.ToLower() == productID.ToLower());
@@ -65,7 +65,7 @@ namespace Assignments
         /// </summary>
         /// <param name="productPrice">String input</param>
         /// <param name="productPriceOutput">Double output</param>
-        /// <returns>The bool value</returns>
+        /// <returns>true if product price double else false</returns>
         public bool IsProductPriceDouble(string productPrice, out double productPriceOutput)
         {
             bool isPriceDouble = false;
@@ -80,7 +80,7 @@ namespace Assignments
         /// </summary>
         /// <param name="productQuantity">Product quanitity as string</param>
         /// <param name="productQuanityOutput">ots product quantity as double</param>
-        /// <returns>True if int</returns>
+        /// <returns>true if product quantity int else false</returns>
         public bool IsProductQuantityInt(string productQuantity, out int productQuanityOutput)
         {
             bool isPriceDouble = false;
@@ -93,19 +93,21 @@ namespace Assignments
         /// <summary>
         /// Method to add prouct in the Lit
         /// </summary>
-        /// <param name="product">def</param>
+        /// <param name="product">gets objects and adds in the list</param>
         public void AddProductsToTheList(Product product)
-        { 
+        {
             this._productList.Add(product);
-        }  
+        }
+
         /// <summary>
         /// Removes the object from the list
         /// </summary>
-        /// <param name="product">Object to delete</param>
+        /// <param name="product">gets Object to delete</param>
         public void DeleteProductFromTheList(Product product)
         {
             this._productList.Remove(product);
         }
+
         /// <summary>
         /// Edit the products with existng reference
         /// </summary>
@@ -121,6 +123,7 @@ namespace Assignments
             products.ProductPrice = productPrice;
             products.ProductQuantity = productQuantity;
         }
+
         /// <summary>
         /// method to get product details from other functions
         /// </summary>
@@ -221,6 +224,7 @@ namespace Assignments
                 this._userInterface.PrintNoProductsYet();
             }
         }
+
         /// <summary>
         /// Edits the products
         /// </summary>

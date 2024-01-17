@@ -40,12 +40,13 @@
         public string GetProductID()
         {
             string productID;
-            do
+            Console.WriteLine("Enter ID Name");
+            productID = Console.ReadLine();
+            while(_productManager.IsProductIDUnique(productID))
             {
-                Console.WriteLine("Enter ID Name");
+                Console.WriteLine("Enter Uniquq ID Name");
                 productID = Console.ReadLine();
             }
-            while (_productManager.IsProductIDUnique(productID));
             return productID;
         }
         /// <summary>
@@ -118,7 +119,7 @@
         /// <param name="productID">product ID</param>
         /// <param name="productPrice">product price</param>
         /// <param name="productQuantity">product quantity</param>
-        /// <returns>yes or no </returns>
+        /// <returns>yes or no from user input </returns>
         public string ConfirmTheProduct(string productName, string productID, double productPrice, double productQuantity )
         {
             Console.WriteLine("ProductName :" + productName + "\n" + "ProductID:" + productID +
@@ -147,7 +148,7 @@
         /// <summary>
         /// Gets name or Id from the user for edit or delete
         /// </summary>
-        /// <returns>The product name or ID</returns>
+        /// <returns>The product name or ID from the user</returns>
         public string GetProductNameOrId()
         {
             Console.WriteLine("Enter Name or ID of the Product");
