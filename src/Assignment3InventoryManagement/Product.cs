@@ -11,7 +11,7 @@
         /// <param name="productID"> ELE12</param>
         /// <param name="productPrice"> 500</param>
         /// <param name="productQuantity">120 </param>
-        public Product(string productName, string productID, double productPrice, double productQuantity)
+        public Product(string productName, string productID, double productPrice, int productQuantity)
         {
             ProductName = productName;
             ProductID = productID;
@@ -49,6 +49,6 @@
         /// <value>
         /// ProductQuantity
         /// </value>
-        public double ProductQuantity { get; set; }
+        public int ProductQuantity { get; set; }
     }
 }
