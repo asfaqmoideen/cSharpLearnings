@@ -1,12 +1,32 @@
-﻿namespace Assignments
+﻿using System.Runtime.CompilerServices;
+
+namespace Assignments
 {
     /// <summary>
     /// dsojfsdo
     /// </summary>
-        public class ProductManager
+    public class ProductManager
+    {
+        private UserInterface _userInterface;
+        private List<Product> _productList;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductManager"/> class.
+        /// </summary>
+        public ProductManager()
         {
-        private UserInterface _userInterface = new UserInterface();
-        private List<Product> _productList = new List<Product>();
+            _productList = new List<Product>();
+            _userInterface = new UserInterface(this);
+        }
+
+        /// <summary>
+        /// Get the products in the list.
+        /// </summary>
+        /// <returns>returns product list</returns>
+        public IEnumerable<Product> GetProducts()
+        {
+            return this._productList;
+        }
 
         /// <summary>
         /// irkf
@@ -15,20 +35,15 @@
         /// <returns>true or false</returns>
         public bool ISProductNameUnique(string productName)
         {
-            foreach (var products in this._productList)
-                {
-                    if (!products.ProductName.ToLower().Equals(productName.ToLower()))
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
+            var check = this._productList.Any(p => p.ProductName.ToLower() == productName.ToLower());
+            if (check)
+            {
+                return true;
+            }
 
-            return true;
+            return false;
         }
+
         /// <summary>
         /// uwerhweijr
         /// </summary>
@@ -36,23 +51,15 @@
         /// <returns>erewr</returns>
         public bool IsProductIDUnique(string productID)
         {
-            if (this._productList.Count > 1)
+            var check = this._productList.Any(p => p.ProductID.ToLower() == productID.ToLower());
+            if (check)
             {
-                foreach (var products in this._productList)
-                {
-                    if (products.ProductID.ToLower().Equals(productID.ToLower()))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
+                return true;
             }
 
             return false;
         }
+
         /// <summary>
         /// Cheks whether double or not
         /// </summary>
@@ -61,12 +68,13 @@
         /// <returns>The bool value</returns>
         public bool IsProductPriceDouble(string productPrice, out double productPriceOutput)
         {
-            bool isPriceDouble;
+            bool isPriceDouble = false;
             double productprice;
             isPriceDouble = double.TryParse(productPrice, out productprice);
             productPriceOutput = productprice;
-            return true ? isPriceDouble : false;
-        } 
+            return isPriceDouble;
+        }
+
         /// <summary>
         /// Checks whether the product quanity integer
         /// </summary>
@@ -75,29 +83,46 @@
         /// <returns>True if int</returns>
         public bool IsProductQuantityInt(string productQuantity, out int productQuanityOutput)
         {
-            bool isPriceDouble;
+            bool isPriceDouble = false;
             int productquantity;
             isPriceDouble = int.TryParse(productQuantity, out productquantity);
             productQuanityOutput = productquantity;
-            return true ? isPriceDouble : false;
+            return isPriceDouble;
         }
 
         /// <summary>
-        /// odijsi
+        /// Method to add prouct in the Lit
         /// </summary>
-        /// <param name="productName">klsdm</param>
-        /// <param name="productID">lksd</param>
-        /// <param name="productPrice">klsdjn</param>
-        /// <param name="productQuantity">djkn</param>
-        /// <returns>dskjkls</returns>
-        public bool AddProductsInTheList(string productName, string productID, double productPrice, int productQuantity)
+        /// <param name="product">def</param>
+        public void AddProductsToTheList(Product product)
+        { 
+            this._productList.Add(product);
+        }  
+        /// <summary>
+        /// Removes the object from the list
+        /// </summary>
+        /// <param name="product">Object to delete</param>
+        public void DeleteProductFromTheList(Product product)
         {
-            Product product = new Product(productName, productID, productPrice, productQuantity);
-            _productList.Add(product);
-            return true;
+            this._productList.Remove(product);
         }
         /// <summary>
-        /// method to add products
+        /// Edit the products with existng reference
+        /// </summary>
+        /// <param name="products">product reference</param>
+        /// <param name="productName">productname</param>
+        /// <param name="productID">productID</param>
+        /// <param name="productPrice">productPrice</param>
+        /// <param name="productQuantity">productquantity</param>
+        public void EditProductsWithReference(Product products, string productName, string productID, double productPrice, int productQuantity)
+        {
+            products.ProductName = productName;
+            products.ProductID = productID;
+            products.ProductPrice = productPrice;
+            products.ProductQuantity = productQuantity;
+        }
+        /// <summary>
+        /// method to get product details from other functions
         /// </summary>
         public void AddProducts()
         {
@@ -105,17 +130,17 @@
             string productID = this._userInterface.GetProductID();
             double productPrice = this._userInterface.GetProductPrice();
             int productQuantity = this._userInterface.GetProductQuantity();
+            Product product = new Product(productName, productID, productPrice, productQuantity);
+            this.AddProductsToTheList(product);
             Console.WriteLine("Product Added");
-
-            bool ifAdded = AddProductsInTheList(productName, productID, productPrice, productQuantity);
-
             Console.WriteLine("[A]dd another Product or [M]enu");
             string option = Console.ReadLine();
             if (option == "A" || option == "a")
             {
-                AddProducts();
+                this.AddProducts();
             }
         }
+
         /// <summary>
         /// Method to view product
         /// </summary>
@@ -126,8 +151,7 @@
                 Console.WriteLine("List of Products");
                 foreach (var products in this._productList)
                 {
-                    Console.WriteLine("Product Name" + "\t" + "Product ID" + "\t" + "Price" + "Quantity");
-                    Console.WriteLine(products.ProductName + "\t" + products.ProductID + "\t" + products.ProductPrice + "\t" + products.ProductQuantity);
+                    this._userInterface.ShowResults(products.ProductName, products.ProductID, products.ProductPrice, products.ProductQuantity);
                 }
             }
             else
@@ -135,6 +159,7 @@
                 this._userInterface.PrintNoProductsYet();
             }
         }
+
         /// <summary>
         /// Traverse in the list to search products
         /// </summary>
@@ -143,19 +168,33 @@
             if (this._productList.Count > 0)
             {
                 string searchNameOrID = this._userInterface.GetProductNameOrId();
-                foreach (var products in this._productList)
-                {
-                    if (products.ProductName.ToLower() == searchNameOrID.ToLower() || products.ProductID.ToLower() == searchNameOrID.ToLower())
-                    {
-                        this._userInterface.SearchResults(products.ProductName, products.ProductID, products.ProductPrice, products.ProductQuantity);
-                    }
-                }
+                this.SearchProductInTheList(searchNameOrID);
             }
             else
             {
                 this._userInterface.PrintNoProductsYet();
             }
         }
+
+        /// <summary>
+        /// Traverse through the list and shows the search resulst
+        /// </summary>
+        /// <param name="searchNameorID">searchNameorID</param>
+        /// <returns> the instance if the product is in the list</returns>
+        public Product? SearchProductInTheList(string searchNameorID)
+        {
+            foreach (var products in this._productList)
+            {
+                if (products.ProductName.ToLower() == searchNameorID.ToLower() || products.ProductID.ToLower() == searchNameorID.ToLower())
+                {
+                    this._userInterface.SearchResults(products.ProductName, products.ProductID, products.ProductPrice, products.ProductQuantity);
+                    return products;
+                }
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Method to delete products
         /// </summary>
@@ -164,25 +203,18 @@
             if (this._productList.Count > 0)
             {
                 string searchNameOrID = this._userInterface.GetProductNameOrId();
+                Product searchResult = SearchProductInTheList(searchNameOrID);
+                string userConfirmation = this._userInterface.ConfirmTheProduct(searchResult.ProductName, searchResult.ProductID, searchResult.ProductPrice, searchResult.ProductQuantity);
 
-                foreach (var products in _productList)
-                {
-                    if (products.ProductName.ToLower() == searchNameOrID.ToLower() || products.ProductID.ToLower() == searchNameOrID.ToLower())
-                    {
-                      string userConfirmation = this._userInterface.ConfirmTheProduct(products.ProductName, products.ProductID, products.ProductPrice, products.ProductQuantity);
-
-                      if (userConfirmation == "Y" || userConfirmation == "y")
-                        {
-                            this._productList.Remove(products);
+                if (userConfirmation == "Y" || userConfirmation == "y")
+                  {
+                            this.DeleteProductFromTheList(searchResult);
                             Console.WriteLine("Product Deleted :(");
-                        }
-                        else if (userConfirmation == "C" || userConfirmation == "c")
-                        {
+                  }
+                else if (userConfirmation == "C" || userConfirmation == "c")
+                  {
                             this._userInterface.PrintOpertaionCancelled();
-                        }
-                    }
-                    break;
-                }
+                   }
             }
             else
             {
@@ -194,38 +226,25 @@
         /// </summary>
         public void EditProduct()
         {
-            Product editproduct;
             if (this._productList.Count > 0)
             {
                 string searchNameOrID = this._userInterface.GetProductNameOrId();
+                Product searchResult = SearchProductInTheList(searchNameOrID);
+                string userConfirmation = this._userInterface.ConfirmTheProduct(searchResult.ProductName, searchResult.ProductID, searchResult.ProductPrice, searchResult.ProductQuantity);
 
-                foreach (var products in _productList)
-                {
-                    if (products.ProductName.ToLower() == searchNameOrID.ToLower() || products.ProductID.ToLower() == searchNameOrID.ToLower())
-                    {
-                        string userConfirmation = _userInterface.ConfirmTheProduct(products.ProductName, products.ProductID, products.ProductPrice, products.ProductQuantity);
-
-                        if (userConfirmation == "Y" || userConfirmation == "y")
+                if (userConfirmation == "Y" || userConfirmation == "y")
                         {
                             string productName = this._userInterface.GetProductName();
                             string productID = this._userInterface.GetProductID();
                             double productPrice = this._userInterface.GetProductPrice();
                             int productQuantity = this._userInterface.GetProductQuantity();
-                            products.ProductName = productName;
-                            products.ProductID = productID;
-                            products.ProductPrice = productPrice;
-                            products.ProductQuantity = productQuantity;
-
+                            this.EditProductsWithReference(searchResult, productName, productID, productPrice, productQuantity);
                             Console.WriteLine("Product Edited Succesfully :)");
                         }
                         else if (userConfirmation == "C" || userConfirmation == "c")
                         {
                             this._userInterface.PrintOpertaionCancelled();
-                            break;
                         }
-                    }
-                    break;
-                }
             }
             else
             {

@@ -1,31 +1,43 @@
 ﻿namespace Assignments
 {
     /// <summary>
-    /// Intercats with User via console
+    /// Interacts with User via console
     /// </summary>
         public class UserInterface
         {
-          private static ProductManager _productManager = new ProductManager();
+        private ProductManager _productManager;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserInterface"/> class.
+        /// </summary>
+        /// <param name="productManager">y</param>
+        public UserInterface(ProductManager productManager)
+        {
+            this._productManager = productManager;
+        }
+
         /// <summary>
         /// checks whether the product name is unique
         /// </summary>
         /// <returns>returns the product name</returns>
-          public string GetProductName()
+        public string GetProductName()
         {
             string productName;
-            do
+            Console.WriteLine("Enter Product Name");
+            productName = Console.ReadLine()!;
+            while (_productManager.ISProductNameUnique(productName))
             {
-                Console.WriteLine("Enter Product Name");
-                productName = Console.ReadLine();
+                Console.WriteLine("Enter Unique product Name");
+                productName = Console.ReadLine() !;
             }
-            while (!_productManager.ISProductNameUnique(productName));
+
             return productName;
         }
         /// <summary>
         /// Gets product ID fro the user
         /// </summary>
         /// <returns>the product ID</returns>
-          public string GetProductID()
+        public string GetProductID()
         {
             string productID;
             do
@@ -45,7 +57,7 @@
         /// Method to get product Price
         /// </summary>
         /// <returns>Product Price</returns>
-          public double GetProductPrice()
+        public double GetProductPrice()
         {
             string productprice;
             double productPrice;
@@ -62,7 +74,7 @@
         /// Gets product quantity from the user
         /// </summary>
         /// <returns>re</returns>
-          public int GetProductQuantity()
+        public int GetProductQuantity()
         {
             string productQuantityFromUser;
             int productQuantity;
@@ -81,11 +93,23 @@
         /// <param name="productID">ewr</param>
         /// <param name="productPrice">ewre</param>
         /// <param name="productQuantity">erw</param>
-          public void SearchResults(string productName, string productID, double productPrice, double productQuantity )
+        public void SearchResults(string productName, string productID, double productPrice, double productQuantity )
         {
             Console.WriteLine("Search Results: ");
             Console.WriteLine("ProductName :" + productName + "\n" + "ProductID:" + productID +
                 "\n" + "ProductPrice: " + productPrice + "\n" + "ProductQuantity" + productQuantity + "\t");
+        } 
+        /// <summary>
+        /// Shows the List of all products
+        /// </summary>
+        /// <param name="productName">product names</param>
+        /// <param name="productID">product ID</param>
+        /// <param name="productPrice">price</param>
+        /// <param name="productQuantity">quantity</param>
+        public void ShowResults(string productName, string productID, double productPrice, double productQuantity )
+        {
+            Console.WriteLine("ProductName: " + productName + "\n" + "ProductID: " + productID +
+                "\n" + "ProductPrice: " + productPrice + "\n" + "ProductQuantity: " + productQuantity + "\t");
         }  
         /// <summary>
         /// gets confirmtion from the user
@@ -95,7 +119,7 @@
         /// <param name="productPrice">product price</param>
         /// <param name="productQuantity">product quantity</param>
         /// <returns>yes or no </returns>
-          public string ConfirmTheProduct(string productName, string productID, double productPrice, double productQuantity )
+        public string ConfirmTheProduct(string productName, string productID, double productPrice, double productQuantity )
         {
             Console.WriteLine("ProductName :" + productName + "\n" + "ProductID:" + productID +
                 "\n" + "ProductPrice: " + productPrice + "\n" + "ProductQuantity" + productQuantity + "\t");
@@ -106,7 +130,7 @@
         /// <summary>
         /// Prints no products whenever it is called
         /// </summary>
-          public void PrintNoProductsYet()
+        public void PrintNoProductsYet()
         {
             Console.WriteLine("No Products yet");
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
@@ -115,7 +139,7 @@
         /// <summary>
         /// Prints operation Cancelled whenever it is called
         /// </summary>
-          public void PrintOpertaionCancelled()
+        public void PrintOpertaionCancelled()
         {
             Console.WriteLine("----------------Operation Cancelled----------------------");
             Console.WriteLine("Redirecing to Menu");
@@ -124,9 +148,9 @@
         /// Gets name or Id from the user for edit or delete
         /// </summary>
         /// <returns>The product name or ID</returns>
-          public string GetProductNameOrId()
+        public string GetProductNameOrId()
         {
-            Console.WriteLine("Enter Name or ID of the Product to Delete");
+            Console.WriteLine("Enter Name or ID of the Product");
             string searchNameOrID = Console.ReadLine();
             return searchNameOrID;
         }

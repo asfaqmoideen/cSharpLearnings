@@ -8,7 +8,6 @@ namespace Assignments
     internal partial class Program
     {
         private static ProductManager _productManager = new ProductManager();
-        private static UserInterface _userInterface = new UserInterface();
 
         private static void Main()
         {
