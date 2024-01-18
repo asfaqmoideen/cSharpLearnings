@@ -5,9 +5,7 @@
     /// </summary>
     internal partial class Program
     {
-        private static ExpenseTracker _expenseTracker = new ExpenseTracker();
-        private static IncomeTracker _incomeTracker = new IncomeTracker();
-
+        private static FinanceTracker _incometracker = new FinanceTracker();
         private static void Main(string[] args)
         {
             string option;
@@ -19,21 +17,22 @@
                 Console.WriteLine("1. Add an expense \n2. Add an Income \n3. Show History\n4. Edit a Income/Expense\n5. Show Financial Summary \n6. Delete Income/Expense\n Q - Exit application\n");
                 Console.Write("Choose one of the above listed option to proceed: ) ");
                 option = Console.ReadLine();
-                ChooseTheOption(option);
+                PerformOperation(option);
             }
             while (option != "q" && option != "Q");
         }
-        private static void ChooseTheOption(string option)
+
+        private static void PerformOperation(string option)
         {
             switch (option)
             {
                 case "1":
-                    _expenseTracker.AddExpense();
+                    _incometracker.AddExpense();
                     break;
                 case "2":
-                    _incomeTracker.AddIncome();
+                    _incometracker.AddIncome();
                     break;
-               
+
                 case "3":
                     ShowRecord();
                     break;
@@ -41,57 +40,50 @@
                     EditRecord();
                     break; 
                 case "5":
-                    ShowSummary();
+                    _incometracker.GenerateFinancialSummary();
                     break;
                 case "6":
                     DeleteRecord();
                     break;
             }
         }
-        private static void ShowRecord()
+        private void static ShowRecord()
         {
-            _expenseTracker.ViewExpense();
-            _incomeTracker.ViewIncome();
-        }
-        private static void EditRecord()
-        {
-            Console.WriteLine("Edit \n1.Income\n2.Expense");
-            string option = Console.ReadLine();
+            string option = ChooseTheOption();
             if (option == "1")
             {
-                _incomeTracker.EditIncome();
+                _incometracker.ViewIncome();
             }
             else if (option == "2")
             {
-                _expenseTracker.EditExpense();
+                _incometracker.ViewExpense();
             }
         }
-        private static void DeleteRecord()
+        private void EditRecord()
         {
-            Console.WriteLine("Delete \n1.Income\n2.Expense");
-            string option = Console.ReadLine();
+            string option = ChooseTheOption();
             if (option == "1")
             {
-                _incomeTracker.DeleteIncome();
+                _incometracker.EditIncome();
             }
             else if (option == "2")
             {
-                _expenseTracker.DeleteExpense();
+                _incometracker.EditExpense();
             }
         }
-        private static void ShowSummary()
-        {  
-            double accbalance = 0;
-            Console.WriteLine("-------------------------------------------------------------------------------------------------");
-            Console.WriteLine("Showing Summary of Income and Expenses");
-            Console.WriteLine("-------------------------------------------------------------------------------------------------");
-            double totalIncome = _incomeTracker.GenerateIncomerecord();
-            double totalExpense = _expenseTracker.GenerateExpenserecord();
-            accbalance = accbalance + totalIncome - totalExpense;
-            Console.WriteLine("\tTotal Balance = " + accbalance);
-            Console.WriteLine("\tTotal Incomes = " + totalIncome);
-            Console.WriteLine("\tTotal Expense = " + totalExpense);
-            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+       
+        private void DeleteRecord()
+        {
+            string option = ChooseTheOption();
+            if (option == "1")
+            {
+                _incometracker.DeleteIncome();
+            }
+            else if (option == "2")
+            {
+                _incometracker.DeleteExpense();
+            }
         }
+
     }
 }
