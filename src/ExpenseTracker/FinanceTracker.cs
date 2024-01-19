@@ -6,7 +6,7 @@ namespace Assignments
     /// <summary>
     /// This class stores all the expense and income expense manager methods
     /// </summary>
-    internal class FinanceTracker
+    public class FinanceTracker
     {
         private UserInterface _userInterface;
         private List<ExpenseEntity> _expenses;
@@ -51,7 +51,7 @@ namespace Assignments
             DateTime expenseDate = DateTime.Now;
             DateTime updatedExpensedate = DateTime.Now;
             ExpenseEntity expenseEntity = new ExpenseEntity(newExpense, expenseCategory, expenseDate, updatedExpensedate);
-            this._expenses.Add(expenseEntity);
+            AddExpenseToTheList(expenseEntity);
             string option = this._userInterface.AddAnotherEntity();
             Console.WriteLine("Expense Added");
             if (option == "A" || option == "a")
@@ -65,6 +65,15 @@ namespace Assignments
         }
 
         /// <summary>
+        /// Adds expense parameters to th expense list
+        /// </summary>
+        /// <param name="expenseEntity">OPbject expenseentity</param>
+        public void AddExpenseToTheList( ExpenseEntity expenseEntity )
+        {
+            this._expenses.Add(expenseEntity);
+        }
+
+        /// <summary>
         /// Method to add incomes
         /// </summary>
         public void AddIncome()
@@ -74,7 +83,7 @@ namespace Assignments
             DateTime incomeDate = DateTime.Now;
             DateTime updatedIncomeDate = DateTime.Now;
             IncomeEntity incometracker = new IncomeEntity(newIncome, incomeCategory, incomeDate, updatedIncomeDate);
-            this._incomes.Add(incometracker);
+            this.AddIncomesToTheList(incometracker);
             string option = this._userInterface.AddAnotherEntity();
             if (option == "A" || option == "a")
             {
@@ -84,6 +93,14 @@ namespace Assignments
             {
                 this._userInterface.PrintRedirectingToMenu();
             }
+        }
+        /// <summary>
+        /// Adding objects to the list of income
+        /// </summary>
+        /// <param name="incomeEntity"> object</param>
+        public void AddIncomesToTheList(IncomeEntity incomeEntity)
+        {
+            this._incomes.Add(incomeEntity);
         }
 
         /// <summary>
@@ -140,7 +157,7 @@ namespace Assignments
                 string option = this._userInterface.GetConfirmation();
                 if (option == "Y" || option == "y")
                 {
-                    this._expenses.Remove(expenseResult);
+                    RemoveExpenseFromTheList(expenseResult);
                 }
                 else
                 {
@@ -148,7 +165,14 @@ namespace Assignments
                 }
             }
         }
-
+        /// <summary>
+        /// Removes expense object with the refrence
+        /// </summary>
+        /// <param name="expenseEntity">object reference</param>
+        public void RemoveExpenseFromTheList(ExpenseEntity expenseEntity)
+        {
+            this._expenses.Remove(expenseEntity);
+        }
         /// <summary>
         /// Search from expense list
         /// </summary>
@@ -196,9 +220,7 @@ namespace Assignments
 
                 if (option == "Y" || option == "y")
                 {
-                    this._incomes.Remove(incomeResult);
-                    Console.WriteLine("Income Deleted :(");
-                    Console.WriteLine("-------------------------------------------------------------------------------------------------");
+                    this.RemoveIncomesFromTheList(incomeResult);
                 }
                 else
                 {
@@ -211,6 +233,14 @@ namespace Assignments
             }
         }
 
+        /// <summary>
+        /// Removes incomes from the list 
+        /// </summary>
+        /// <param name="incomeEntity">object reference to delete</param>
+        public void RemoveIncomesFromTheList(IncomeEntity incomeEntity)
+        {
+            this._incomes.Remove(incomeEntity);
+        }
         /// <summary>
         /// To edit past expense
         /// </summary>
@@ -226,9 +256,7 @@ namespace Assignments
                 {
                     double newExpense = this.GetExpenseAmount();
                     string expenseCategory = this._userInterface.GetExpenseCategoryFromTheUser();
-                    expenseResult.Amount = newExpense;
-                    expenseResult.Category = expenseCategory;
-                    expenseResult.UpdatedAt = DateTime.Now;
+                    this.EditExpenseWithReferenceObject(expenseResult, newExpense, expenseCategory);
                 }
                 else
                 {
@@ -239,6 +267,18 @@ namespace Assignments
             {
                 this._userInterface.DisplayMessageForEmptyExpenseList();
             }
+        }
+        /// <summary>
+        /// Edits the changed fields with refrence
+        /// </summary>
+        /// <param name="expenseEntity"> Result expense entity</param>
+        /// <param name="newExpense">New expesne amount</param>
+        /// <param name="expenseCategory">new expense category</param>
+        public void EditExpenseWithReferenceObject(ExpenseEntity expenseEntity, double newExpense, string expenseCategory)
+        { 
+            expenseEntity.Amount = newExpense;
+            expenseEntity.Category = expenseCategory;
+            expenseEntity.UpdatedAt = DateTime.Now;
         }
 
         /// <summary>
@@ -422,12 +462,26 @@ namespace Assignments
                     double newIncome = this.GetIncomeAmount();
                     string incomeCategory = this._userInterface.GetIncomeSourceFromTheUser();
                     DateTime updatedAt = DateTime.Now;
+                    EditExpenseWithReference(incomeResult, newIncome, incomeCategory);
                 }
                 else
                 {
                     this._userInterface.DisplayMessageForEmptyIncomeList();
                 }
             }
+        }
+        
+        /// <summary>
+        /// Edit expense with refrence 
+        /// </summary>
+        /// <param name="incomeEntity">object</param>
+        /// <param name="newIncome">new income </param>
+        /// <param name="incomeCategory">new income category</param>
+        public void EditExpenseWithReference(IncomeEntity incomeEntity, double newIncome, string incomeCategory)
+        {
+            newIncome = this.GetIncomeAmount();
+            incomeCategory = this._userInterface.GetIncomeSourceFromTheUser();
+            DateTime updatedAt = DateTime.Now;
         }
 
         /// <summary>
