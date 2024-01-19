@@ -119,8 +119,23 @@ namespace ExpenseTrackerTests
             ExpenseEntity expenseEntity = new ExpenseEntity(ExpenseAmount, ExpenseCategory, createdDateTime, UpdatedDateTime);
             FinanceTracker financeTracker = new FinanceTracker();
             financeTracker.AddExpenseToTheList(expenseEntity);
+
             financeTracker.RemoveExpenseFromTheList(expenseEntity);
+
             Assert.DoesNotContain(expenseEntity, financeTracker.GetExpense());
+        }
+
+        [Theory]
+        [InlineData(1200, "food", "10-12-2002", "20-12-2002", "food")]
+        public void AddedExpenseParametersToTheList_SearchSpecifiExpenseFromTheList_ReturnsTheSpecificObjcet(double ExpenseAmount, string ExpenseCategory, string CreatedAt, string updatedAt, string searchSource)
+        {
+            DateTime createdDateTime = DateTime.Parse(CreatedAt);
+            DateTime UpdatedDateTime = DateTime.Parse(updatedAt);
+            ExpenseEntity expenseEntity = new ExpenseEntity(ExpenseAmount, ExpenseCategory, createdDateTime, UpdatedDateTime);
+            FinanceTracker financeTracker = new FinanceTracker();
+            financeTracker.AddExpenseToTheList(expenseEntity);
+            var searchResult = financeTracker.SearchExpenseFromTheList(searchSource);
+            Assert.Equal(searchResult, expenseEntity);
         }
         
         [Theory]
@@ -134,6 +149,18 @@ namespace ExpenseTrackerTests
             financeTracker.AddIncomesToTheList(incomeEntity);
             financeTracker.RemoveIncomeFromTheList(incomeEntity);
             Assert.DoesNotContain(incomeEntity, financeTracker.GetIncome());
+        }
+        [Theory]
+        [InlineData(12000, "Salary", "10-12-2002", "20-12-2002","Salary")]
+        public void AddedIncomeParametersToTheList_SearchSpecifiIncomeFromTheList_ReturnsTheSpecificObjcet(double Income, string IncomeSource, string CreatedAt, string updatedAt, string searchCategory)
+        {
+            DateTime createdDateTime = DateTime.Parse(CreatedAt);
+            DateTime UpdatedDateTime = DateTime.Parse(updatedAt);
+            IncomeEntity incomeEntity = new IncomeEntity(Income, IncomeSource, createdDateTime, UpdatedDateTime);
+            FinanceTracker financeTracker = new FinanceTracker();
+            financeTracker.AddIncomesToTheList(incomeEntity);
+            var searchResult = financeTracker.SearchIncomeFromTheList(searchCategory);
+            Assert.Equal(searchResult, incomeEntity);
         }
     }
 }
