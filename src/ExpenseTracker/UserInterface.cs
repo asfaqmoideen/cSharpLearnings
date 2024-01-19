@@ -38,7 +38,7 @@
         /// <returns>income source</returns>
         public string GetIncomeSourceFromTheUser()
         {
-            Console.WriteLine("Expense Category");
+            Console.WriteLine("Income Source");
             string incomeSource = Console.ReadLine();
             return incomeSource;
         }
@@ -126,6 +126,16 @@
             Console.WriteLine("Search Result");
             Console.WriteLine("Amount :" + amount + "\n" + "Category :" + category +
                 "\n" + "Created Date " + createdAt + "\n" + "Updated Date: " + updatedAt + "\t");
+        }
+        /// <summary>
+        /// option from the user
+        /// </summary>
+        /// <returns>1 if Inocme, 2 if epxpense</returns>
+        internal string ChooseTheOption()
+        {
+            Console.WriteLine("Choose the opotion\n1.Income\n2.Expense");
+            string option = Console.ReadLine();
+            return option;
         }
     }
 }

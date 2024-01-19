@@ -6,6 +6,7 @@
     internal partial class Program
     {
         private static FinanceTracker _incometracker = new FinanceTracker();
+
         private static void Main(string[] args)
         {
             string option;
@@ -34,56 +35,18 @@
                     break;
 
                 case "3":
-                    ShowRecord();
+                    _incometracker.ShowRecord();
                     break;
                 case "4":
-                    EditRecord();
-                    break; 
+                    _incometracker.EditRecord();
+                    break;
                 case "5":
                     _incometracker.GenerateFinancialSummary();
                     break;
                 case "6":
-                    DeleteRecord();
+                    _incometracker.DeleteRecord();
                     break;
             }
         }
-        private void static ShowRecord()
-        {
-            string option = ChooseTheOption();
-            if (option == "1")
-            {
-                _incometracker.ViewIncome();
-            }
-            else if (option == "2")
-            {
-                _incometracker.ViewExpense();
-            }
-        }
-        private void EditRecord()
-        {
-            string option = ChooseTheOption();
-            if (option == "1")
-            {
-                _incometracker.EditIncome();
-            }
-            else if (option == "2")
-            {
-                _incometracker.EditExpense();
-            }
-        }
-       
-        private void DeleteRecord()
-        {
-            string option = ChooseTheOption();
-            if (option == "1")
-            {
-                _incometracker.DeleteIncome();
-            }
-            else if (option == "2")
-            {
-                _incometracker.DeleteExpense();
-            }
-        }
-
     }
 }

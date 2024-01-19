@@ -1,7 +1,7 @@
 ﻿namespace Assignments
 {/// <summary>
-/// rthe
-/// </summary>  
+/// Entity class to store income fields
+/// </summary>
         public class IncomeEntity
         {
         /// <summary>
@@ -11,36 +11,40 @@
         /// <param name="source">Income source</param>
         /// <param name="createdAt">created date</param>
         /// <param name="updatedAt">updated date</param>
-        public IncomeEntity( double amount, string source, DateTime createdAt, DateTime updatedAt) 
+        public IncomeEntity(double amount, string source, DateTime createdAt, DateTime updatedAt)
         {
-            Amount = amount;
-            Source = source;
-            CreatedAt = createdAt;
-            UpdatedAt = updatedAt;
+            this.Amount = amount;
+            this.Source = source;
+            this.CreatedAt = createdAt;
+            this.UpdatedAt = updatedAt;
         }
+
         /// <summary>
-        /// Gets or sets /Gets or sets asda
+        /// Gets or sets Income Amount
         /// </summary>
         /// <value>
-        /// Income Amoungt
+        /// Income Amount
         /// </value>
         public double Amount { get; set; }
+
         /// <summary>
-        /// Gets or sets odskfls
+        /// Gets or sets Income Source
         /// </summary>
         /// <value>
         /// expense amount
         /// </value>
         public string Source { get; set; }
+
         /// <summary>
-        /// Gets or sets date
+        /// Gets or sets Income Created date
         /// </summary>
         /// <value>
         /// date of the income or expense
         /// </value>
         public DateTime CreatedAt { get; set; }
+
         /// <summary>
-        /// Gets the updated date
+        /// Gets or sets updated date
         /// </summary>
         /// <value>
         /// Stores the value of updated date
