@@ -61,7 +61,7 @@ namespace ExpenseTrackerTests
         }
 
         [Theory]
-        [InlineData(12000,"salary","10-12-2002","20-12-2002")]
+        [InlineData(12000,"salary","10-12-2002","2-12-2002")]
 
         public void ProvidedIncomeParamters_AddIncomeToTheList_ContainsInTheListIfAdded(double Income, string IncomeSource, string CreatedAt, string updatedAt)
         {
@@ -74,7 +74,7 @@ namespace ExpenseTrackerTests
         }
 
         [Theory]
-        [InlineData(1200, "food", "10-12-2002", "20-12-2002")]
+        [InlineData(1200, "food", "10-12-2002", "2-12-2002")]
         public void ProvidedExpenseParamters_AddExpenseToTheList_ContainsInTheListIfAdded(double ExpenseAmount, string ExpenseCategory, string CreatedAt, string updatedAt)
         {
             DateTime createdDateTime = DateTime.Parse(CreatedAt);
