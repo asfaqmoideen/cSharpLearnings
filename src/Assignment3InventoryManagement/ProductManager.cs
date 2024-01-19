@@ -45,7 +45,7 @@ namespace Assignments
         }
 
         /// <summary>
-        /// uwerhweijr
+        /// validate whether the product ID is unique
         /// </summary>
         /// <param name="productID">ewr</param>
         /// <returns>true if product ID existing else false</returns>

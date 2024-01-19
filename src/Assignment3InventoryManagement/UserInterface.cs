@@ -34,7 +34,7 @@
             return productName;
         }
         /// <summary>
-        /// Gets product ID fro the user
+        /// Gets product ID from the user
         /// </summary>
         /// <returns>the product ID</returns>
         public string GetProductID()
@@ -71,6 +71,7 @@
             bool isPriceDouble;
             return productPrice;
         }
+
         /// <summary>
         /// Gets product quantity from the user
         /// </summary>
@@ -87,6 +88,7 @@
             while (_productManager.IsProductQuantityInt(productQuantityFromUser, out productQuantity) != true);
             return productQuantity;
         }
+
         /// <summary>
         /// Shows the search reults
         /// </summary>
@@ -99,7 +101,8 @@
             Console.WriteLine("Search Results: ");
             Console.WriteLine("ProductName :" + productName + "\n" + "ProductID:" + productID +
                 "\n" + "ProductPrice: " + productPrice + "\n" + "ProductQuantity" + productQuantity + "\t");
-        } 
+        }
+        
         /// <summary>
         /// Shows the List of all products
         /// </summary>
@@ -111,7 +114,8 @@
         {
             Console.WriteLine("ProductName: " + productName + "\n" + "ProductID: " + productID +
                 "\n" + "ProductPrice: " + productPrice + "\n" + "ProductQuantity: " + productQuantity + "\t");
-        }  
+        } 
+        
         /// <summary>
         /// gets confirmtion from the user
         /// </summary>
