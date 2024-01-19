@@ -111,7 +111,7 @@ namespace ExpenseTrackerTests
         }
 
         [Theory]
-        [InlineData(1200, "food", "10-12-2002", "20-12-2002")]
+        [InlineData(1200, "food", "10-12-2002", "2-12-2002")]
         public void AddedExpenseParametersToTheList_RemoveSpecifiExpenseFromTheList_NotContainsInTheListIfDeleted(double ExpenseAmount, string ExpenseCategory, string CreatedAt, string updatedAt)
         {
             DateTime createdDateTime = DateTime.Parse(CreatedAt);
@@ -126,7 +126,7 @@ namespace ExpenseTrackerTests
         }
 
         [Theory]
-        [InlineData(1200, "food", "10-12-2002", "20-12-2002", "food")]
+        [InlineData(1200, "food", "10-12-2002", "2-12-2002", "food")]
         public void AddedExpenseParametersToTheList_SearchSpecifiExpenseFromTheList_ReturnsTheSpecificObjcet(double ExpenseAmount, string ExpenseCategory, string CreatedAt, string updatedAt, string searchSource)
         {
             DateTime createdDateTime = DateTime.Parse(CreatedAt);
@@ -139,7 +139,7 @@ namespace ExpenseTrackerTests
         }
         
         [Theory]
-        [InlineData(12000, "Salary", "10-12-2002", "20-12-2002")]
+        [InlineData(12000, "Salary", "10-12-2002", "2-12-2002")]
         public void AddedIncomeParametersToTheList_RemoveSpecifiIncomeFromTheList_NotContainsInTheListIfDeleted(double Income, string IncomeSource, string CreatedAt, string updatedAt)
         {
             DateTime createdDateTime = DateTime.Parse(CreatedAt);
@@ -151,7 +151,7 @@ namespace ExpenseTrackerTests
             Assert.DoesNotContain(incomeEntity, financeTracker.GetIncome());
         }
         [Theory]
-        [InlineData(12000, "Salary", "10-12-2002", "20-12-2002","Salary")]
+        [InlineData(12000, "Salary", "10-12-2002", "2-12-2002","Salary")]
         public void AddedIncomeParametersToTheList_SearchSpecifiIncomeFromTheList_ReturnsTheSpecificObjcet(double Income, string IncomeSource, string CreatedAt, string updatedAt, string searchCategory)
         {
             DateTime createdDateTime = DateTime.Parse(CreatedAt);
