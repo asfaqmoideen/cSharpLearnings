@@ -84,5 +84,56 @@ namespace ExpenseTrackerTests
             financeTracker.AddExpenseToTheList(expenseEntity);
             Assert.Contains(expenseEntity, financeTracker.GetExpense());
         }
+        [Theory]
+        [InlineData(1200, "food", "10-12-2002", "10-12-2002", 2200, "snacks")]
+        public void AddedExpenseParametersToTheList_EditSpecifiExpenseFromTheList_ContainsInTheListIfEdited(double ExpenseAmount, string ExpenseCategory, string CreatedAt, string updatedAt, double newExpenseAmount, string newExpenseCategory)
+        {
+            DateTime createdDateTime = DateTime.Parse(CreatedAt);
+            DateTime UpdatedDateTime = DateTime.Parse(updatedAt);
+            ExpenseEntity expenseEntity = new ExpenseEntity(ExpenseAmount, ExpenseCategory, createdDateTime, UpdatedDateTime);
+            FinanceTracker financeTracker = new FinanceTracker();
+            financeTracker.AddExpenseToTheList(expenseEntity);
+            financeTracker.EditExpenseWithReferenceObject(expenseEntity, newExpenseAmount, newExpenseCategory);
+            Assert.Contains(expenseEntity, financeTracker.GetExpense());
+        }
+
+        [Theory]
+        [InlineData(120000, "Income", "9-12-2002", "6-12-2002", 220000, "freelancer")]
+        public void AddedIncomeParametersToTheList_EditSpecificIncomeFromTheList_ContainsInTheListIfEdited(double Income, string IncomeSource, string CreatedAt, string updatedAt, double newIncomeAmount, string newIncomeCategory)
+        {
+            DateTime createdDateTime = DateTime.Parse(CreatedAt);
+            DateTime UpdatedDateTime = DateTime.Parse(updatedAt);
+            IncomeEntity incomeEntity = new IncomeEntity(Income, IncomeSource, createdDateTime, UpdatedDateTime);
+            FinanceTracker financeTracker = new FinanceTracker();
+            financeTracker.AddIncomesToTheList(incomeEntity);
+            financeTracker.EditIncomeWithReferenceObject(incomeEntity, newIncomeAmount, newIncomeCategory);
+            Assert.Contains(incomeEntity, financeTracker.GetIncome());
+        }
+
+        [Theory]
+        [InlineData(1200, "food", "10-12-2002", "20-12-2002")]
+        public void AddedExpenseParametersToTheList_RemoveSpecifiExpenseFromTheList_NotContainsInTheListIfDeleted(double ExpenseAmount, string ExpenseCategory, string CreatedAt, string updatedAt)
+        {
+            DateTime createdDateTime = DateTime.Parse(CreatedAt);
+            DateTime UpdatedDateTime = DateTime.Parse(updatedAt);
+            ExpenseEntity expenseEntity = new ExpenseEntity(ExpenseAmount, ExpenseCategory, createdDateTime, UpdatedDateTime);
+            FinanceTracker financeTracker = new FinanceTracker();
+            financeTracker.AddExpenseToTheList(expenseEntity);
+            financeTracker.RemoveExpenseFromTheList(expenseEntity);
+            Assert.DoesNotContain(expenseEntity, financeTracker.GetExpense());
+        }
+        
+        [Theory]
+        [InlineData(12000, "Salary", "10-12-2002", "20-12-2002")]
+        public void AddedIncomeParametersToTheList_RemoveSpecifiIncomeFromTheList_NotContainsInTheListIfDeleted(double Income, string IncomeSource, string CreatedAt, string updatedAt)
+        {
+            DateTime createdDateTime = DateTime.Parse(CreatedAt);
+            DateTime UpdatedDateTime = DateTime.Parse(updatedAt);
+            IncomeEntity incomeEntity = new IncomeEntity(Income, IncomeSource, createdDateTime, UpdatedDateTime);
+            FinanceTracker financeTracker = new FinanceTracker();
+            financeTracker.AddIncomesToTheList(incomeEntity);
+            financeTracker.RemoveIncomeFromTheList(incomeEntity);
+            Assert.DoesNotContain(incomeEntity, financeTracker.GetIncome());
+        }
     }
 }

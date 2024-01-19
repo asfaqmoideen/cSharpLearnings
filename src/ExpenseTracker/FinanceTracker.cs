@@ -220,7 +220,7 @@ namespace Assignments
 
                 if (option == "Y" || option == "y")
                 {
-                    this.RemoveIncomesFromTheList(incomeResult);
+                    this.RemoveIncomeFromTheList(incomeResult);
                 }
                 else
                 {
@@ -237,7 +237,7 @@ namespace Assignments
         /// Removes incomes from the list 
         /// </summary>
         /// <param name="incomeEntity">object reference to delete</param>
-        public void RemoveIncomesFromTheList(IncomeEntity incomeEntity)
+        public void RemoveIncomeFromTheList(IncomeEntity incomeEntity)
         {
             this._incomes.Remove(incomeEntity);
         }
@@ -256,6 +256,7 @@ namespace Assignments
                 {
                     double newExpense = this.GetExpenseAmount();
                     string expenseCategory = this._userInterface.GetExpenseCategoryFromTheUser();
+
                     this.EditExpenseWithReferenceObject(expenseResult, newExpense, expenseCategory);
                 }
                 else
@@ -462,7 +463,7 @@ namespace Assignments
                     double newIncome = this.GetIncomeAmount();
                     string incomeCategory = this._userInterface.GetIncomeSourceFromTheUser();
                     DateTime updatedAt = DateTime.Now;
-                    EditExpenseWithReference(incomeResult, newIncome, incomeCategory);
+                    EditIncomeWithReferenceObject(incomeResult, newIncome, incomeCategory);
                 }
                 else
                 {
@@ -477,11 +478,11 @@ namespace Assignments
         /// <param name="incomeEntity">object</param>
         /// <param name="newIncome">new income </param>
         /// <param name="incomeCategory">new income category</param>
-        public void EditExpenseWithReference(IncomeEntity incomeEntity, double newIncome, string incomeCategory)
+        public void EditIncomeWithReferenceObject(IncomeEntity incomeEntity, double newIncome, string incomeCategory)
         {
-            newIncome = this.GetIncomeAmount();
-            incomeCategory = this._userInterface.GetIncomeSourceFromTheUser();
-            DateTime updatedAt = DateTime.Now;
+            incomeEntity.Amount = newIncome;
+            incomeEntity.Source = incomeCategory;
+            incomeEntity.UpdatedAt = DateTime.Now;
         }
 
         /// <summary>
