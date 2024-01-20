@@ -13,10 +13,11 @@ namespace ExpenseTrackerTests
         public void ProvidedValidIncomeAmount_IsIncomeAmountDouble_ReturnsTrueIfDouble(string InocmeAmount)
         {
             FinanceTracker financeTracker = new FinanceTracker();
-
             bool isvalid;
             double result;
+
             isvalid = financeTracker.IsExpenseAmountDouble(InocmeAmount, out result);
+
             Assert.True(isvalid);
         }
 
@@ -29,7 +30,9 @@ namespace ExpenseTrackerTests
             FinanceTracker financeTracker = new FinanceTracker();
             bool isvalid;
             double resultAmount;
+
             isvalid = financeTracker.IsExpenseAmountDouble(InocmeAmount, out resultAmount);
+
             Assert.False(isvalid);
         }   
         [Theory]
@@ -41,7 +44,9 @@ namespace ExpenseTrackerTests
             FinanceTracker financeTracker = new FinanceTracker();
             bool isvalid;
             double resultAmount;
+
             isvalid = financeTracker.IsExpenseAmountDouble(ExpenseAmount, out resultAmount);
+
             Assert.False(isvalid);
         }
 
@@ -53,10 +58,11 @@ namespace ExpenseTrackerTests
         public void ProvidedValidexpenseAmount_IsExpenseAmountDouble_ReturnsTrueIfDouble(string ExpenseAmount)
         {
             FinanceTracker financeTracker = new FinanceTracker();
-
             bool isvalid;
             double result;
+
             isvalid = financeTracker.IsExpenseAmountDouble(ExpenseAmount, out result);
+
             Assert.True(isvalid);
         }
 
@@ -69,7 +75,9 @@ namespace ExpenseTrackerTests
             DateTime UpdatedDateTime = DateTime.Parse(updatedAt);
             IncomeEntity incomeEntity = new IncomeEntity(Income, IncomeSource, createdDateTime, UpdatedDateTime);
             FinanceTracker financeTracker = new FinanceTracker();
+
             financeTracker.AddIncomesToTheList(incomeEntity);
+
             Assert.Contains(incomeEntity, financeTracker.GetIncome());
         }
 
@@ -81,7 +89,9 @@ namespace ExpenseTrackerTests
             DateTime UpdatedDateTime = DateTime.Parse(updatedAt);
             ExpenseEntity expenseEntity = new ExpenseEntity(ExpenseAmount, ExpenseCategory, createdDateTime, UpdatedDateTime);
             FinanceTracker financeTracker = new FinanceTracker();
+
             financeTracker.AddExpenseToTheList(expenseEntity);
+
             Assert.Contains(expenseEntity, financeTracker.GetExpense());
         }
         [Theory]
@@ -93,7 +103,9 @@ namespace ExpenseTrackerTests
             ExpenseEntity expenseEntity = new ExpenseEntity(ExpenseAmount, ExpenseCategory, createdDateTime, UpdatedDateTime);
             FinanceTracker financeTracker = new FinanceTracker();
             financeTracker.AddExpenseToTheList(expenseEntity);
+
             financeTracker.EditExpenseWithReferenceObject(expenseEntity, newExpenseAmount, newExpenseCategory);
+
             Assert.Contains(expenseEntity, financeTracker.GetExpense());
         }
 
@@ -106,7 +118,9 @@ namespace ExpenseTrackerTests
             IncomeEntity incomeEntity = new IncomeEntity(Income, IncomeSource, createdDateTime, UpdatedDateTime);
             FinanceTracker financeTracker = new FinanceTracker();
             financeTracker.AddIncomesToTheList(incomeEntity);
+
             financeTracker.EditIncomeWithReferenceObject(incomeEntity, newIncomeAmount, newIncomeCategory);
+
             Assert.Contains(incomeEntity, financeTracker.GetIncome());
         }
 
@@ -134,7 +148,9 @@ namespace ExpenseTrackerTests
             ExpenseEntity expenseEntity = new ExpenseEntity(ExpenseAmount, ExpenseCategory, createdDateTime, UpdatedDateTime);
             FinanceTracker financeTracker = new FinanceTracker();
             financeTracker.AddExpenseToTheList(expenseEntity);
+
             var searchResult = financeTracker.SearchExpenseFromTheList(searchSource);
+
             Assert.Equal(searchResult, expenseEntity);
         }
         
@@ -147,7 +163,9 @@ namespace ExpenseTrackerTests
             IncomeEntity incomeEntity = new IncomeEntity(Income, IncomeSource, createdDateTime, UpdatedDateTime);
             FinanceTracker financeTracker = new FinanceTracker();
             financeTracker.AddIncomesToTheList(incomeEntity);
+
             financeTracker.RemoveIncomeFromTheList(incomeEntity);
+
             Assert.DoesNotContain(incomeEntity, financeTracker.GetIncome());
         }
         [Theory]
@@ -159,7 +177,9 @@ namespace ExpenseTrackerTests
             IncomeEntity incomeEntity = new IncomeEntity(Income, IncomeSource, createdDateTime, UpdatedDateTime);
             FinanceTracker financeTracker = new FinanceTracker();
             financeTracker.AddIncomesToTheList(incomeEntity);
+
             var searchResult = financeTracker.SearchIncomeFromTheList(searchCategory);
+
             Assert.Equal(searchResult, incomeEntity);
         }
     }
