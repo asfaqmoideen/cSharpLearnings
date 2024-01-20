@@ -60,7 +60,7 @@ namespace Assignement3InventoryManagementTests
 
         }
         [Theory]
-        [InlineData("Mouse", "ELE12", 450, 20, "Sony Mouse", "ELE13",500,30)]
+        [InlineData("Mouse", "ELE12", 450, 20, "Sony Mouse", "ELE13", 500, 30)]
 
         public void InputProductDetails_EditProductWithreference_ProductEdittedInTheSameRefrence(string productName, string productID, double productPrice, int productQuantity,
             string newProuctName, string newProductID, double newProductPrice, int newProductQuanity)
@@ -100,8 +100,8 @@ namespace Assignement3InventoryManagementTests
 
             Assert.False(productManager.ISProductNameUnique(newProuctName));
 
-        }        
-        
+        }
+
         [Theory]
         [InlineData("Mouse", "ELE12", 450, 20, "ELE12")]
         public void AddedProductsToThelist_IsProductIdUnique_ReturnsTrueIftheProductIdIsInTheList(string productName, string productID, double productPrice, int productQuantity,
@@ -113,8 +113,8 @@ namespace Assignement3InventoryManagementTests
 
             Assert.True(productManager.IsProductIDUnique(newProuctID));
 
-        }        
-        
+        }
+
         [Theory]
         [InlineData("Mouse", "ELE12", 450, 20, "ELE13")]
         public void AddedProductsToThelist_IsProductIdUnique_ReturnsFalseIftheProductIdIsNotInTheList(string productName, string productID, double productPrice, int productQuantity,
@@ -129,7 +129,7 @@ namespace Assignement3InventoryManagementTests
         }
 
         [Theory]
-        [InlineData("Mouse","ELE12", 450, 20, "Mouse")]
+        [InlineData("Mouse", "ELE12", 450, 20, "Mouse")]
         public void AddedproductsToTheList_SearchProductsInTheList_ReturnsTheInstanceIfTheNameIsInTheList(string productName, string productID, double productPrice, int productQuantity,
             string searchNameOrID)
         {
@@ -140,10 +140,10 @@ namespace Assignement3InventoryManagementTests
             Product result = productManager.SearchProductInTheList(searchNameOrID);
 
             Assert.Equal(product, result);
-        } 
+        }
 
         [Theory]
-        [InlineData("Mouse","ELE12", 450, 20, "ELE13")]
+        [InlineData("Mouse", "ELE12", 450, 20, "ELE13")]
         public void AddedproductsToTheList_SearchProductsInTheList_ReturnsNulleIfTheNameIsNotInTheList(string productName, string productID, double productPrice, int productQuantity,
             string searchNameOrID)
         {
@@ -155,9 +155,9 @@ namespace Assignement3InventoryManagementTests
 
             Assert.Null(result);
         }
-        
+
         [Theory]
-        [InlineData("Mouse","ELE12", 450, 20)]
+        [InlineData("Mouse", "ELE12", 450, 20)]
         public void AddedproductsToTheList_RemoveProductsFromTheList_ReturnsNulleIfTheNameIsNotInTheList(string productName, string productID, double productPrice, int productQuantity)
         {
             var productManager = new ProductManager();
@@ -167,7 +167,6 @@ namespace Assignement3InventoryManagementTests
             productManager.DeleteProductFromTheList(product);
 
             Assert.DoesNotContain(product, productManager.GetProducts());
-        }            
-
+        }
     }
 }
