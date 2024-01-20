@@ -42,6 +42,7 @@
             string productID;
             Console.WriteLine("Enter ID Name");
             productID = Console.ReadLine();
+
             while(_productManager.IsProductIDUnique(productID))
             {
                 Console.WriteLine("Enter Uniquq ID Name");
@@ -102,7 +103,7 @@
             Console.WriteLine("ProductName :" + productName + "\n" + "ProductID:" + productID +
                 "\n" + "ProductPrice: " + productPrice + "\n" + "ProductQuantity" + productQuantity + "\t");
         }
-        
+
         /// <summary>
         /// Shows the List of all products
         /// </summary>
@@ -114,8 +115,8 @@
         {
             Console.WriteLine("ProductName: " + productName + "\n" + "ProductID: " + productID +
                 "\n" + "ProductPrice: " + productPrice + "\n" + "ProductQuantity: " + productQuantity + "\t");
-        } 
-        
+        }
+
         /// <summary>
         /// gets confirmtion from the user
         /// </summary>
@@ -132,6 +133,7 @@
             string productConfirmation = Console.ReadLine();
             return productConfirmation;
         }
+
         /// <summary>
         /// Prints no products whenever it is called
         /// </summary>
@@ -140,7 +142,8 @@
             Console.WriteLine("No Products yet");
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
             Console.WriteLine("Redirecing to Menu");
-        } 
+        }
+
         /// <summary>
         /// Prints operation Cancelled whenever it is called
         /// </summary>
@@ -149,6 +152,7 @@
             Console.WriteLine("----------------Operation Cancelled----------------------");
             Console.WriteLine("Redirecing to Menu");
         }
+
         /// <summary>
         /// Gets name or Id from the user for edit or delete
         /// </summary>

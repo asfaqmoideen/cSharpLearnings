@@ -11,6 +11,7 @@ namespace Assignement3InventoryManagementTests
         {
             var productManager = new ProductManager();
             double productPriceOutput;
+
             Assert.True(productManager.IsProductPriceDouble(productPrice, out productPriceOutput));
         }
         [Theory]
@@ -20,6 +21,7 @@ namespace Assignement3InventoryManagementTests
         {
             var productManager = new ProductManager();
             double productQuantityOutput;
+
             Assert.False(productManager.IsProductPriceDouble(productQuantity, out productQuantityOutput));
         }
 
@@ -30,6 +32,7 @@ namespace Assignement3InventoryManagementTests
         {
             var productManager = new ProductManager();
             int productQuantityOutput;
+
             Assert.True(productManager.IsProductQuantityInt(productQuantity, out productQuantityOutput));
         }
         [Theory]
@@ -39,6 +42,7 @@ namespace Assignement3InventoryManagementTests
         {
             var productManager = new ProductManager();
             int productPriceOutput;
+
             Assert.False(productManager.IsProductQuantityInt(productPrice, out productPriceOutput));
         }
 
@@ -48,8 +52,8 @@ namespace Assignement3InventoryManagementTests
         public void InputProductDetails_AddProductToTheList_ProductAddedToTheList(string productName, string productID, double productPrice, int productQuantity)
         {
             var productManager = new ProductManager();
-
             Product product = new Product(productName, productID, productPrice, productQuantity);
+
             productManager.AddProductsToTheList(product);
 
             Xunit.Assert.Contains(product, productManager.GetProducts());
@@ -62,9 +66,9 @@ namespace Assignement3InventoryManagementTests
             string newProuctName, string newProductID, double newProductPrice, int newProductQuanity)
         {
             var productManager = new ProductManager();
-
             Product product = new Product(productName, productID, productPrice, productQuantity);
             productManager.AddProductsToTheList(product);
+
             productManager.EditProductsWithReference(product, newProuctName, newProductID, newProductPrice, newProductQuanity);
 
             Xunit.Assert.Contains(product, productManager.GetProducts());
@@ -78,9 +82,9 @@ namespace Assignement3InventoryManagementTests
             string newProuctName)
         {
             var productManager = new ProductManager();
-
             Product product = new Product(productName, productID, productPrice, productQuantity);
             productManager.AddProductsToTheList(product);
+
             Assert.True(productManager.ISProductNameUnique(newProuctName));
 
         }
@@ -91,9 +95,9 @@ namespace Assignement3InventoryManagementTests
             string newProuctName)
         {
             var productManager = new ProductManager();
-
             Product product = new Product(productName, productID, productPrice, productQuantity);
             productManager.AddProductsToTheList(product);
+
             Assert.False(productManager.ISProductNameUnique(newProuctName));
 
         }        
@@ -104,9 +108,9 @@ namespace Assignement3InventoryManagementTests
             string newProuctID)
         {
             var productManager = new ProductManager();
-
             Product product = new Product(productName, productID, productPrice, productQuantity);
             productManager.AddProductsToTheList(product);
+
             Assert.True(productManager.IsProductIDUnique(newProuctID));
 
         }        
@@ -117,9 +121,9 @@ namespace Assignement3InventoryManagementTests
             string newProuctID)
         {
             var productManager = new ProductManager();
-
             Product product = new Product(productName, productID, productPrice, productQuantity);
             productManager.AddProductsToTheList(product);
+
             Assert.False(productManager.IsProductIDUnique(newProuctID));
 
         }
@@ -132,6 +136,7 @@ namespace Assignement3InventoryManagementTests
             var productManager = new ProductManager();
             Product product = new Product(productName, productID, productPrice, productQuantity);
             productManager.AddProductsToTheList(product);
+
             Product result = productManager.SearchProductInTheList(searchNameOrID);
 
             Assert.Equal(product, result);
@@ -149,7 +154,8 @@ namespace Assignement3InventoryManagementTests
             Product result = productManager.SearchProductInTheList(searchNameOrID);
 
             Assert.Null(result);
-        }        
+        }
+        
         [Theory]
         [InlineData("Mouse","ELE12", 450, 20)]
         public void AddedproductsToTheList_RemoveProductsFromTheList_ReturnsNulleIfTheNameIsNotInTheList(string productName, string productID, double productPrice, int productQuantity)
