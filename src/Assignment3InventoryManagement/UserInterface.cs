@@ -33,6 +33,7 @@
 
             return productName;
         }
+
         /// <summary>
         /// Gets product ID from the user
         /// </summary>
@@ -50,6 +51,7 @@
             }
             return productID;
         }
+
         /// <summary>
         /// Method to get product ID
         /// </summary>
@@ -130,7 +132,7 @@
             Console.WriteLine("ProductName :" + productName + "\n" + "ProductID:" + productID +
                 "\n" + "ProductPrice: " + productPrice + "\n" + "ProductQuantity" + productQuantity + "\t");
             Console.WriteLine("Confirm the Product - [Y]es - [C]ancel");
-            string productConfirmation = Console.ReadLine();
+            string? productConfirmation = Console.ReadLine();
             return productConfirmation;
         }
 
@@ -160,7 +162,7 @@
         public string GetProductNameOrId()
         {
             Console.WriteLine("Enter Name or ID of the Product");
-            string searchNameOrID = Console.ReadLine();
+            string? searchNameOrID = Console.ReadLine();
             return searchNameOrID;
         }
     }
