@@ -20,12 +20,12 @@ namespace Assignement3InventoryManagementTests
         [Theory]
         [InlineData("Ten")]
         [InlineData("Hundred")]
-        public void InvalidDoubleProductPrice_IsProductPriceDouble_ReturnsFalse(string productQuantity)
+        public void InvalidDoubleProductPrice_IsProductPriceDouble_ReturnsFalse(string productPrice)
         {
             var productManager = new ProductManager();
             double productQuantityOutput;
 
-            var result = productManager.IsProductPriceDouble(productQuantity, out productQuantityOutput);
+            var result = productManager.IsProductPriceDouble(productPrice, out productQuantityOutput);
 
             Assert.False(result);
         }
@@ -36,7 +36,7 @@ namespace Assignement3InventoryManagementTests
         public void ValidIntProductQuantityInt_IsProductQuantityInt_ReturnsTrue(string productQuantity)
         {
             var productManager = new ProductManager();
-            int productQuantityOutput;
+            uint productQuantityOutput;
 
             var result = productManager.IsProductQuantityInt(productQuantity, out productQuantityOutput);
 
@@ -45,12 +45,12 @@ namespace Assignement3InventoryManagementTests
         [Theory]
         [InlineData("Ten")]
         [InlineData("Hundred")]
-        public void InValidIntProductQuantityInt_IsProductQuantityInt_ReturnsFalse(string productPrice)
+        public void InValidIntProductQuantityInt_IsProductQuantityInt_ReturnsFalse(string productQuantity)
         {
             var productManager = new ProductManager();
-            int productPriceOutput;
+            uint productPriceOutput;
 
-            var result = productManager.IsProductQuantityInt(productPrice, out productPriceOutput);
+            var result = productManager.IsProductQuantityInt(productQuantity, out productPriceOutput);
 
             Assert.False(result);
         }
@@ -58,7 +58,7 @@ namespace Assignement3InventoryManagementTests
 
         [Theory]
         [InlineData("Mouse", "ELE12", 450, 20)]
-        public void InputProductDetails_AddProductToTheList_ProductAdded(string productName, string productID, double productPrice, int productQuantity)
+        public void InputProductDetails_AddProductToTheList_ProductAdded(string productName, string productID, double productPrice, uint productQuantity)
         {
             ProductManager productManager = new ProductManager();
             Product product = new Product(productName, productID, productPrice, productQuantity);
@@ -70,7 +70,7 @@ namespace Assignement3InventoryManagementTests
         [Theory]
         [InlineData("Sony Mouse", "ELE13", 500, 30)]
 
-        public void InputProductDetails_EditProductWithreference_ProductEditted(string newProuctName, string newProductID, double newProductPrice, int newProductQuanity)
+        public void InputProductDetails_EditProductWithreference_ProductEditted(string newProuctName, string newProductID, double newProductPrice, uint newProductQuanity)
         {
             var (product, productManager) = CreateProduct();
 

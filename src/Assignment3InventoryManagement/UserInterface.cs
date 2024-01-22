@@ -79,10 +79,10 @@
         /// Gets product quantity from the user
         /// </summary>
         /// <returns>re</returns>
-        public int GetProductQuantity()
+        public uint GetProductQuantity()
         {
             string productQuantityFromUser;
-            int productQuantity;
+            uint productQuantity;
             do
             {
                 Console.WriteLine("Enter Quantity (Type - Double)");

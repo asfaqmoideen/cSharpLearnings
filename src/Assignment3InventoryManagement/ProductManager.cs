@@ -62,7 +62,11 @@ namespace Assignments
             double productprice;
             isPriceDouble = double.TryParse(productPrice, out productprice);
             productPriceOutput = productprice;
-            return isPriceDouble;
+            if (isPriceDouble && (productprice >= 0))
+            {
+             return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -71,16 +75,16 @@ namespace Assignments
         /// <param name="productQuantity">Product quanitity as string</param>
         /// <param name="productQuanityOutput">ots product quantity as double</param>
         /// <returns>true if product quantity int else false</returns>
-        public bool IsProductQuantityInt(string productQuantity, out int productQuanityOutput)
+        public bool IsProductQuantityInt(string productQuantity, out uint productQuanityOutput)
         {
             bool isPriceDouble = false;
-            int productquantity;
-            isPriceDouble = int.TryParse(productQuantity, out productquantity);
+            uint productquantity;
+            isPriceDouble = uint.TryParse(productQuantity, out productquantity);
             productQuanityOutput = productquantity;
             return isPriceDouble;
         }
 
-        /// <summary>
+        /// <summary>   
         /// Method to add prouct in the Lit
         /// </summary>
         /// <param name="product">gets objects and adds in the list</param>
@@ -106,7 +110,7 @@ namespace Assignments
         /// <param name="updatedProductID">new product ID</param>
         /// <param name="updtaedProductPrice">new product price</param>
         /// <param name="updtaedProductQuantity">new product quantity</param>
-        public void EditProductsWithReference(Product productToBeEdited, string updatedProductName, string updatedProductID, double updtaedProductPrice, int updtaedProductQuantity)
+        public void EditProductsWithReference(Product productToBeEdited, string updatedProductName, string updatedProductID, double updtaedProductPrice, uint updtaedProductQuantity)
         {
             productToBeEdited.ProductName = updatedProductName;
             productToBeEdited.ProductID = updatedProductID;
@@ -122,7 +126,7 @@ namespace Assignments
             string productName = this._userInterface.GetProductName();
             string productID = this._userInterface.GetProductID();
             double productPrice = this._userInterface.GetProductPrice();
-            int productQuantity = this._userInterface.GetProductQuantity();
+            uint productQuantity = this._userInterface.GetProductQuantity();
             Product product = new Product(productName, productID, productPrice, productQuantity);
             this.AddProductsToTheList(product);
             Console.WriteLine("Product Added");
@@ -231,7 +235,7 @@ namespace Assignments
                             string productName = this._userInterface.GetProductName();
                             string productID = this._userInterface.GetProductID();
                             double productPrice = this._userInterface.GetProductPrice();
-                            int productQuantity = this._userInterface.GetProductQuantity();
+                            uint productQuantity = this._userInterface.GetProductQuantity();
                             this.EditProductsWithReference(searchResult, productName, productID, productPrice, productQuantity);
                             Console.WriteLine("Product Edited Succesfully :)");
                         }
