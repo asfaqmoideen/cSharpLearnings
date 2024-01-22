@@ -56,7 +56,7 @@ namespace Assignments
         /// <param name="productPrice">String input</param>
         /// <param name="productPriceOutput">Double output</param>
         /// <returns>true if product price double else false</returns>
-        public bool IsProductPriceDouble(string productPrice, out double productPriceOutput)
+        public bool IsProductPricePositiveDouble(string productPrice, out double productPriceOutput)
         {
             bool isPriceDouble = false;
             double productprice;
@@ -75,7 +75,7 @@ namespace Assignments
         /// <param name="productQuantity">Product quanitity as string</param>
         /// <param name="productQuanityOutput">ots product quantity as double</param>
         /// <returns>true if product quantity int else false</returns>
-        public bool IsProductQuantityInt(string productQuantity, out uint productQuanityOutput)
+        public bool IsProductQuantityUInt(string productQuantity, out uint productQuanityOutput)
         {
             bool isPriceDouble = false;
             uint productquantity;

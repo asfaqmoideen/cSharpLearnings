@@ -70,7 +70,7 @@
                 Console.WriteLine("Enter Product Price (Type - Double)");
                 productprice = Console.ReadLine();
             }
-            while (_productManager.IsProductPriceDouble(productprice, out productPrice ) != true);
+            while (_productManager.IsProductPricePositiveDouble(productprice, out productPrice ) != true);
             bool isPriceDouble;
             return productPrice;
         }
@@ -88,7 +88,7 @@
                 Console.WriteLine("Enter Quantity (Type - Double)");
                 productQuantityFromUser = Console.ReadLine();
             }
-            while (_productManager.IsProductQuantityInt(productQuantityFromUser, out productQuantity) != true);
+            while (_productManager.IsProductQuantityUInt(productQuantityFromUser, out productQuantity) != true);
             return productQuantity;
         }
 
