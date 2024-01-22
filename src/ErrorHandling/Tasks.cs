@@ -6,7 +6,7 @@
     public partial class Tasks
     {
         /// <summary>
-        /// dsf
+        /// Try catch method to throw exception called divideby zero exception
         /// </summary>
         public void TryCatchFinallyDivideByZeroExeption()
         {
@@ -34,6 +34,7 @@
                 Console.WriteLine("Block Executed\n");
             }
         }
+
         /// <summary>
         /// Try catch finally block to catch the outside boundary exception
         /// </summary>

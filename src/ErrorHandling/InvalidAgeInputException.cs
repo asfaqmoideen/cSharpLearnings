@@ -6,7 +6,6 @@
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidAgeInputException"/> class.
-        /// Cin
         /// </summary>
         public InvalidAgeInputException()
             : base(string.Format("Invalid Age to Vote"))
