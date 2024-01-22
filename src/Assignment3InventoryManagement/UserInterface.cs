@@ -1,8 +1,8 @@
 ﻿namespace Assignments
 {
-    /// <summary>
-    /// Interacts with User via console
-    /// </summary>
+        /// <summary>
+        /// Interacts with User via console
+        /// </summary>
         public class UserInterface
         {
         private ProductManager _productManager;

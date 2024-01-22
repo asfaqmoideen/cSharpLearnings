@@ -7,49 +7,58 @@ namespace Assignement3InventoryManagementTests
         [Theory]
         [InlineData("1223")]
         [InlineData("12.1")]
-        public void ValidDoubleProductPrice_IsProductPriceDouble_ReturnsTrueIfDouble(string productPrice)
+        public void ValidDoubleProductPrice_IsProductPriceDouble_ReturnsTrue(string productPrice)
         {
             var productManager = new ProductManager();
             double productPriceOutput;
 
-            Assert.True(productManager.IsProductPriceDouble(productPrice, out productPriceOutput));
+            var result = productManager.IsProductPriceDouble(productPrice, out productPriceOutput);
+
+            Assert.True(result);
         }
+
         [Theory]
         [InlineData("Ten")]
         [InlineData("Hundred")]
-        public void InvalidDoubleProductPrice_IsProductPriceDouble_ReturnsFalseIfNotDouble(string productQuantity)
+        public void InvalidDoubleProductPrice_IsProductPriceDouble_ReturnsFalse(string productQuantity)
         {
             var productManager = new ProductManager();
             double productQuantityOutput;
 
-            Assert.False(productManager.IsProductPriceDouble(productQuantity, out productQuantityOutput));
+            var result = productManager.IsProductPriceDouble(productQuantity, out productQuantityOutput);
+
+            Assert.False(result);
         }
 
         [Theory]
         [InlineData("1223")]
         [InlineData("12")]
-        public void ValidIntProductQuantityInt_IsProductQuantityInt_ReturnsTrueIfInt(string productQuantity)
+        public void ValidIntProductQuantityInt_IsProductQuantityInt_ReturnsTrue(string productQuantity)
         {
             var productManager = new ProductManager();
             int productQuantityOutput;
 
-            Assert.True(productManager.IsProductQuantityInt(productQuantity, out productQuantityOutput));
+            var result = productManager.IsProductQuantityInt(productQuantity, out productQuantityOutput);
+
+            Assert.True(result);
         }
         [Theory]
         [InlineData("Ten")]
         [InlineData("Hundred")]
-        public void InValidIntProductQuantityInt_IsProductQuantityInt_ReturnsFalseIfNotInt(string productPrice)
+        public void InValidIntProductQuantityInt_IsProductQuantityInt_ReturnsFalse(string productPrice)
         {
             var productManager = new ProductManager();
             int productPriceOutput;
 
-            Assert.False(productManager.IsProductQuantityInt(productPrice, out productPriceOutput));
+            var result = productManager.IsProductQuantityInt(productPrice, out productPriceOutput);
+
+            Assert.False(result);
         }
 
 
         [Theory]
         [InlineData("Mouse", "ELE12", 450, 20)]
-        public void InputProductDetails_AddProductToTheList_ProductAddedToTheList(string productName, string productID, double productPrice, int productQuantity)
+        public void InputProductDetails_AddProductToTheList_ProductAdded(string productName, string productID, double productPrice, int productQuantity)
         {
             ProductManager productManager = new ProductManager();
             Product product = new Product(productName, productID, productPrice, productQuantity);
