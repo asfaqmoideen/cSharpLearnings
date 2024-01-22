@@ -180,7 +180,7 @@ namespace Assignments
             {
                 if (products.ProductName.ToLower() == searchNameorID.ToLower() || products.ProductID.ToLower() == searchNameorID.ToLower())
                 {
-                    this._userInterface.SearchResults(products.ProductName, products.ProductID, products.ProductPrice, products.ProductQuantity);
+                    this._userInterface.ShowResults(products.ProductName, products.ProductID, products.ProductPrice, products.ProductQuantity);
                     return products;
                 }
             }

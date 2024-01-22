@@ -93,20 +93,6 @@
         }
 
         /// <summary>
-        /// Shows the search reults
-        /// </summary>
-        /// <param name="productName">klerw</param>
-        /// <param name="productID">ewr</param>
-        /// <param name="productPrice">ewre</param>
-        /// <param name="productQuantity">erw</param>
-        public void SearchResults(string productName, string productID, double productPrice, double productQuantity )
-        {
-            Console.WriteLine("Search Results: ");
-            Console.WriteLine("ProductName :" + productName + "\n" + "ProductID:" + productID +
-                "\n" + "ProductPrice: " + productPrice + "\n" + "ProductQuantity" + productQuantity + "\t");
-        }
-
-        /// <summary>
         /// Shows the List of all products
         /// </summary>
         /// <param name="productName">product names</param>
