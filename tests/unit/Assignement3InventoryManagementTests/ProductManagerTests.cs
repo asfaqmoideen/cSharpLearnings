@@ -51,91 +51,77 @@ namespace Assignement3InventoryManagementTests
         [InlineData("Mouse", "ELE12", 450, 20)]
         public void InputProductDetails_AddProductToTheList_ProductAddedToTheList(string productName, string productID, double productPrice, int productQuantity)
         {
-            var productManager = new ProductManager();
+            ProductManager productManager = new ProductManager();
             Product product = new Product(productName, productID, productPrice, productQuantity);
 
             productManager.AddProductsToTheList(product);
 
-            Xunit.Assert.Contains(product, productManager.GetProducts());
-
+            Assert.Contains(product, productManager.GetProducts());
         }
         [Theory]
-        [InlineData("Mouse", "ELE12", 450, 20, "Sony Mouse", "ELE13", 500, 30)]
+        [InlineData("Sony Mouse", "ELE13", 500, 30)]
 
-        public void InputProductDetails_EditProductWithreference_ProductEdittedInTheSameRefrence(string productName, string productID, double productPrice, int productQuantity,
-            string newProuctName, string newProductID, double newProductPrice, int newProductQuanity)
+        public void InputProductDetails_EditProductWithreference_ProductEditted(string newProuctName, string newProductID, double newProductPrice, int newProductQuanity)
         {
-            var productManager = new ProductManager();
-            Product product = new Product(productName, productID, productPrice, productQuantity);
-            productManager.AddProductsToTheList(product);
+            var (product, productManager) = CreateProduct();
 
             productManager.EditProductsWithReference(product, newProuctName, newProductID, newProductPrice, newProductQuanity);
 
-            Xunit.Assert.Contains(product, productManager.GetProducts());
+            Assert.Contains(product, productManager.GetProducts());
 
         }
 
         [Theory]
-        [InlineData("Mouse", "ELE12", 450, 20, "Mouse")]
+        [InlineData("Mouse")]
 
-        public void AddedProductsToThelist_IsProductNameUnique_ReturnsTrueIftheProductNameIsExisting(string productName, string productID, double productPrice, int productQuantity,
-            string newProuctName)
+        public void AddedProductsToThelist_IsProductNameUnique_ReturnsFalse(string newProuctName)
         {
-            var productManager = new ProductManager();
-            Product product = new Product(productName, productID, productPrice, productQuantity);
-            productManager.AddProductsToTheList(product);
+            var (product, productManager) = CreateProduct();
 
-            Assert.True(productManager.ISProductNameUnique(newProuctName));
+            var Result = productManager.ISProductNameUnique(newProuctName);
+
+            Assert.False(Result);
 
         }
 
         [Theory]
-        [InlineData("Mouse", "ELE12", 450, 20, "KeyBoard")]
-        public void AddedProductsToThelist_IsProductNameUnique_ReturnsFalseIftheProductNameIsNotInTheList(string productName, string productID, double productPrice, int productQuantity,
-            string newProuctName)
+        [InlineData("KeyBoard")]
+        public void AddedProductsToThelist_IsProductNameUnique_ReturnsTrue(string newProductName)
         {
-            var productManager = new ProductManager();
-            Product product = new Product(productName, productID, productPrice, productQuantity);
-            productManager.AddProductsToTheList(product);
+            var (product, productManager) = CreateProduct();
 
-            Assert.False(productManager.ISProductNameUnique(newProuctName));
+            var Result = productManager.ISProductNameUnique(newProductName);
+
+            Assert.True(Result);
+        
 
         }
 
         [Theory]
-        [InlineData("Mouse", "ELE12", 450, 20, "ELE12")]
-        public void AddedProductsToThelist_IsProductIdUnique_ReturnsTrueIftheProductIdIsInTheList(string productName, string productID, double productPrice, int productQuantity,
-            string newProuctID)
+        [InlineData("ELE12")]
+        public void AddedProductsToThelist_IsProductIdUnique_ReturnsTrue(string newProuctID)
         {
-            var productManager = new ProductManager();
-            Product product = new Product(productName, productID, productPrice, productQuantity);
-            productManager.AddProductsToTheList(product);
+            var (product, productManager) = CreateProduct();
 
             Assert.True(productManager.IsProductIDUnique(newProuctID));
 
         }
 
         [Theory]
-        [InlineData("Mouse", "ELE12", 450, 20, "ELE13")]
-        public void AddedProductsToThelist_IsProductIdUnique_ReturnsFalseIftheProductIdIsNotInTheList(string productName, string productID, double productPrice, int productQuantity,
-            string newProuctID)
+        [InlineData("ELE13")]
+        public void AddedProductsToThelist_IsProductIdNotUnique_ReturnsFalse(string newProuctID)
         {
-            var productManager = new ProductManager();
-            Product product = new Product(productName, productID, productPrice, productQuantity);
-            productManager.AddProductsToTheList(product);
+            var (product, productManager) = CreateProduct();
 
             Assert.False(productManager.IsProductIDUnique(newProuctID));
 
         }
 
         [Theory]
-        [InlineData("Mouse", "ELE12", 450, 20, "Mouse")]
-        public void AddedproductsToTheList_SearchProductsInTheList_ReturnsTheInstanceIfTheNameIsInTheList(string productName, string productID, double productPrice, int productQuantity,
-            string searchNameOrID)
+        [InlineData("Mouse")]
+        public void AddedproductsToTheList_SearchProductsInTheList_ReturnsTheInstance(string searchNameOrID)
         {
-            var productManager = new ProductManager();
-            Product product = new Product(productName, productID, productPrice, productQuantity);
-            productManager.AddProductsToTheList(product);
+            var (product, productManager) = CreateProduct();
 
             Product result = productManager.SearchProductInTheList(searchNameOrID);
 
@@ -143,13 +129,10 @@ namespace Assignement3InventoryManagementTests
         }
 
         [Theory]
-        [InlineData("Mouse", "ELE12", 450, 20, "ELE13")]
-        public void AddedproductsToTheList_SearchProductsInTheList_ReturnsNulleIfTheNameIsNotInTheList(string productName, string productID, double productPrice, int productQuantity,
-            string searchNameOrID)
+        [InlineData("ELE13")]
+        public void AddedproductsToTheList_SearchProductsNotInTheList_ReturnsNull(string searchNameOrID)
         {
-            var productManager = new ProductManager();
-            Product product = new Product(productName, productID, productPrice, productQuantity);
-            productManager.AddProductsToTheList(product);
+            var (product, productManager) = CreateProduct();
 
             Product result = productManager.SearchProductInTheList(searchNameOrID);
 
@@ -157,16 +140,39 @@ namespace Assignement3InventoryManagementTests
         }
 
         [Theory]
-        [InlineData("Mouse", "ELE12", 450, 20)]
-        public void AddedproductsToTheList_RemoveProductsFromTheList_ReturnsNulleIfTheNameIsNotInTheList(string productName, string productID, double productPrice, int productQuantity)
+        [InlineData("Mouse1")]
+        public void AddedproductsToTheList_TryingToRemoveproductWithDifferentProductName_ConatainsIntheList(string searchNameOrID)
         {
-            var productManager = new ProductManager();
-            Product product = new Product(productName, productID, productPrice, productQuantity);
-            productManager.AddProductsToTheList(product);
+            var (product, productManager) = CreateProduct();
 
-            productManager.DeleteProductFromTheList(product);
+            Product result = productManager.SearchProductInTheList(searchNameOrID);
+
+            productManager.DeleteProductFromTheList(result);
+
+            Assert.Contains(product, productManager.GetProducts());
+        }
+
+        [Theory]
+        [InlineData("Mouse")]
+        public void AddedproductsToTheList_RemoveProductsFromTheList_DoesNotConatainIntheList(string NameOrIDToDelete)
+        {
+            var (product, productManager) = CreateProduct();
+            Product result = productManager.SearchProductInTheList(NameOrIDToDelete);
+
+            productManager.DeleteProductFromTheList(result);
 
             Assert.DoesNotContain(product, productManager.GetProducts());
         }
+
+
+        public (Product, ProductManager) CreateProduct()
+        {
+            Product product = new Product("Mouse", "ELE12", 450, 20);
+            ProductManager productManager = new ProductManager();
+            productManager.AddProductsToTheList(product);
+            return (product, productManager);
+
+        }
+
     }
 }

@@ -1,7 +1,8 @@
 ﻿namespace Assignments
-{/// <summary>
- ///  Manipulates the Lists created with the instances <see cref="Product"/>s.
- /// </summary>
+{
+    /// <summary>
+    ///  Manipulates the Lists created with the instances <see cref="Product"/>s.
+    /// </summary>
     public class Product
     {
         /// <summary>

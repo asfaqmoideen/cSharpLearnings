@@ -35,13 +35,8 @@ namespace Assignments
         /// <returns>true if product name existing else false</returns>
         public bool ISProductNameUnique(string productName)
         {
-            var check = this._productList.Any(p => p.ProductName.ToLower() == productName.ToLower());
-            if (check)
-            {
-                return true;
-            }
-
-            return false;
+            var productNameExists = this._productList.Any(p => p.ProductName.ToLower() == productName.ToLower());
+            return productNameExists;
         }
 
         /// <summary>
@@ -51,13 +46,8 @@ namespace Assignments
         /// <returns>true if product ID existing else false</returns>
         public bool IsProductIDUnique(string productID)
         {
-            var check = this._productList.Any(p => p.ProductID.ToLower() == productID.ToLower());
-            if (check)
-            {
-                return true;
-            }
-
-            return false;
+            var productIDExists = this._productList.Any(p => p.ProductID.ToLower() == productID.ToLower());
+            return productIDExists;
         }
 
         /// <summary>
@@ -109,19 +99,19 @@ namespace Assignments
         }
 
         /// <summary>
-        /// Edit the products with existng reference
+        /// Edits the product with existing reference
         /// </summary>
-        /// <param name="products">product reference</param>
-        /// <param name="productName">productname</param>
-        /// <param name="productID">productID</param>
-        /// <param name="productPrice">productPrice</param>
-        /// <param name="productQuantity">productquantity</param>
-        public void EditProductsWithReference(Product products, string productName, string productID, double productPrice, int productQuantity)
+        /// <param name="productToBeEdited"> reference object</param>
+        /// <param name="updatedProductName">new product name</param>
+        /// <param name="updatedProductID">new product ID</param>
+        /// <param name="updtaedProductPrice">new product price</param>
+        /// <param name="updtaedProductQuantity">new product quantity</param>
+        public void EditProductsWithReference(Product productToBeEdited, string updatedProductName, string updatedProductID, double updtaedProductPrice, int updtaedProductQuantity)
         {
-            products.ProductName = productName;
-            products.ProductID = productID;
-            products.ProductPrice = productPrice;
-            products.ProductQuantity = productQuantity;
+            productToBeEdited.ProductName = updatedProductName;
+            productToBeEdited.ProductID = updatedProductID;
+            productToBeEdited.ProductPrice = updtaedProductPrice;
+            productToBeEdited.ProductQuantity = updtaedProductQuantity;
         }
 
         /// <summary>
@@ -233,7 +223,7 @@ namespace Assignments
             if (this._productList.Count > 0)
             {
                 string searchNameOrID = this._userInterface.GetProductNameOrId();
-                Product searchResult = SearchProductInTheList(searchNameOrID);
+                Product searchResult = this.SearchProductInTheList(searchNameOrID);
                 string userConfirmation = this._userInterface.ConfirmTheProduct(searchResult.ProductName, searchResult.ProductID, searchResult.ProductPrice, searchResult.ProductQuantity);
 
                 if (userConfirmation == "Y" || userConfirmation == "y")
