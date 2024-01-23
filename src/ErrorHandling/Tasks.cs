@@ -75,7 +75,7 @@ namespace Assignments
             {
                 // uint ageToVote = uint.Parse(Console.ReadLine());
                 uint ageToVote = 2;
-                if (ageToVote < 18 )
+                if (ageToVote < 18)
                 {
                     throw new InvalidAgeInputException();
                 }
@@ -93,7 +93,7 @@ namespace Assignments
         /// A New Exception to Throw, and catch by AppDomain Unhandled Excetion Handler with StackTrace
         /// </summary>
         public void KeyNotFoundException()
-        {  
+        {
             Console.WriteLine("Task 4,5 - KeyNotFoundException");
             Dictionary<int, string> keys = new Dictionary<int, string>();
 

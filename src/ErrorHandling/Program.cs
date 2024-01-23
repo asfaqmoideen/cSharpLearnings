@@ -8,14 +8,19 @@
         private static void Main()
         {
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
-            while (true)
+            try
             {
                 Tasks tasks = new Tasks();
-                Console.WriteLine("Hello");
                 tasks.TryCatchFinallyDivideByZeroExeption();
                 tasks.TryCatchIndexOutsideBoundary();
                 tasks.InvalidUserInputException();
                 tasks.KeyNotFoundException();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Task 5 ");
+                Console.WriteLine("The StackTrace is :" + ex.StackTrace);
+                Console.ReadKey();
             }
         }
 
@@ -24,8 +29,6 @@
             Exception e = (Exception)args.ExceptionObject;
             Console.WriteLine("Unhandled Exception: "+ e.Message);
             Console.WriteLine("RunTime Terminating: "+ args.IsTerminating );
-            Console.WriteLine("The StackTrace is :" +e.StackTrace);
-            Console.ReadKey();
         }
     }
 } 
