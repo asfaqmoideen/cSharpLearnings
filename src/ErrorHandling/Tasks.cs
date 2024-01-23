@@ -12,11 +12,8 @@ namespace Assignments
         /// </summary>
         public void TryCatchFinallyDivideByZeroExeption()
         {
-            Console.WriteLine("Task 1 - Divide By Zero Exception");
-            Console.WriteLine("Enter a Divident");
-            int divident = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter a Divisor");
-            int divisor = int.Parse(Console.ReadLine());
+            int divident = 10;
+            int divisor = 0;
             try
             {
                 decimal result = divident / divisor;

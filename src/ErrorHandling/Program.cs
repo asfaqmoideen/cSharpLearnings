@@ -8,27 +8,20 @@
         private static void Main()
         {
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
-            try
-            {
-                Tasks tasks = new Tasks();
-                tasks.TryCatchFinallyDivideByZeroExeption();
-                tasks.TryCatchIndexOutsideBoundary();
-                tasks.InvalidUserInputException();
-                tasks.KeyNotFoundException();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Task 5 ");
-                Console.WriteLine("The StackTrace is :" + ex.StackTrace);
-                Console.ReadKey();
-            }
+            Tasks tasks = new Tasks();
+            tasks.TryCatchFinallyDivideByZeroExeption();
+            tasks.TryCatchIndexOutsideBoundary();
+            tasks.InvalidUserInputException();
+            tasks.KeyNotFoundException();
         }
 
         private static void MyHandler(object sender, UnhandledExceptionEventArgs args)
         {
             Exception e = (Exception)args.ExceptionObject;
-            Console.WriteLine("Unhandled Exception: "+ e.Message);
-            Console.WriteLine("RunTime Terminating: "+ args.IsTerminating );
+            Console.WriteLine("Unhandled Exception: " + e.Message);
+            Console.WriteLine("RunTime Terminating: " + args.IsTerminating);
+            Console.WriteLine("StackTrace: " + e.StackTrace);
+            Console.ReadKey();
         }
     }
-} 
+}
