@@ -25,7 +25,7 @@
             string productName;
             Console.WriteLine("Enter Product Name");
             productName = Console.ReadLine()!;
-            while (_productManager.ISProductNameUnique(productName))
+            while (_productManager.IsProductNameExists(productName))
             {
                 Console.WriteLine("Enter Unique product Name");
                 productName = Console.ReadLine() !;
@@ -44,7 +44,7 @@
             Console.WriteLine("Enter ID Name");
             productID = Console.ReadLine();
 
-            while(_productManager.IsProductIDUnique(productID))
+            while(_productManager.IsProductIDExists(productID))
             {
                 Console.WriteLine("Enter Uniquq ID Name");
                 productID = Console.ReadLine();

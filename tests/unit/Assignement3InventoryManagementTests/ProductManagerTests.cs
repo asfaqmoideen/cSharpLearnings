@@ -90,9 +90,9 @@ namespace Assignement3InventoryManagementTests
         {
             var (product, productManager) = CreateProduct();
 
-            var Result = productManager.ISProductNameUnique(newProuctName);
+            var Result = productManager.IsProductNameExists(newProuctName);
 
-            Assert.False(Result);
+            Assert.True(Result);
 
         }
 
@@ -102,9 +102,9 @@ namespace Assignement3InventoryManagementTests
         {
             var (product, productManager) = CreateProduct();
 
-            var Result = productManager.ISProductNameUnique(newProductName);
+            var Result = productManager.IsProductNameExists(newProductName);
 
-            Assert.True(Result);
+            Assert.False(Result);
         
 
         }
@@ -115,7 +115,7 @@ namespace Assignement3InventoryManagementTests
         {
             var (product, productManager) = CreateProduct();
 
-            var Result = productManager.IsProductIDUnique(newProuctID);
+            var Result = productManager.IsProductIDExists(newProuctID);
 
             Assert.True(Result);
 
@@ -127,7 +127,7 @@ namespace Assignement3InventoryManagementTests
         {
             var (product, productManager) = CreateProduct();
 
-            var Result = productManager.IsProductIDUnique(newProuctID);
+            var Result = productManager.IsProductIDExists(newProuctID);
 
             Assert.False(Result);
 

@@ -33,7 +33,7 @@ namespace Assignments
         /// </summary>
         /// <param name="productName">sdds</param>
         /// <returns>true if product name existing else false</returns>
-        public bool ISProductNameUnique(string productName)
+        public bool IsProductNameExists(string productName)
         {
             var productNameExists = this._productList.Any(p => p.ProductName.ToLower() == productName.ToLower());
             return productNameExists;
@@ -44,7 +44,7 @@ namespace Assignments
         /// </summary>
         /// <param name="productID">ewr</param>
         /// <returns>true if product ID existing else false</returns>
-        public bool IsProductIDUnique(string productID)
+        public bool IsProductIDExists(string productID)
         {
             var productIDExists = this._productList.Any(p => p.ProductID.ToLower() == productID.ToLower());
             return productIDExists;
