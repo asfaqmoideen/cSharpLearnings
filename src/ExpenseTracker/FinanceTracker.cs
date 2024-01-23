@@ -94,6 +94,7 @@ namespace Assignments
                 this._userInterface.PrintRedirectingToMenu();
             }
         }
+
         /// <summary>
         /// Adding objects to the list of income
         /// </summary>
@@ -182,12 +183,13 @@ namespace Assignments
         {
             foreach (var expense in this._expenses)
             {
-                if (expense.Category == searchCategory)
+                if (expense.Category.ToLower() == searchCategory.ToLower())
                 {
                     this._userInterface.ShowSearchResults(expense.Amount, expense.Category, expense.CreatedAt, expense.UpdatedAt);
                     return expense;
                 }
             }
+
             return null;
         }
         /// <summary>
@@ -199,14 +201,16 @@ namespace Assignments
         { 
                 foreach (var income in this._incomes)
                 {
-                    if (income.Source == searchCategory)
+                    if (income.Source.ToLower() == searchCategory.ToLower())
                     {
                         this._userInterface.ShowSearchResults(income.Amount, income.Source, income.CreatedAt, income.UpdatedAt);
                         return income;
                     }
                 }
+
                 return null;
         }
+
         /// <summary>
         /// Method to delete income
         /// </summary>
@@ -241,6 +245,7 @@ namespace Assignments
         {
             this._incomes.Remove(incomeEntity);
         }
+
         /// <summary>
         /// To edit past expense
         /// </summary>
@@ -269,6 +274,7 @@ namespace Assignments
                 this._userInterface.DisplayMessageForEmptyExpenseList();
             }
         }
+
         /// <summary>
         /// Edits the changed fields with refrence
         /// </summary>
@@ -276,7 +282,7 @@ namespace Assignments
         /// <param name="newExpense">New expesne amount</param>
         /// <param name="expenseCategory">new expense category</param>
         public void EditExpenseWithReferenceObject(ExpenseEntity expenseEntity, double newExpense, string expenseCategory)
-        { 
+        {
             expenseEntity.Amount = newExpense;
             expenseEntity.Category = expenseCategory;
             expenseEntity.UpdatedAt = DateTime.Now;
@@ -288,28 +294,13 @@ namespace Assignments
         /// <param name="expenseAmount">string input from UI</param>
         /// <param name="expenseAmountOutput">Double out put when</param>
         /// <returns>true if the input is double, false elsewhere</returns>
-        public bool IsExpenseAmountDouble(string expenseAmount, out double expenseAmountOutput)
+        public bool IsAmountDouble(string expenseAmount, out double expenseAmountOutput)
         {
             bool isExpenseDouble = false;
             double expenseamount;
             isExpenseDouble = double.TryParse(expenseAmount, out expenseamount);
             expenseAmountOutput = expenseamount;
-            return isExpenseDouble;
-        }
-
-        /// <summary>
-        /// Validating input income is double
-        /// </summary>
-        /// <param name="incomeAmount">Strng input</param>
-        /// <param name="incomeAmountOutput">double output</param>
-        /// <returns>True if the input is double, false elsewhere </returns>
-        public bool IsIncomeAmountDouble(string incomeAmount, out double incomeAmountOutput)
-        {
-            bool isIncomeDouble = false;
-            double incomeamount;
-            isIncomeDouble = double.TryParse(incomeAmount, out incomeamount);
-            incomeAmountOutput = incomeamount;
-            return isIncomeDouble;
+            return isExpenseDouble && (expenseAmountOutput > 0);
         }
 
         /// <summary>
@@ -321,11 +312,12 @@ namespace Assignments
         {
             foreach (var income in this._incomes)
             {
-                if (income.Source == incomeSource)
+                if (income.Source.ToLower() == incomeSource.ToLower())
                 {
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -338,14 +330,15 @@ namespace Assignments
         {
             foreach (var expense in this._expenses)
             {
-                if (expense.Category == expenseCategory)
+                if (expense.Category.ToLower() == expenseCategory.ToLower())
                 {
                     return false;
                 }
             }
+
             return true;
         }
-
+         
         /// <summary>
         /// Method that returs the total Expense
         /// </summary>
@@ -396,7 +389,7 @@ namespace Assignments
         {
             string expesneAmountString = this._userInterface.GetExpenseAmountFromTheUser();
             double expenseAmountDouble;
-            while (!this.IsExpenseAmountDouble(expesneAmountString, out expenseAmountDouble))
+            while (!this.IsAmountDouble(expesneAmountString, out expenseAmountDouble))
             {
                 expesneAmountString = this._userInterface.GetExpenseAmountFromTheUser();
             }
@@ -440,10 +433,11 @@ namespace Assignments
         {
             string incomeAmountString = this._userInterface.GetIncomeAmountFromTheUser();
             double incomeAmountDouble;
-            while (!this.IsIncomeAmountDouble(incomeAmountString, out incomeAmountDouble))
+            while (!this.IsAmountDouble(incomeAmountString, out incomeAmountDouble))
             {
                 incomeAmountString = this._userInterface.GetIncomeAmountFromTheUser();
             }
+
             return incomeAmountDouble;
         }
 
@@ -471,7 +465,7 @@ namespace Assignments
                 }
             }
         }
-        
+
         /// <summary>
         /// Edit expense with refrence 
         /// </summary>
