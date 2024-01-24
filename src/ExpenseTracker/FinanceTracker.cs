@@ -338,7 +338,7 @@ namespace Assignments
 
             return true;
         }
-         
+
         /// <summary>
         /// Method that returs the total Expense
         /// </summary>
