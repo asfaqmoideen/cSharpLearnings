@@ -21,6 +21,7 @@
             Console.WriteLine("\tTotal Expense = " + totalExpense);
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
         }
+
         /// <summary>
         /// Gets the expense category from the user
         /// </summary>
@@ -28,7 +29,7 @@
         public string GetExpenseCategoryFromTheUser()
         {
             Console.WriteLine("Expense Category");
-            string expenseCategory = Console.ReadLine();
+            string? expenseCategory = Console.ReadLine();
             return expenseCategory;
         }
 
@@ -39,7 +40,7 @@
         public string GetIncomeSourceFromTheUser()
         {
             Console.WriteLine("Income Source");
-            string incomeSource = Console.ReadLine();
+            string? incomeSource = Console.ReadLine();
             return incomeSource;
         }
 
@@ -52,6 +53,7 @@
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
             Console.WriteLine("Redirecing to Menu");
         }
+
         /// <summary>
         /// Display no expense whenever it is called
         /// </summary>
@@ -61,6 +63,7 @@
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
             Console.WriteLine("Redirecing to Menu");
         }
+
         /// <summary>
         /// gets option from the user whetehr income or expense
         /// </summary>
@@ -76,6 +79,7 @@
             string? option = Console.ReadLine();
             return option;
         }
+
         /// <summary>
         /// Gets income amount from the user
         /// </summary>
@@ -86,6 +90,7 @@
             string expenseAmount = Console.ReadLine();
             return expenseAmount;
         }
+
         /// <summary>
         /// Gets income amount from the user
         /// </summary>
@@ -96,6 +101,7 @@
             string incomeAmount = Console.ReadLine();
             return incomeAmount;
         }
+
         /// <summary>
         /// Printing Redirecting to menu when it is called
         /// </summary>
@@ -104,6 +110,7 @@
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
             Console.WriteLine("Redirecing to Menu");
         }
+
         /// <summary>
         /// get confirmation from the user
         /// </summary>
@@ -114,19 +121,21 @@
             string option = Console.ReadLine();
             return option;
         }
+
         /// <summary>
-        /// dsc
+        /// Will shoow the search results
         /// </summary>
-        /// <param name="amount">df</param>
-        /// <param name="category">fdsdf</param>
-        /// <param name="createdAt">we</param>
-        /// <param name="updatedAt">sd</param>
+        /// <param name="amount">Expense Amount</param>
+        /// <param name="category"> Expense Categoryfdsdf</param>
+        /// <param name="createdAt">Expense created time </param>
+        /// <param name="updatedAt">Expense updated time</param>
         internal void ShowSearchResults(double amount, string category, DateTime createdAt, DateTime updatedAt)
         {
             Console.WriteLine("Search Result");
             Console.WriteLine("Amount :" + amount + "\n" + "Category :" + category +
                 "\n" + "Created Date " + createdAt + "\n" + "Updated Date: " + updatedAt + "\t");
         }
+
         /// <summary>
         /// option from the user
         /// </summary>

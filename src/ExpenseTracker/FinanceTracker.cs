@@ -68,7 +68,7 @@ namespace Assignments
         /// Adds expense parameters to th expense list
         /// </summary>
         /// <param name="expenseEntity">OPbject expenseentity</param>
-        public void AddExpenseToTheList( ExpenseEntity expenseEntity )
+        public void AddExpenseToTheList(ExpenseEntity expenseEntity)
         {
             this._expenses.Add(expenseEntity);
         }
@@ -109,18 +109,16 @@ namespace Assignments
         /// </summary>
         public void ViewExpense()
         {
+            if (this._expenses.Count > 0)
             {
-                if (this._expenses.Count > 0)
+                foreach (var expense in this._expenses)
                 {
-                    foreach (var expense in this._expenses)
-                    {
-                        Console.WriteLine(expense.Amount + "\t" + expense.Category + "\t" + expense.CreatedAt + "\t" + expense.UpdatedAt);
-                    }
+                    Console.WriteLine(expense.Amount + "\t" + expense.Category + "\t" + expense.CreatedAt + "\t" + expense.UpdatedAt);
                 }
-                else
-                {
-                    this._userInterface.DisplayMessageForEmptyExpenseList();
-                }
+            }
+            else
+            {
+                this._userInterface.DisplayMessageForEmptyExpenseList();
             }
         }
 
@@ -130,19 +128,17 @@ namespace Assignments
         public void ViewIncome()
         {
             Console.WriteLine("Income");
+            if (this._incomes.Count > 0)
             {
-                if (this._incomes.Count > 0)
+                Console.WriteLine("Amouny\tSource\tCreated Date\tUpdtaed Date");
+                foreach (var incomes in this._incomes)
                 {
-                    Console.WriteLine("Amouny\tSource\tCreated Date\tUpdtaed Date");
-                    foreach (var incomes in this._incomes)
-                    {
-                        Console.WriteLine(incomes.Amount + "\t" + incomes.Source + "\t" + incomes.CreatedAt + "\t" + incomes.UpdatedAt);
-                    }
+                    Console.WriteLine(incomes.Amount + "\t" + incomes.Source + "\t" + incomes.CreatedAt + "\t" + incomes.UpdatedAt);
                 }
-                else
-                {
-                    this._userInterface.DisplayMessageForEmptyIncomeList();
-                }
+            }
+            else
+            {
+                this._userInterface.DisplayMessageForEmptyIncomeList();
             }
         }
 
@@ -166,6 +162,7 @@ namespace Assignments
                 }
             }
         }
+
         /// <summary>
         /// Removes expense object with the refrence
         /// </summary>
@@ -174,6 +171,7 @@ namespace Assignments
         {
             this._expenses.Remove(expenseEntity);
         }
+
         /// <summary>
         /// Search from expense list
         /// </summary>
@@ -192,23 +190,24 @@ namespace Assignments
 
             return null;
         }
+
         /// <summary>
         /// Search from expense list
         /// </summary>
         /// <param name="searchCategory">search category</param>
         /// <returns> expense entity as</returns>
         public IncomeEntity? SearchIncomeFromTheList(string searchCategory)
-        { 
-                foreach (var income in this._incomes)
+        {
+            foreach (var income in this._incomes)
+            {
+                if (income.Source.ToLower() == searchCategory.ToLower())
                 {
-                    if (income.Source.ToLower() == searchCategory.ToLower())
-                    {
-                        this._userInterface.ShowSearchResults(income.Amount, income.Source, income.CreatedAt, income.UpdatedAt);
-                        return income;
-                    }
+                    this._userInterface.ShowSearchResults(income.Amount, income.Source, income.CreatedAt, income.UpdatedAt);
+                    return income;
                 }
+            }
 
-                return null;
+            return null;
         }
 
         /// <summary>
@@ -454,10 +453,10 @@ namespace Assignments
 
                 if (option == "Y" || option == "y")
                 {
-                    double newIncome = this.GetIncomeAmount();
-                    string incomeCategory = this._userInterface.GetIncomeSourceFromTheUser();
+                    double newIncomeToBeEdited = this.GetIncomeAmount();
+                    string incomeCategoryToBeEdited = this._userInterface.GetIncomeSourceFromTheUser();
                     DateTime updatedAt = DateTime.Now;
-                    EditIncomeWithReferenceObject(incomeResult, newIncome, incomeCategory);
+                    EditIncomeWithReferenceObject(incomeResult, newIncomeToBeEdited, incomeCategoryToBeEdited);
                 }
                 else
                 {
@@ -467,7 +466,7 @@ namespace Assignments
         }
 
         /// <summary>
-        /// Edit expense with refrence 
+        /// Edit expense with refrence
         /// </summary>
         /// <param name="incomeEntity">object</param>
         /// <param name="newIncome">new income </param>
