@@ -259,9 +259,9 @@ namespace Assignments
                 if (option == "Y" || option == "y")
                 {
                     double newExpense = this.GetExpenseAmount();
-                    string expenseCategory = this._userInterface.GetExpenseCategoryFromTheUser();
+                    string newExpenseCategory = this._userInterface.GetExpenseCategoryFromTheUser();
 
-                    this.EditExpenseWithReferenceObject(expenseResult, newExpense, expenseCategory);
+                    this.EditExpenseWithReferenceObject(expenseResult, newExpense, newExpenseCategory);
                 }
                 else
                 {
@@ -279,11 +279,11 @@ namespace Assignments
         /// </summary>
         /// <param name="expenseEntity"> Result expense entity</param>
         /// <param name="newExpense">New expesne amount</param>
-        /// <param name="expenseCategory">new expense category</param>
-        public void EditExpenseWithReferenceObject(ExpenseEntity expenseEntity, double newExpense, string expenseCategory)
+        /// <param name="newExpenseCategory">new expense category</param>
+        public void EditExpenseWithReferenceObject(ExpenseEntity expenseEntity, double newExpense, string newExpenseCategory)
         {
             expenseEntity.Amount = newExpense;
-            expenseEntity.Category = expenseCategory;
+            expenseEntity.Category = newExpenseCategory;
             expenseEntity.UpdatedAt = DateTime.Now;
         }
 
