@@ -55,7 +55,7 @@ namespace Assignemnts
         /// <summary>
         /// show the assigned tasks
         /// </summary>
-        public void ShowResults()
+        public void ShowLog()
         { 
             foreach (Employee employee in _employeeManager.GetEmployees())
             {

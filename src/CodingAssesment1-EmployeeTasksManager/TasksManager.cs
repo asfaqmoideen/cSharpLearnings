@@ -37,14 +37,14 @@
                 string requiredHoursString = Console.ReadLine();
                 isRequiredHoursDouble = double.TryParse(requiredHoursString, out requiredHours);
             }
-            while(isRequiredHoursDouble);
+            while(!isRequiredHoursDouble);
             do
             {
-                Console.WriteLine("Enter Required Hours to Complete");
+                Console.WriteLine("Enter Deadline in Days");
                 string deadlineIndaysString = Console.ReadLine();
                 isDeadlineinDaysDouble = double.TryParse(deadlineIndaysString, out deadlineInDays);
             }
-            while (isDeadlineinDaysDouble);
+            while (!isDeadlineinDaysDouble);
 
             Console.WriteLine("Enter Required SKill");
             string requiredSkill = Console.ReadLine();
@@ -120,11 +120,11 @@
                 {
                     this.AddTask();
                 }
-                if (option == "2")
+                else if (option == "2")
                 {
                     this.ViewAllTasks();
                 }
-                if (option == "3")
+                else if (option == "3")
                 {
                     this.RemoveTask();
                 }

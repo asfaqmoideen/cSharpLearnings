@@ -13,7 +13,7 @@ namespace Assignments
             {
                 Console.WriteLine("Welcome to Employee Tasks Manager");
 
-                Console.WriteLine("Choose any option to proceed\n1.Manage Employee\n2.ManageTasks\n3.Run Schedule Task");
+                Console.WriteLine("Choose any option to proceed\n1.Manage Employee\n2.ManageTasks\n3.Run Schedule Task\n4.Show Log");
                 string option = Console.ReadLine();
                 TasksManager tasksManager = new TasksManager();
                 EmployeeManager employeeManager = new EmployeeManager();
@@ -34,7 +34,7 @@ namespace Assignments
                     }
                     else if (option == "4")
                     {
-                        scheduleTasks.ShowResults();
+                        scheduleTasks.ShowLog();
                     }
                 }
             }

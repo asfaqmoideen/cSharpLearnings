@@ -103,11 +103,11 @@ namespace Assignments
                 {
                     this.AddEmpoyee();
                 }
-                if (option == "2")
+                else if (option == "2")
                 {
                     this.ViewAllEmployees();
                 }
-                if (option == "3")
+                else if (option == "3")
                 {
                     this.RemoveEmpoyee();
                 }
