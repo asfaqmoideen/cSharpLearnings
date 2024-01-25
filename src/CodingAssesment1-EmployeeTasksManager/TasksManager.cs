@@ -111,7 +111,7 @@
         /// </summary>
         public void ExecuteTasksmanager()
         {
-            Console.WriteLine("Choose any Operation\n1.AddEmployee\n2.ViewAllEmployee\n3.RemoveEmployee");
+            Console.WriteLine("Choose any Operation\n1.AddTask\n2.ViewAllTasks\n3.RemoveTasks");
             string option = Console.ReadLine();
 
             if (option != null)
