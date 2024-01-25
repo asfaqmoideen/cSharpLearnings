@@ -6,7 +6,22 @@ namespace Assignments
     /// </summary>
     internal class EmployeeManager
     {
-        private List<Employee> _employees = new List<Employee>();
+        private List<Employee> _employees;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmployeeManager"/> class.
+        /// </summary>
+        public EmployeeManager()
+        {
+            _employees = new List<Employee>();
+        }
+        /// <summary>
+        /// To acces the employee list outside
+        /// </summary>
+        /// <returns>the list of employee</returns>
+        public IEnumerable<Employee> GetEmployees()
+        {
+            return _employees;
+        }
 
         /// <summary>
         /// Method to add an employee to the llist
@@ -70,6 +85,35 @@ namespace Assignments
                 foreach(Employee employee in _employees)
                 {
                     Console.WriteLine("Employee Name: " + employee.Name + "Skills: " + employee.Skills + "AssignedTask: " + employee.AssignedTask);
+                }
+            }
+        }
+        /// <summary>
+        /// Executed the opertaion in employee manager
+        /// </summary>
+        /// <param name="option">option from the user</param>
+        public void ExecuteEmployeemanager()
+        {
+            Console.WriteLine("Choose any Operation\n1.AddEmployee\n2.ViewAllEmployee\n3.RemoveEmployee");
+            string option = Console.ReadLine();
+
+            if (option != null)
+            {
+                if (option == "1")
+                {
+                    this.AddEmpoyee();
+                }
+                if (option == "2")
+                {
+                    this.ViewAllEmployees();
+                }
+                if (option == "3")
+                {
+                    this.RemoveEmpoyee();
+                }
+                else
+                {
+                    Console.WriteLine("Enter Valid Opton");
                 }
             }
         }
