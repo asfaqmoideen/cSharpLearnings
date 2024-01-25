@@ -7,35 +7,44 @@ namespace Assignments
     /// </summary>
     internal class Program
     {
+        private enum Option
+        {
+            EmployeeManager = 1,
+            TasksManager,
+            Schedule,
+            ShowLogs,
+        }
+
         private static void Main()
         {
+            TasksManager tasksManager = new TasksManager();
+            EmployeeManager employeeManager = new EmployeeManager();
+            ScheduleTasks scheduleTasks = new ScheduleTasks(tasksManager, employeeManager);
+
             while (true)
             {
                 Console.WriteLine("Welcome to Employee Tasks Manager");
 
                 Console.WriteLine("Choose any option to proceed\n1.Manage Employee\n2.ManageTasks\n3.Run Schedule Task\n4.Show Log");
-                string option = Console.ReadLine();
-                TasksManager tasksManager = new TasksManager();
-                EmployeeManager employeeManager = new EmployeeManager();
-                ScheduleTasks scheduleTasks = new ScheduleTasks();
-                if (option != null)
+                bool isOptionInt = int.TryParse(Console.ReadLine(), out int option);
+                Option userOption = (Option)option;
+
+                switch (userOption)
                 {
-                    if (option == "1")
-                    {
+                    case Option.EmployeeManager:
                         employeeManager.ExecuteEmployeemanager();
-                    }
-                    else if (option == "2")
-                    {
+                        break;
+                    case Option.TasksManager:
                         tasksManager.ExecuteTasksmanager();
-                    }
-                    else if (option == "3")
-                    {
+                        break;
+                    case Option.Schedule:
                         scheduleTasks.StartAllocationgTasks();
-                    }
-                    else if (option == "4")
-                    {
+                        break;
+                    case Option.ShowLogs:
                         scheduleTasks.ShowLog();
-                    }
+                        break;
+                    default:
+                        break;
                 }
             }
         }

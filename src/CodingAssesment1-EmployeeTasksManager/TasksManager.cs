@@ -6,22 +6,30 @@
     internal class TasksManager
     {
         private List<Tasks> _tasks;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TasksManager"/> class.
         /// </summary>
         public TasksManager()
         {
-            _tasks = new List<Tasks>(); 
+            _tasks = new List<Tasks>();
         }
+
+        private enum Option
+        {
+            Add = 1,
+            View,
+            Remove
+        }
+
         /// <summary>
         /// to acces the list outside
         /// </summary>
         /// <returns>the list of tasks</returns>
-        public IEnumerable<Tasks> GetTasks()
+        public List<Tasks> GetTasks()
         {
             return _tasks;
         }
-
         /// <summary>
         /// Method to Add tasks
         /// </summary>
@@ -70,6 +78,7 @@
 
             Console.WriteLine("Employee Deleted");
         }
+
         /// <summary>
         /// Traverse through the list and returns employee reference
         /// </summary>
@@ -112,26 +121,24 @@
         public void ExecuteTasksmanager()
         {
             Console.WriteLine("Choose any Operation\n1.AddTask\n2.ViewAllTasks\n3.RemoveTasks");
-            string option = Console.ReadLine();
+            bool isOptionInt = int.TryParse(Console.ReadLine(), out int option);
 
-            if (option != null)
+            Option userOption = (Option)option;
+
+            switch (userOption)
             {
-                if (option == "1")
-                {
+                case Option.Add:
                     this.AddTask();
-                }
-                else if (option == "2")
-                {
-                    this.ViewAllTasks();
-                }
-                else if (option == "3")
-                {
+                    break;
+                case Option.Remove:
                     this.RemoveTask();
-                }
-                else
-                {
+                    break;
+                case Option.View:
+                    this.ViewAllTasks();
+                    break;
+                default:
                     Console.WriteLine("Enter Valid Opton");
-                }
+                    break;
             }
         }
     }

@@ -1,24 +1,31 @@
 ﻿using System.ComponentModel;
 
 namespace Assignments
-{   /// <summary>
+{   
+    /// <summary>
     /// Manipulates and Manages Employee class
     /// </summary>
     internal class EmployeeManager
     {
-        private List<Employee> _employees;
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EmployeeManager"/> class.
-        /// </summary>
-        public EmployeeManager()
+        private List<Employee> _employees = new List<Employee>();
+        ///// <summary>
+        ///// Initializes a new instance of the <see cref="EmployeeManager"/> class.
+        ///// </summary>
+        //public EmployeeManager()
+        //{
+        //    _employees = new List<Employee>();
+        //}
+        private enum Option
         {
-            _employees = new List<Employee>();
+            Add = 1,
+            View,
+            Remove
         }
         /// <summary>
         /// To acces the employee list outside
         /// </summary>
         /// <returns>d</returns>
-        public IEnumerable<Employee> GetEmployees()
+        public List<Employee> GetEmployees()
         {
             return _employees;
         }
@@ -37,9 +44,10 @@ namespace Assignments
 
             Employee employee = new Employee(employeeName, workingHours, employeeSkill, taskAssigned);
 
-            _employees.Add(employee);
-            Console.WriteLine("Employee Added");
+            this._employees.Add(employee);
+            Console.WriteLine("Employee Added" + _employees.Count());
         }
+
         /// <summary>
         /// Removes employee from the list 
         /// </summary>
@@ -54,6 +62,7 @@ namespace Assignments
 
             Console.WriteLine("Employee Deleted");
         }
+
         /// <summary>
         /// Traverse through the list and returns employee reference
         /// </summary>
@@ -80,14 +89,21 @@ namespace Assignments
         /// </summary>
         public void ViewAllEmployees()
         {
-            if(_employees != null)
+            Console.WriteLine(_employees.Count());
+            if (_employees.Count() > 0)
             {
-                foreach(Employee employee in _employees)
+                Console.WriteLine("Employess");
+                foreach (Employee employee in _employees)
                 {
                     Console.WriteLine("Employee Name: " + employee.Name + "Skills: " + employee.Skills + "AssignedTask: " + employee.AssignedTask);
                 }
             }
+            else
+            {
+                Console.WriteLine("No elmployees were added");
+            }
         }
+
         /// <summary>
         /// Executed the opertaion in employee manager
         /// </summary>
@@ -95,26 +111,24 @@ namespace Assignments
         public void ExecuteEmployeemanager()
         {
             Console.WriteLine("Choose any Operation\n1.AddEmployee\n2.ViewAllEmployee\n3.RemoveEmployee");
-            string option = Console.ReadLine();
+            bool isOptionInt = int.TryParse(Console.ReadLine(), out int option);
 
-            if (option != null)
+            Option userOption = (Option)option;
+
+            switch (userOption)
             {
-                if (option == "1")
-                {
+                case Option.Add:
                     this.AddEmpoyee();
-                }
-                else if (option == "2")
-                {
-                    this.ViewAllEmployees();
-                }
-                else if (option == "3")
-                {
+                    break;
+                case Option.Remove:
                     this.RemoveEmpoyee();
-                }
-                else
-                {
+                    break;
+                case Option.View:
+                    this.ViewAllEmployees();
+                    break;
+                default:
                     Console.WriteLine("Enter Valid Opton");
-                }
+                    break;
             }
         }
     }

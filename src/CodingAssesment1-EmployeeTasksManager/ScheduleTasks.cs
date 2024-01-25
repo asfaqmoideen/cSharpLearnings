@@ -7,27 +7,27 @@ namespace Assignemnts
     /// </summary>
     internal class ScheduleTasks
     {
-        private TasksManager _tasksManager = new TasksManager();
-        private EmployeeManager _employeeManager = new EmployeeManager();
+        private TasksManager _tasksManager;
+        private EmployeeManager _employeeManager;
+
+        public ScheduleTasks(TasksManager tasksManager, EmployeeManager employeeManager)
+        {
+            this._tasksManager = tasksManager;
+            this._employeeManager = employeeManager;
+        }
 
         /// <summary>
         /// Starts Allocating Tasks
         /// </summary>
         public void StartAllocationgTasks()
         {
-            IEnumerable<Tasks> taskslist;
-            IEnumerable<Employee> employeelist;
-
-            taskslist = _tasksManager.GetTasks();
-            employeelist = _employeeManager.GetEmployees();
-
-            foreach (Tasks tasks in taskslist)
+            foreach (Tasks tasks in this._tasksManager.GetTasks())
             {
-                foreach (Employee employee in employeelist)
+                foreach (Employee employee in this._employeeManager.GetEmployees())
                 {
                     if (tasks.RequiredSkill == employee.Skills)
                     {
-                        AssignTheTaskToEmployee(employee, tasks);
+                        this.AssignTheTaskToEmployee(employee, tasks);
                     }
                 }
             }
@@ -40,6 +40,7 @@ namespace Assignemnts
         /// <param name="tasks">object tasks</param>
         public void AssignTheTaskToEmployee(Employee employee, Tasks tasks)
         {
+            Console.WriteLine("Task Allocated");
             if (tasks.RequiredHours > 0)
             {
                 employee.Skills = tasks.RequiredSkill;
@@ -56,10 +57,10 @@ namespace Assignemnts
         /// show the assigned tasks
         /// </summary>
         public void ShowLog()
-        { 
-            foreach (Employee employee in _employeeManager.GetEmployees())
+        {
+            foreach (Employee employee in this._employeeManager.GetEmployees())
             {
-                if(employee.AssignedTask != null)
+                if (employee.AssignedTask != null)
                 {
                     Console.WriteLine("Tasks Allocated : " + employee.AssignedTask + "To :" + employee.Name);
                 }
