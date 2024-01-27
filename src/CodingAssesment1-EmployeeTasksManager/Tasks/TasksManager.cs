@@ -1,4 +1,4 @@
-﻿namespace Assignments
+﻿namespace CodingAssesment1
 {
     /// <summary>
     ///  manipulates and manages  Class Tasks
@@ -6,6 +6,7 @@
     internal class TasksManager
     {
         private List<Tasks> _tasks;
+        private TaskIOConsole _taskConsole;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TasksManager"/> class.
@@ -13,6 +14,7 @@
         public TasksManager()
         {
             this._tasks = new List<Tasks>();
+            this._taskConsole = new TaskIOConsole();
         }
 
         private enum Option
@@ -36,33 +38,15 @@
         /// </summary>
         public void AddTask()
         {
-            Console.WriteLine("Enter Task Name");
-            string? taskName = Console.ReadLine();
-            bool isRequiredHoursDouble, isDeadlineinDaysDouble;
-            double requiredHours, deadlineInDays;
-            do
-            {
-                Console.WriteLine("Enter Required Hours to Complete");
-                string? requiredHoursString = Console.ReadLine();
-                isRequiredHoursDouble = double.TryParse(requiredHoursString, out requiredHours);
-            }
-            while (!isRequiredHoursDouble);
-            do
-            {
-                Console.WriteLine("Enter Deadline in Days");
-                string? deadlineIndaysString = Console.ReadLine();
-                isDeadlineinDaysDouble = double.TryParse(deadlineIndaysString, out deadlineInDays);
-            }
-            while (!isDeadlineinDaysDouble);
-
-            Console.WriteLine("Enter Required SKill");
-            string? requiredSkill = Console.ReadLine();
-            Console.WriteLine("Enter Description");
-            string? description = Console.ReadLine();
-
-            Tasks tasks = new Tasks(taskName, requiredHours, deadlineInDays, requiredSkill, description);
-
+            string taskName = this._taskConsole.GetTaskName();
+            string taskDescription = this._taskConsole.GetTaskDescription();
+            double requiredHours = this._taskConsole.GetTasksRequiredHours();
+            double deadlineInDays = this._taskConsole.GetTasksDeadlineInDays();
+            string requiredSkill = this._taskConsole.GetTaskRequiredSkills();
+            Tasks tasks = new Tasks(taskName, requiredHours, deadlineInDays, requiredSkill, taskDescription);
             this._tasks.Add(tasks);
+            string addAnother = _taskConsole.AddAnotherTaskToTheList();
+            if (addAnother == "1") { this.AddTask(); }
         }
 
         /// <summary>
@@ -70,13 +54,9 @@
         /// </summary>
         public void RemoveTask()
         {
-            Console.WriteLine("Enter Task Name");
-            string? taskName = Console.ReadLine();
-
+            string taskName = this._taskConsole.GetTaskName();
             Tasks searchResult = this.SearchTasksFromTheList(taskName);
-
             this._tasks.Remove(searchResult);
-
             Console.WriteLine("Employee Deleted");
         }
 
@@ -116,6 +96,7 @@
                 }
             }
         }
+
         /// <summary>
         /// Executes the task mamanger
         /// </summary>

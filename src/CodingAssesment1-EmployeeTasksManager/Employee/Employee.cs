@@ -1,4 +1,4 @@
-﻿namespace Assignments
+﻿namespace CodingAssesment1
 {   /// <summary>
     /// Employee Entity
     /// </summary>

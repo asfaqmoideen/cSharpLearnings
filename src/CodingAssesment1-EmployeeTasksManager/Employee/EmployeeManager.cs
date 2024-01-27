@@ -1,26 +1,29 @@
-﻿using System.ComponentModel;
-
-namespace Assignments
-{   
+﻿namespace CodingAssesment1
+{
     /// <summary>
     /// Manipulates and Manages Employee class
     /// </summary>
     internal class EmployeeManager
     {
-        private List<Employee> _employees = new List<Employee>();
-        ///// <summary>
-        ///// Initializes a new instance of the <see cref="EmployeeManager"/> class.
-        ///// </summary>
-        //public EmployeeManager()
-        //{
-        //    _employees = new List<Employee>();
-        //}
+        private List<Employee> _employees;
+        private EmployeeIOConsole _console;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmployeeManager"/> class.
+        /// </summary>
+        public EmployeeManager()
+        {
+            _employees = new List<Employee>();
+            _console = new EmployeeIOConsole();
+        }
+
         private enum Option
         {
             Add = 1,
             View,
-            Remove
+            Remove,
         }
+
         /// <summary>
         /// To acces the employee list outside
         /// </summary>
@@ -35,20 +38,16 @@ namespace Assignments
         /// </summary>
         public void AddEmpoyee()
         {
-            Console.WriteLine("Enter Employee Name");
-            string employeeName = Console.ReadLine();
-            Console.WriteLine("Enter Skills of the Employee");
-            string employeeSkill = Console.ReadLine();
+            string employeeName = _console.GetEmployeeName();
+            string employeeSkill = _console.GetEmployeeSkills();
+            double availableDays = _console.GetEmployeeAvailableHours();
             string taskAssigned = null ;
-            double workingHours = 8; //Constant working hours for all employee
-            double availableDays;
-            Console.WriteLine("Enter employe availablility in days");
-            bool isAvailableDaysDouble = double.TryParse(Console.ReadLine(), out availableDays);
-
+            double workingHours = 8; //Constant working hours for all employees
             Employee employee = new Employee(employeeName, workingHours, employeeSkill, taskAssigned, availableDays);
-
             this._employees.Add(employee);
-            Console.WriteLine("Employee Added" + _employees.Count());
+            Console.WriteLine("Totally, " + this._employees.Count() + "Employees Were Added");
+            string option = _console.GetOptionToAddAnotherEmployee();
+            if (option == "1") { AddEmpoyee(); }
         }
 
         /// <summary>
@@ -56,13 +55,9 @@ namespace Assignments
         /// </summary>
         public void RemoveEmpoyee()
         {
-            Console.WriteLine("Enter Employee Name");
-            string employeeName = Console.ReadLine();
-
+            string employeeName = _console.GetEmployeeName();
             Employee searchResult = this.SearchEmployeeFromTheList(employeeName);
-
-            _employees.Remove(searchResult);
-
+            this._employees.Remove(searchResult);
             Console.WriteLine("Employee Deleted");
         }
 
@@ -73,11 +68,11 @@ namespace Assignments
         /// <returns>object of employee</returns>
         public Employee SearchEmployeeFromTheList(string? employeeName)
         {
-            if(_employees != null)
+            if (this._employees != null)
             {
                 foreach (Employee employee in _employees)
                 {
-                    if(employee.Name.ToLower() == employeeName.ToLower())
+                    if (employee.Name.ToLower() == employeeName.ToLower())
                     {
                         return employee;
                     }
@@ -93,10 +88,10 @@ namespace Assignments
         public void ViewAllEmployees()
         {
             Console.WriteLine(_employees.Count());
-            if (_employees.Count() > 0)
+            if (this._employees.Count() > 0)
             {
                 Console.WriteLine("Employess");
-                foreach (Employee employee in _employees)
+                foreach (Employee employee in this._employees)
                 {
                     Console.WriteLine("Employee Name: " + employee.Name + "Skills: " + employee.Skills + "AssignedTask: " + employee.AssignedTask);
                 }

@@ -1,6 +1,4 @@
-﻿using Assignemnts;
-
-namespace Assignments
+﻿namespace CodingAssesment1
 {
     /// <summary>
     /// Initiates the Program
