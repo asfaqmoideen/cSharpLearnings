@@ -9,7 +9,11 @@ namespace Assignemnts
     {
         private TasksManager _tasksManager;
         private EmployeeManager _employeeManager;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ScheduleTasks"/> class.
+        /// </summary>
+        /// <param name="tasksManager">instance from program class</param>
+        /// <param name="employeeManager">instance form program class</param>
         public ScheduleTasks(TasksManager tasksManager, EmployeeManager employeeManager)
         {
             this._tasksManager = tasksManager;
@@ -25,7 +29,7 @@ namespace Assignemnts
             {
                 foreach (Employee employee in this._employeeManager.GetEmployees())
                 {
-                    if (tasks.RequiredSkill == employee.Skills)
+                    if (tasks.RequiredSkill == employee.Skills && employee.AvailableDays >= tasks.DeadlineInDays)
                     {
                         this.AssignTheTaskToEmployee(employee, tasks);
                     }
@@ -40,21 +44,24 @@ namespace Assignemnts
         /// <param name="tasks">object tasks</param>
         public void AssignTheTaskToEmployee(Employee employee, Tasks tasks)
         {
-            Console.WriteLine("Task Allocated");
             if (tasks.RequiredHours > 0)
             {
-                employee.Skills = tasks.RequiredSkill;
+                employee.AssignedTask = tasks.Name;
+
+                employee.AvailableDays -= tasks.RequiredHours / employee.WorkingHours;
+
                 tasks.RequiredHours -= employee.WorkingHours * tasks.DeadlineInDays;
-                Console.WriteLine("Task Allocated to " + employee.Name + "for" + tasks.DeadlineInDays);
+
+                Console.WriteLine("Task Allocated to: " + employee.Name);
             }
             else
             {
-                Console.WriteLine("Task Allocated");
+                Console.WriteLine("Task Already Allocated");
             }
         }
 
         /// <summary>
-        /// show the assigned tasks
+        /// To Show the assigned tasks
         /// </summary>
         public void ShowLog()
         {

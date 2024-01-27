@@ -12,14 +12,14 @@
         /// </summary>
         public TasksManager()
         {
-            _tasks = new List<Tasks>();
+            this._tasks = new List<Tasks>();
         }
 
         private enum Option
         {
             Add = 1,
             View,
-            Remove
+            Remove,
         }
 
         /// <summary>
@@ -28,36 +28,37 @@
         /// <returns>the list of tasks</returns>
         public List<Tasks> GetTasks()
         {
-            return _tasks;
+            return this._tasks;
         }
+
         /// <summary>
         /// Method to Add tasks
         /// </summary>
         public void AddTask()
         {
             Console.WriteLine("Enter Task Name");
-            string taskName = Console.ReadLine();
+            string? taskName = Console.ReadLine();
             bool isRequiredHoursDouble, isDeadlineinDaysDouble;
             double requiredHours, deadlineInDays;
             do
             {
                 Console.WriteLine("Enter Required Hours to Complete");
-                string requiredHoursString = Console.ReadLine();
+                string? requiredHoursString = Console.ReadLine();
                 isRequiredHoursDouble = double.TryParse(requiredHoursString, out requiredHours);
             }
-            while(!isRequiredHoursDouble);
+            while (!isRequiredHoursDouble);
             do
             {
                 Console.WriteLine("Enter Deadline in Days");
-                string deadlineIndaysString = Console.ReadLine();
+                string? deadlineIndaysString = Console.ReadLine();
                 isDeadlineinDaysDouble = double.TryParse(deadlineIndaysString, out deadlineInDays);
             }
             while (!isDeadlineinDaysDouble);
 
             Console.WriteLine("Enter Required SKill");
-            string requiredSkill = Console.ReadLine();
+            string? requiredSkill = Console.ReadLine();
             Console.WriteLine("Enter Description");
-            string description = Console.ReadLine();
+            string? description = Console.ReadLine();
 
             Tasks tasks = new Tasks(taskName, requiredHours, deadlineInDays, requiredSkill, description);
 
@@ -65,16 +66,16 @@
         }
 
         /// <summary>
-        /// Removes employee from the list 
+        /// Removes employee from the list
         /// </summary>
         public void RemoveTask()
         {
             Console.WriteLine("Enter Task Name");
-            string taskName = Console.ReadLine();
+            string? taskName = Console.ReadLine();
 
             Tasks searchResult = this.SearchTasksFromTheList(taskName);
 
-            _tasks.Remove(searchResult);
+            this._tasks.Remove(searchResult);
 
             Console.WriteLine("Employee Deleted");
         }
@@ -84,9 +85,9 @@
         /// </summary>
         /// <param name="taskName"> Emp</param>
         /// <returns>object of employee</returns>
-        public Tasks SearchTasksFromTheList(string? taskName)
+        public Tasks? SearchTasksFromTheList(string? taskName)
         {
-            if (_tasks != null)
+            if (this._tasks != null)
             {
                 foreach (Tasks tasks in _tasks)
                 {
@@ -107,7 +108,7 @@
         {
             if (_tasks != null)
             {
-                foreach (Tasks tasks in _tasks)
+                foreach (Tasks tasks in this._tasks)
                 {
                     Console.WriteLine("Name of the Task: " + tasks.Name + "\tRequired Skills: " + tasks.RequiredSkill
                         + "\tDeadline in Days " + tasks.DeadlineInDays

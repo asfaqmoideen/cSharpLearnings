@@ -39,17 +39,20 @@ namespace Assignments
             string employeeName = Console.ReadLine();
             Console.WriteLine("Enter Skills of the Employee");
             string employeeSkill = Console.ReadLine();
-            string taskAssigned = null;
+            string taskAssigned = null ;
             double workingHours = 8; //Constant working hours for all employee
+            double availableDays;
+            Console.WriteLine("Enter employe availablility in days");
+            bool isAvailableDaysDouble = double.TryParse(Console.ReadLine(), out availableDays);
 
-            Employee employee = new Employee(employeeName, workingHours, employeeSkill, taskAssigned);
+            Employee employee = new Employee(employeeName, workingHours, employeeSkill, taskAssigned, availableDays);
 
             this._employees.Add(employee);
             Console.WriteLine("Employee Added" + _employees.Count());
         }
 
         /// <summary>
-        /// Removes employee from the list 
+        /// Removes employee from the list
         /// </summary>
         public void RemoveEmpoyee()
         {
