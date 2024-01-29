@@ -18,6 +18,7 @@ namespace Assignments
             productManager.SortProducts();
             Console.WriteLine("Sorted");
             productManager.GroupProducts();
+            productManager.LinqToObjects();
             Console.ReadKey();
         }
     }

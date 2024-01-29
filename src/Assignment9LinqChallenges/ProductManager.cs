@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -54,7 +55,7 @@ namespace Assignment9LinqChallenges
         /// </summary>
         public void SortProducts()
         {
-            Console.WriteLine("\nSorting the products with Category Electronics and Descending Price above $500");
+            Console.WriteLine("\nTask 1 - Sorting the products with Category Electronics and Descending Price above $500");
             var sortQuery = _products.Where(p => p.Category == "Electronics" && p.ProductPrice > 500).ToList();
             var selectQuery = sortQuery.Select(p2 => new { p2.ProductName, p2.ProductPrice }).ToList();
             var orderByDescending = selectQuery.OrderByDescending(p1 => p1.ProductPrice).ToList();
@@ -68,7 +69,7 @@ namespace Assignment9LinqChallenges
         /// </summary>
         public void GroupProducts()
         {
-            Console.WriteLine("\nGrouping Products by category and sorting by Expensive Prices");
+            Console.WriteLine("\nTask2 - Grouping Products by category and sorting by Expensive Prices");
             var groupQuery = this._products.GroupBy(p => p.Category).ToList();
             foreach ( var group in groupQuery)
             {
@@ -93,6 +94,20 @@ namespace Assignment9LinqChallenges
                 Console.WriteLine(product.productName +" is Supplied By " +  product.supplierName);
             }
         }
+
+        /// <summary>
+        /// Array manipulation in linq
+        /// </summary>
+        public void LinqToObjects()
+        {
+            int[] numberArray = { 2, 2, 2, 3, 4, 5, 7, 7, 7, 8, 9, 10, 12, 12, 13, 14, 15 };
+            var secondMaximum = numberArray.OrderByDescending(n => n).ToArray().Skip(1).Take(1).First();
+            Console.WriteLine("The Second Maximum : " + secondMaximum);
+            var sumOfUnique = numberArray.DistinctBy(n => n == n) .ToArray();
+            foreach (var sum in sumOfUnique)
+            {
+                Console.WriteLine(sum);
+            }
+        }
     }
 }
-    
