@@ -1,4 +1,5 @@
-﻿namespace CodingAssesment1
+﻿using ConsoleTables;
+namespace CodingAssesment1
 {
     /// <summary>
     /// Manipulates and Manages Employee class
@@ -39,14 +40,14 @@
         public void AddEmpoyee()
         {
             string employeeName = _console.GetEmployeeName();
-            string employeeSkill = _console.GetEmployeeSkills();
+            List <string> employeeSkill = _console.GetEmployeeSkills();
             double availableDays = _console.GetEmployeeAvailableHours();
             string taskAssigned = null ;
             double workingHours = 8; //Constant working hours for all employees
             Employee employee = new Employee(employeeName, workingHours, employeeSkill, taskAssigned, availableDays);
             this._employees.Add(employee);
             Console.WriteLine("Totally, " + this._employees.Count() + "Employees Were Added");
-            string option = _console.GetOptionToAddAnotherEmployee();
+            string option = _console.GetOptionToAddAnother();
             if (option == "1") { AddEmpoyee(); }
         }
 
@@ -70,7 +71,7 @@
         {
             if (this._employees != null)
             {
-                foreach (Employee employee in _employees)
+                foreach (Employee employee in this._employees)
                 {
                     if (employee.Name.ToLower() == employeeName.ToLower())
                     {
@@ -90,11 +91,14 @@
             Console.WriteLine(_employees.Count());
             if (this._employees.Count() > 0)
             {
+                var employeeTable = new ConsoleTable("Employee Name: ", "Skills: ", "AssignedTask: ", "Availability");
                 Console.WriteLine("Employess");
                 foreach (Employee employee in this._employees)
                 {
-                    Console.WriteLine("Employee Name: " + employee.Name + "Skills: " + employee.Skills + "AssignedTask: " + employee.AssignedTask);
+                    string skillSet = String.Join(",", employee.Skills);
+                    employeeTable.AddRow(employee.Name, skillSet, employee.AssignedTask, employee.AvailableDays);
                 }
+                employeeTable.Write(Format.MarkDown);
             }
             else
             {

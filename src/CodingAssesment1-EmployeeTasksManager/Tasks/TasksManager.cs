@@ -1,4 +1,5 @@
-﻿namespace CodingAssesment1
+﻿using ConsoleTables;
+namespace CodingAssesment1
 {
     /// <summary>
     ///  manipulates and manages  Class Tasks
@@ -88,12 +89,12 @@
         {
             if (_tasks != null)
             {
+                var tasksTable = new ConsoleTable("Task Name", "Required Skills", "Deadline in Days ", "Required Hours to Complete");
                 foreach (Tasks tasks in this._tasks)
                 {
-                    Console.WriteLine("Name of the Task: " + tasks.Name + "\tRequired Skills: " + tasks.RequiredSkill
-                        + "\tDeadline in Days " + tasks.DeadlineInDays
-                        + "\t Required Hours to Complete" + tasks.RequiredHours);
+                    tasksTable.AddRow(tasks.Name, tasks.RequiredSkill, tasks.DeadlineInDays, tasks.RequiredHours);
                 }
+                tasksTable.Write(Format.MarkDown);
             }
         }
 

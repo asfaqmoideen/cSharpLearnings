@@ -1,4 +1,7 @@
-﻿namespace CodingAssesment1
+﻿using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+
+namespace CodingAssesment1
 {
     /// <summary>
     /// Schedule the tasks
@@ -32,18 +35,41 @@
         /// <summary>
         /// Starts Allocating Tasks
         /// </summary>
-        public void StartAllocationgTasks()
-        {
+        /// <returns>+</returns>
+        public (Employee, Tasks) GetMatchedEmployeeForTask()
+        { 
             foreach (Tasks tasks in this.PrioritiseTheTasks())
             {
                 foreach (Employee employee in this._employeeManager.GetEmployees())
                 {
-                    if (tasks.RequiredSkill == employee.Skills && employee.AvailableDays >= tasks.DeadlineInDays)
+                    bool isSkillMatched = employee.Skills.Contains(tasks.RequiredSkill);
+                    if (isSkillMatched)
                     {
-                        this.AssignTheTaskToEmployee(employee, tasks);
+                        return(employee, tasks);
                     }
                 }
             }
+            return(null, null);
+        }
+        /// <summary>
+        /// Splits the no of required hours
+        /// </summary>
+        /// <returns>Splitted working hours</returns>
+        public double MatchedEmployeeCount()
+        {
+            double skillMatchedEmployeeCount = 0;
+            foreach (Tasks tasks in this.PrioritiseTheTasks())
+            {
+                foreach (Employee employee in this._employeeManager.GetEmployees())
+                {
+                    bool isSkillMatched = employee.Skills.Contains(tasks.RequiredSkill);
+                    if (isSkillMatched)
+                    {
+                        skillMatchedEmployeeCount++;
+                    }
+                }
+            }
+            return skillMatchedEmployeeCount;
         }
 
         /// <summary>
@@ -51,19 +77,22 @@
         /// </summary>
         /// <param name="employee">object employee with matched required skill</param>
         /// <param name="tasks">object task with matched employee skill</param>
-        public void AssignTheTaskToEmployee(Employee employee, Tasks tasks)
+        /// <param name="skillMatchedEmployeeCount"> double value of skill matched employee count
+        public void AssignTheTaskToEmployee(Employee employee, Tasks tasks, double skillMatchedEmployeeCount)
         {
-            if (tasks.RequiredHours > 0)
+            double skillMatchedEmployees = MatchedEmployeeCount();
+            double splittedHours = tasks.RequiredHours / skillMatchedEmployeeCount;
+            if (splittedHours > 0)
             {
                 employee.AssignedTask = tasks.Name;
 
-                double employeeWillWorkFor = employee.AvailableDays ;
+                double employeeWillWorkFor = employee.AvailableDays;
 
-                employee.AvailableDays -= tasks.RequiredHours / employee.WorkingHours;
+                employee.AvailableDays -= splittedHours / employee.WorkingHours;
 
                 tasks.RequiredHours -= employee.WorkingHours * employeeWillWorkFor;
 
-                Console.WriteLine("Task : " + tasks.Name +  "Allocated to: " + employee.Name);
+                Console.WriteLine("Task : " + tasks.Name + "Allocated to: " + employee.Name);
             }
         }
 

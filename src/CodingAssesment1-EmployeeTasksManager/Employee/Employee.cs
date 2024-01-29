@@ -12,7 +12,7 @@
         /// <param name="skills">skills of the employee</param>
         /// <param name="assignedTask">assigned taskof the employee</param>
         /// <param name="availableDays">Available days of the employee</param>
-        public Employee(string name, double workingHours, string skills, string assignedTask, double availableDays)
+        public Employee(string name, double workingHours, List<string> skills, string assignedTask, double availableDays)
         {
             this.Name = name;
             this.WorkingHours = workingHours;
@@ -34,13 +34,15 @@
         /// employee working hours
         /// </value>
         public double WorkingHours { get; set;}
+
         /// <summary>
         /// Gets or sets Skills
         /// </summary>
         /// <value>
         /// employee skills
         /// </value>
-        public string Skills { get; set; }
+        public List <string> Skills { get; set; }
+
         /// <summary>
         /// Gets or sets employee's assigned task
         /// </summary>
@@ -48,6 +50,7 @@
         /// task as string
         /// </value>
         public string AssignedTask { get; set;}
+
         /// <summary>
         /// Gets or sets employee availale days
         /// </summary>

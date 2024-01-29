@@ -1,5 +1,6 @@
 ﻿namespace CodingAssesment1
-{   /// <summary>
+{
+    /// <summary>
     /// Gets employee name from the user
     /// </summary>
     internal class EmployeeIOConsole
@@ -24,16 +25,21 @@
         /// Get employee skills from the user
         /// </summary>
         /// <returns>Skills as string</returns>
-        public string GetEmployeeSkills()
+        public List <string> GetEmployeeSkills()
         {
+            List<string> skillsList = new List<string>();
             string? employeeSkills;
+            x:
             do
             {
                 Console.WriteLine("Enter Employee Skills");
                 employeeSkills = Console.ReadLine();
             }
             while (employeeSkills.Length ==0);
-            return employeeSkills;
+            skillsList.Add(employeeSkills);
+            string option = this.GetOptionToAddAnother();
+            if (option == "1") { goto x; }
+            return skillsList;
         }
 
         /// <summary>
@@ -52,14 +58,15 @@
             while (!isAvailableDaysDouble);
             return availableDays;
         }
+
         /// <summary>
         /// Get the option to add another employee
         /// </summary>
         /// <returns>1 if yes </returns>
-        internal string GetOptionToAddAnotherEmployee()
+        internal string GetOptionToAddAnother()
         {
             string? option;
-            Console.WriteLine("Need to add another employee\n1.Yes\nPress any key to skip");
+            Console.WriteLine("Need to add Another\n1.Yes\nPress any key to skip");
             return option = Console.ReadLine();
         }
     }
