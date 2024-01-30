@@ -24,11 +24,7 @@ namespace Assignment9LinqChallenges
         public ProductManager()
         {
             this._products = new List<Product>();
-            this._suppliers = new List<Supplier>
-            {
-                new Supplier ("Sony",  12, 101 ),
-                new Supplier ("Elite", 20, 201)
-            };
+            this._suppliers = new List<Supplier>();
             this._userInterface = new UserInterface(this);
         }
         /// <summary>
