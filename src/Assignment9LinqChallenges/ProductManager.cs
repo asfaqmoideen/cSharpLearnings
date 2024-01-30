@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Channels;
@@ -15,6 +16,7 @@ namespace Assignment9LinqChallenges
     {
         private List<Product> _products;
         private List<Supplier> _suppliers;
+        private UserInterface _userInterface;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductManager"/> class.
@@ -27,40 +29,19 @@ namespace Assignment9LinqChallenges
                 new Supplier ("Sony",  12, 101 ),
                 new Supplier ("Elite", 20, 201)
             };
+            this._userInterface = new UserInterface(this);
         }
-
-        /// <summary>
-        /// Add the list of products
-        /// </summary>
-        public void AddProduct()
-        {
-            Product product1 = new Product(100, "Laptop", 25000, "Electronics");
-            this._products.Add(product1);
-            Product product2 = new Product(101, "Monitor", 4000, "Electronics");
-            this._products.Add(product2);
-            Product product3 = new Product(200, "Chair", 5000, "Furniture");
-            this._products.Add(product3);
-            Product product4 = new Product(201, "Table", 4000, "Furniture");
-            this._products.Add(product4);
-            Product product5 = new Product(102, "Charger", 300, "Electronics");
-            this._products.Add(product5);
-            Product product6 = new Product(105, "Mouse", 250, "Electronics");
-            this._products.Add(product6);
-            Console.WriteLine("\tTotally 6 Products were added");
-            _products.ForEach(p => Console.WriteLine(p.ProductName + "-" + p.ProductPrice));
-        }
-
         /// <summary>
         /// Sorts the list of Object in the with category and price
         /// </summary>
         public void SortProducts()
         {
-            Console.WriteLine("\nTask 1 - Sorting the products with Category Electronics and Descending Price above $500");
+            Console.WriteLine("\nTask 1 - Sorting the products with Category Electronics and Descending Price above 500");
             var sortQuery = _products.Where(p => p.Category == "Electronics" && p.ProductPrice > 500).ToList();
-            var selectQuery = sortQuery.Select(p2 => new { p2.ProductName, p2.ProductPrice }).ToList();
-            var orderByDescending = selectQuery.OrderByDescending(p1 => p1.ProductPrice).ToList();
+           // var selectQuery = sortQuery.Select(p2 => new { p2.ProductName, p2.ProductPrice }).ToList();
+            var orderByDescending = sortQuery.OrderByDescending(p1 => p1.ProductPrice).ToList();
             orderByDescending.ForEach(p =>  Console.WriteLine(p.ProductName + "-" + p.ProductPrice));
-            var averagePrice = _products.Average(p => p.ProductPrice);
+            var averagePrice = orderByDescending.Average(p => p.ProductPrice);
             Console.WriteLine("Average Price:" + averagePrice);
         }
 
@@ -101,12 +82,147 @@ namespace Assignment9LinqChallenges
         public void LinqToObjects()
         {
             int[] numberArray = { 2, 2, 2, 3, 4, 5, 7, 7, 7, 8, 9, 10, 12, 12, 13, 14, 15 };
-            var secondMaximum = numberArray.OrderByDescending(n => n).ToArray().Skip(1).Take(1).First();
+            var secondMaximum = numberArray.OrderByDescending(n => n).ToArray().Skip(1).First();
             Console.WriteLine("The Second Maximum : " + secondMaximum);
-            var sumOfUnique = numberArray.DistinctBy(n => n == n) .ToArray();
-            foreach (var sum in sumOfUnique)
+            var sumOfDistinct = numberArray.SelectMany(n => numberArray.Where(m => n + m == 20 && m != n)).Distinct();
+            foreach (var number in sumOfDistinct)
             {
-                Console.WriteLine(sum);
+                Console.Write(number + " ");
+            }
+        }
+
+        /// <summary>
+        /// Sort Products with books
+        /// </summary>
+        public void SortProductsWithBooks()
+        {
+            Console.WriteLine("\nTask 4.1 - Sorting the products with Category Books and Price");
+            var sortQuery = _products.Where(p => p.Category == "Books").OrderBy(p => p.ProductPrice).ToList();
+            sortQuery.ForEach(p => Console.WriteLine(p.ProductName + " : " + p.ProductPrice));
+        }
+
+        /// <summary>
+        /// Optimised function to Sort Products with books
+        /// </summary>
+        public void OptimisedSortProductsWithBooks()
+        {
+            Console.WriteLine("\nTask 4.2 - Optimised parallel query - Sorting the products with Category Books and Price");
+            var sortQuery = _products.AsParallel().Where(p => p.Category == "Books").OrderBy(p => p.ProductPrice).ToList();
+            sortQuery.ForEach(p => Console.WriteLine(p.ProductName + " : " + p.ProductPrice));
+        }
+
+        /// <summary>
+        /// Advance linq features for dynamic linq queries
+        /// </summary>
+        public void AdvancedlinqFeatures()
+        {
+            Func<Product, bool> filter = p => p.ProductPrice > 500;
+            List<Product> sortedProductsByPrice= SortByPrice(_products, filter);
+            sortedProductsByPrice.ForEach(p => Console.WriteLine( p.ProductName));
+            Console.WriteLine("Enter a category to sort");
+        }
+
+        /// <summary>
+        /// Sorts by filter
+        /// </summary>
+        /// <param name="products">list</param>
+        /// <param name="filter">filter </param>
+        /// <returns>list of products</returns>
+        public List<Product> SortByPrice(List<Product> products, Func<Product, bool> filter)
+        {
+            return products.Where(filter).ToList();
+        }
+
+        /// <summary>
+        /// Checks Whether product is already existing
+        /// </summary>
+        /// <param name="productName">sdds</param>
+        /// <returns>true if product name existing else false</returns>
+        public bool IsProductNameExists(string productName)
+        {
+            var productNameExists = this._products.Any(p => p.ProductName.ToLower() == productName.ToLower());
+            return productNameExists;
+        }
+
+        /// <summary>
+        /// Checks whether the product quanity integer
+        /// </summary>
+        /// <param name="productId">Product quanitity as string</param>
+        /// <param name="productdOutput">ots product quantity as double</param>
+        /// <returns>true if product quantity int else false</returns>
+        public bool IsProductIdUInt(string productId, out uint productdOutput)
+        {
+            bool isPriceDouble = false;
+            uint productquantity;
+            isPriceDouble = uint.TryParse(productId, out productquantity);
+            productdOutput = productquantity;
+            return isPriceDouble;
+        }
+
+        /// <summary>
+        /// Cheks whether double or not
+        /// </summary>
+        /// <param name="productPrice">String input</param>
+        /// <param name="productPriceOutput">Double output</param>
+        /// <returns>true if product price double else false</returns>
+        public bool IsProductPricePositiveDouble(string productPrice, out double productPriceOutput)
+        {
+            bool isPriceDouble = false;
+            double productprice;
+            isPriceDouble = double.TryParse(productPrice, out productprice);
+            productPriceOutput = productprice;
+            if (isPriceDouble && (productprice >= 0))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>   
+        /// Method to add prouct in the Lit
+        /// </summary>
+        /// <param name="product">gets objects and adds in the list</param>
+        public void AddProductsToTheList(Product product)
+        {
+            this._products.Add(product);
+        }
+
+        /// <summary>
+        /// method to get product details from other functions
+        /// </summary>
+        public void AddProducts()
+        {
+            string productName = this._userInterface.GetProductName();
+            string productCategory = this._userInterface.GetProductcategory();
+            double productPrice = this._userInterface.GetProductPrice();
+            uint productId = this._userInterface.GetProductId();
+            Product product = new Product(productId, productName, productPrice, productCategory);
+            this._products.Add(product);
+            Console.WriteLine("Product Added");
+            Console.WriteLine("[A]dd another Product or [M]enu");
+            string option = Console.ReadLine();
+            if (option == "A" || option == "a")
+            {
+                this.AddProducts();
+            }
+        }
+
+        /// <summary>
+        /// method to get product details from other functions
+        /// </summary>
+        public void AddSuppliers()
+        {
+            string supplierName = this._userInterface.GetSupplierName();
+            uint productId = this._userInterface.GetProductId();
+            uint supplierId = this._userInterface.GetSupplierId();
+            Supplier supplier = new(supplierName, supplierId, productId);
+            this._suppliers.Add(supplier);
+            Console.WriteLine("Supplier Added");
+            Console.WriteLine("[A]dd another Supplier or [M]enu");
+            string option = Console.ReadLine();
+            if (option == "A" || option == "a")
+            {
+                this.AddSuppliers();
             }
         }
     }
