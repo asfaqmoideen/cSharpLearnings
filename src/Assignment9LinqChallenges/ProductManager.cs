@@ -81,13 +81,29 @@ namespace Assignment9LinqChallenges
         /// </summary>
         public void LinqToObjects()
         {
-            int[] numberArray = { 2, 2, 2, 3, 4, 5, 7, 7, 7, 8, 9, 10, 12, 12, 13, 14, 15 };
+            Console.WriteLine("Enter Array Lenht");
+            bool isArrayLenghtInt = int.TryParse(Console.ReadLine(), out var length);
+            int[] numberArray = new int[length];
+            Console.WriteLine("Enter Array Elements");
+            for ( int i = 0; i < length; i++)
+            {
+                int element;
+                bool isElementInt = int.TryParse(Console.ReadLine(), out element);
+                numberArray[i] = element;
+            }
+            Console.WriteLine("Enter target Sum");
+            int targetSum;
+            bool isTargetSumInt = int.TryParse(Console.ReadLine(), out targetSum);
             var secondMaximum = numberArray.OrderByDescending(n => n).ToArray().Skip(1).First();
             Console.WriteLine("The Second Maximum : " + secondMaximum);
-            var sumOfDistinct = numberArray.SelectMany(n => numberArray.Where(m => n + m == 20 && m != n)).Distinct();
-            foreach (var number in sumOfDistinct)
+           // var sumOfDistinct = numberArray.SelectMany(n => numberArray.Where(m => n + m == targetSum && m != n)).Distinct();
+            var pairsProduceTargetSum = numberArray.SelectMany(
+                                            (n, index) => numberArray.Skip(index + 1),
+                                            (number1, number2) => new { Number1 = number1, Number2 = number2 })
+                                            .Where(n => n.Number1 + n.Number2 == targetSum);
+            foreach (var number in pairsProduceTargetSum)
             {
-                Console.Write(number + " ");
+                Console.Write("(" + number.Number1 + "," + number.Number2+ ")\n" );
             }
         }
 

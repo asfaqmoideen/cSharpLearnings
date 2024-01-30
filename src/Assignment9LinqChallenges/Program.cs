@@ -26,7 +26,7 @@ namespace Assignments
             Console.WriteLine("Language Integrated Query");
             do
             {
-                Console.WriteLine("Enter a Option to Proceed\n1.AddProducts\n2.AddSuppliers\n3.Task1-Sorting\n4. Task2 -Grouping" +
+                Console.WriteLine("\nEnter a Option to Proceed\n1.AddProducts\n2.AddSuppliers\n3.Task1-Sorting\n4. Task2 -Grouping" +
                     "\n5.Task3-Array with LINQ\n6.Task-4 Sorting & optimised Sorting\n7.Advanced LINQ Query");
                 bool isOptionInt = int.TryParse(Console.ReadLine(), out int option);
                 Option optionFromUser = (Option)option;
