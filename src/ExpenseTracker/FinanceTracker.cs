@@ -237,7 +237,7 @@ namespace Assignments
         }
 
         /// <summary>
-        /// Removes incomes from the list 
+        /// Removes incomes from the list
         /// </summary>
         /// <param name="incomeEntity">object reference to delete</param>
         public void RemoveIncomeFromTheList(IncomeEntity incomeEntity)
@@ -495,7 +495,7 @@ namespace Assignments
         }
 
         /// <summary>
-        /// Get the optiopn
+        /// Get the option to select income or expense.
         /// </summary>
         public void EditRecord()
         {

@@ -10,7 +10,7 @@ namespace ExpenseTrackerTests
         [InlineData("12.1")]
         [InlineData("150")]
 
-        public void ProvidedValidIncomeAmount_IsIncomeAmountDouble_ReturnsTrueIfDouble(string InocmeAmount)
+        public void ProvidedValidIncomeAmount_IsIncomeAmountDouble_ReturnsTrue(string InocmeAmount)
         {
             FinanceTracker financeTracker = new FinanceTracker();
             bool isvalid;
@@ -25,7 +25,7 @@ namespace ExpenseTrackerTests
         [InlineData("1Hundred")]
         [InlineData("Thousand")]
         [InlineData("Fourhundred")]
-        public void ProvidedInValidIncomeAmount_IsIncomeAmountDouble_ReturnsFalseIfNotDouble(string InocmeAmount)
+        public void ProvidedInValidIncomeAmount_IsIncomeAmountDouble_ReturnsFalse(string InocmeAmount)
         {
             FinanceTracker financeTracker = new FinanceTracker();
             bool isvalid;
@@ -39,7 +39,7 @@ namespace ExpenseTrackerTests
         [InlineData("1Hundred")]
         [InlineData("Thousand")]
         [InlineData("Fourhundred")]
-        public void ProvidedInValidExpenseAmount_IsExpenseAmountDouble_ReturnsFalseIfNotDouble(string ExpenseAmount)
+        public void ProvidedInValidExpenseAmount_IsExpenseAmountDouble_ReturnsFalse(string ExpenseAmount)
         {
             FinanceTracker financeTracker = new FinanceTracker();
             bool isvalid;
@@ -55,7 +55,7 @@ namespace ExpenseTrackerTests
         [InlineData("12.1")]
         [InlineData("150")]
 
-        public void ProvidedValidexpenseAmount_IsExpenseAmountDouble_ReturnsTrueIfDouble(string ExpenseAmount)
+        public void ProvidedValidexpenseAmount_IsExpenseAmountDouble_ReturnsTrue(string ExpenseAmount)
         {
             FinanceTracker financeTracker = new FinanceTracker();
             bool isvalid;
@@ -69,7 +69,7 @@ namespace ExpenseTrackerTests
         [Theory]
         [InlineData(12000,"salary","10-12-2002","2-12-2002")]
 
-        public void ProvidedIncomeParamters_AddIncomeToTheList_ContainsInTheListIfAdded(double Income, string IncomeSource, string CreatedAt, string updatedAt)
+        public void ProvidedIncomeParamters_AddIncomeToTheList_ContainsInTheList(double Income, string IncomeSource, string CreatedAt, string updatedAt)
         {
             DateTime createdDateTime = DateTime.Parse(CreatedAt);
             DateTime UpdatedDateTime = DateTime.Parse(updatedAt);
@@ -83,7 +83,7 @@ namespace ExpenseTrackerTests
 
         [Theory]
         [InlineData(1200, "food", "10-12-2002", "2-12-2002")]
-        public void ProvidedExpenseParamters_AddExpenseToTheList_ContainsInTheListIfAdded(double ExpenseAmount, string ExpenseCategory, string CreatedAt, string updatedAt)
+        public void ProvidedExpenseParamters_AddExpenseToTheList_ContainsInTheList(double ExpenseAmount, string ExpenseCategory, string CreatedAt, string updatedAt)
         {
             DateTime createdDateTime = DateTime.Parse(CreatedAt);
             DateTime UpdatedDateTime = DateTime.Parse(updatedAt);
@@ -96,7 +96,7 @@ namespace ExpenseTrackerTests
         }
         [Theory]
         [InlineData (2200, "snacks")]
-        public void AddedExpenseParametersToTheList_EditSpecifiExpenseFromTheList_ContainsInTheListIfEdited(double newExpenseAmount, string newExpenseCategory)
+        public void AddedExpenseParametersToTheList_EditSpecifiExpenseFromTheList_ContainsInTheList(double newExpenseAmount, string newExpenseCategory)
         {
             var (expenseEntity, financeTracker) = AddExpense();
 
@@ -129,7 +129,7 @@ namespace ExpenseTrackerTests
 
         [Theory]
         [InlineData(220000, "freelancer")]
-        public void AddedIncomeParametersToTheList_EditSpecificIncomeFromTheList_ContainsInTheListIfEdited(double newIncomeAmount, string newIncomeCategory)
+        public void AddedIncomeParametersToTheList_EditSpecificIncomeFromTheList_ContainsInTheList(double newIncomeAmount, string newIncomeCategory)
         {
             var (incomeEntity, financeTracker) = AddIncome();
 
@@ -159,7 +159,7 @@ namespace ExpenseTrackerTests
 
             Assert.False(result);
         }
-        public void AddedExpenseParametersToTheList_RemoveSpecifiExpenseFromTheList_NotContainsInTheListIfDeleted()
+        public void AddedExpenseParametersToTheList_RemoveSpecifiExpenseFromTheList_NotContainsInTheList()
         {
             var (expenseEntity, financeTracker) = AddExpense();
 

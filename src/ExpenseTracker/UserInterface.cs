@@ -65,11 +65,6 @@
         }
 
         /// <summary>
-        /// gets option from the user whetehr income or expense
-        /// </summary>
-        /// <returns> option value from the user</returns>
-
-        /// <summary>
         /// Get option to add another entity
         /// </summary>
         /// <returns>option entered</returns>
@@ -137,7 +132,7 @@
         }
 
         /// <summary>
-        /// option from the user
+        /// Option from the user
         /// </summary>
         /// <returns>1 if Inocme, 2 if epxpense</returns>
         internal string ChooseTheOption()
