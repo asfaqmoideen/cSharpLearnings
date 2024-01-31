@@ -63,7 +63,7 @@
             {
                 isrequiredHoursDouble = double.TryParse(Console.ReadLine(), out requiredHours);
             }
-            while (!isrequiredHoursDouble);
+            while (!isrequiredHoursDouble && requiredHours > 0);
             return requiredHours;
         }
 
@@ -80,7 +80,7 @@
             {
                 isdeadlineInDaysDouble = double.TryParse(Console.ReadLine(), out deadlineInDays);
             }
-            while (!isdeadlineInDaysDouble);
+            while (!isdeadlineInDaysDouble && deadlineInDays > 0);
             return deadlineInDays;
         }
         /// <summary>

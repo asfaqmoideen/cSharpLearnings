@@ -80,20 +80,27 @@ namespace CodingAssesment1
         /// <param name="skillMatchedEmployeeCount"> double value of skill matched employee count
         public void AssignTheTaskToEmployee()
         {
-            var (employee, tasks) = this.GetMatchedEmployeeForTask();
-            double skillMatchedEmployees = this.MatchedEmployeeCount();
-            double splittedHours = tasks.RequiredHours / skillMatchedEmployees;
-            if (splittedHours > 0)
+            if (this.PrioritiseTheTasks().Any() && _employeeManager.GetEmployees().Any())
             {
-                employee.AssignedTask = tasks.Name;
+                var (employee, tasks) = this.GetMatchedEmployeeForTask();
+                double skillMatchedEmployees = this.MatchedEmployeeCount();
+                double splittedHours = tasks.RequiredHours / skillMatchedEmployees;
+                if (splittedHours > 0)
+                {
+                    employee.AssignedTask = tasks.Name;
 
-                double employeeWillWorkFor = employee.AvailableDays;
+                    double employeeWillWorkFor = employee.AvailableDays;
 
-                employee.AvailableDays -= splittedHours / employee.WorkingHours;
+                    employee.AvailableDays -= splittedHours / employee.WorkingHours;
 
-                tasks.RequiredHours -= employee.WorkingHours * employeeWillWorkFor;
+                    tasks.RequiredHours -= employee.WorkingHours * employeeWillWorkFor;
 
-                Console.WriteLine("Task : " + tasks.Name + "Allocated to: " + employee.Name);
+                    Console.WriteLine("Task : " + tasks.Name + "Allocated to: " + employee.Name);
+                }
+            }
+            else 
+            {
+                Console.WriteLine("No Tasks & Employees were Added");
             }
         }
 

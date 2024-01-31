@@ -55,7 +55,7 @@
             {
                 isAvailableDaysDouble = double.TryParse(Console.ReadLine(), out availableDays);
             }
-            while (!isAvailableDaysDouble);
+            while (!isAvailableDaysDouble && availableDays >0 );
             return availableDays;
         }
 
