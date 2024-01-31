@@ -36,7 +36,7 @@
                         tasksManager.ExecuteTasksmanager();
                         break;
                     case Option.Schedule:
-                        scheduleTasks.StartAllocationgTasks();
+                        scheduleTasks.AssignTheTaskToEmployee();
                         break;
                     case Option.ShowLogs:
                         scheduleTasks.ShowLog();

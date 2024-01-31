@@ -37,7 +37,7 @@ namespace CodingAssesment1
         /// </summary>
         /// <returns>+</returns>
         public (Employee, Tasks) GetMatchedEmployeeForTask()
-        { 
+        {
             foreach (Tasks tasks in this.PrioritiseTheTasks())
             {
                 foreach (Employee employee in this._employeeManager.GetEmployees())
@@ -78,10 +78,11 @@ namespace CodingAssesment1
         /// <param name="employee">object employee with matched required skill</param>
         /// <param name="tasks">object task with matched employee skill</param>
         /// <param name="skillMatchedEmployeeCount"> double value of skill matched employee count
-        public void AssignTheTaskToEmployee(Employee employee, Tasks tasks, double skillMatchedEmployeeCount)
+        public void AssignTheTaskToEmployee()
         {
-            double skillMatchedEmployees = MatchedEmployeeCount();
-            double splittedHours = tasks.RequiredHours / skillMatchedEmployeeCount;
+            var (employee, tasks) = this.GetMatchedEmployeeForTask();
+            double skillMatchedEmployees = this.MatchedEmployeeCount();
+            double splittedHours = tasks.RequiredHours / skillMatchedEmployees;
             if (splittedHours > 0)
             {
                 employee.AssignedTask = tasks.Name;
