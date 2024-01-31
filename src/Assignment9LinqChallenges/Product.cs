@@ -35,7 +35,7 @@ namespace Assignment9LinqChallenges
         public uint ProductId { get; set; }
 
         /// <summary>
-        /// Gets or sets ProductName
+        /// Gets or sets ProductNames
         /// </summary>
         /// <value>
         /// ProductName

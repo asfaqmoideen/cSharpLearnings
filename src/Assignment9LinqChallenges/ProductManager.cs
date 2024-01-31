@@ -34,19 +34,19 @@ namespace Assignment9LinqChallenges
         {
             Console.WriteLine("\nTask 1 - Sorting the products with Category Electronics and Descending Price above 500");
             var sortQuery = _products.Where(p => p.Category == "Electronics" && p.ProductPrice > 500).ToList();
-           // var selectQuery = sortQuery.Select(p2 => new { p2.ProductName, p2.ProductPrice }).ToList();
-            var orderByDescending = sortQuery.OrderByDescending(p1 => p1.ProductPrice).ToList();
+            var selectQuery = sortQuery.Select(p2 => new { p2.ProductName, p2.ProductPrice }).ToList();
+            var orderByDescending = selectQuery.OrderByDescending(p1 => p1.ProductPrice).ToList();
             orderByDescending.ForEach(p =>  Console.WriteLine(p.ProductName + "-" + p.ProductPrice));
             var averagePrice = orderByDescending.Average(p => p.ProductPrice);
             Console.WriteLine("Average Price:" + averagePrice);
         }
 
         /// <summary>
-        /// Group products
+        /// Group the products according to category and find expensive price
         /// </summary>
         public void GroupProducts()
         {
-            Console.WriteLine("\nTask2 - Grouping Products by category and sorting by Expensive Prices");
+            Console.WriteLine("\nTask2 - Grouping Products by category and sorting by Expensive Price, Mapping with Suppliers");
             var groupQuery = this._products.GroupBy(p => p.Category).ToList();
             foreach ( var group in groupQuery)
             {
