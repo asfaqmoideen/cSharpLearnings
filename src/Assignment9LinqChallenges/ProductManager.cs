@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Assignment9LinqChallenges
 {
@@ -17,6 +18,7 @@ namespace Assignment9LinqChallenges
         private List<Product> _products;
         private List<Supplier> _suppliers;
         private UserInterface _userInterface;
+        private QueryBuilder _queryBuilder;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductManager"/> class.
@@ -26,6 +28,7 @@ namespace Assignment9LinqChallenges
             this._products = new List<Product>();
             this._suppliers = new List<Supplier>();
             this._userInterface = new UserInterface(this);
+            this._queryBuilder = new QueryBuilder(_products);
         }
         /// <summary>
         /// Sorts the list of Object in the with category and price
@@ -235,6 +238,34 @@ namespace Assignment9LinqChallenges
             if (option == "A" || option == "a")
             {
                 this.AddSuppliers();
+            }
+        }
+
+        /// <summary>
+        /// task 6
+        /// </summary>
+        public void Task6()
+        {
+            Console.WriteLine("Enter option to Excute\n1.Filter Products\n2.SortProducts");
+            bool isOptonInt = int.TryParse(Console.ReadLine(), out int option);
+            if (option == 1)
+            {
+                _queryBuilder = _queryBuilder.Filter(p => p.ProductPrice > 500);
+            }
+            else if (option == 2)
+            {
+                _queryBuilder = _queryBuilder.Sort(p => p.ProductPrice);
+            }
+            else
+            {
+                Console.WriteLine("Enter valid Option");
+            }
+
+            var result = _queryBuilder.Execute().ToList();
+
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.ProductName);
             }
         }
     }

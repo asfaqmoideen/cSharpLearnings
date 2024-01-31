@@ -53,7 +53,7 @@ namespace Assignments
                         productManager.OptimisedSortProductsWithBooks();
                         break;
                     case Option.Task5:
-                        productManager.AdvancedlinqFeatures();
+                        productManager.Task6();
                         break;
                 }
             }
