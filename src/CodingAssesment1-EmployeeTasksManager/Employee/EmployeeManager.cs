@@ -42,7 +42,7 @@ namespace CodingAssesment1
             string employeeName = _console.GetEmployeeName();
             List <string> employeeSkill = _console.GetEmployeeSkills();
             double availableDays = _console.GetEmployeeAvailableHours();
-            string taskAssigned = null ;
+            string taskAssigned = null;
             double workingHours = 8; //Constant working hours for all employees
             Employee employee = new Employee(employeeName, workingHours, employeeSkill, taskAssigned, availableDays);
             this._employees.Add(employee);
@@ -56,7 +56,7 @@ namespace CodingAssesment1
         /// </summary>
         public void RemoveEmpoyee()
         {
-            string employeeName = _console.GetEmployeeName();
+            string employeeName = this._console.GetEmployeeName();
             Employee searchResult = this.SearchEmployeeFromTheList(employeeName);
             this._employees.Remove(searchResult);
             Console.WriteLine("Employee Deleted");
@@ -92,13 +92,12 @@ namespace CodingAssesment1
             if (this._employees.Count() > 0)
             {
                 var employeeTable = new ConsoleTable("Employee Name: ", "Skills: ", "AssignedTask: ", "Availability");
-                Console.WriteLine("Employess");
                 foreach (Employee employee in this._employees)
                 {
                     string skillSet = String.Join(",", employee.Skills);
                     employeeTable.AddRow(employee.Name, skillSet, employee.AssignedTask, employee.AvailableDays);
                 }
-                employeeTable.Write(Format.MarkDown);
+                employeeTable.Write();
             }
             else
             {
