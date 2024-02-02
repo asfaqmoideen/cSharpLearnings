@@ -13,6 +13,7 @@ namespace Assignemnt10DotNetUnderTheHood
             Subtract,
             Multiply,
             Divide,
+            Exit
         }
 
         /// <summary>
@@ -21,13 +22,12 @@ namespace Assignemnt10DotNetUnderTheHood
         private static void Main()
         {
             MathUtils mathUtils = new MathUtils();
-            while (true)
+            bool stop = false;
+            do
             {
                 try
                 {
-                    Console.WriteLine(".NET Under The Hood");
-
-                    Console.WriteLine("Simple Calculator");
+                    Console.WriteLine("\t.NET Under The Hood\nSimple Calculator");
 
                     Console.WriteLine("Enter First Number : ");
 
@@ -37,7 +37,7 @@ namespace Assignemnt10DotNetUnderTheHood
 
                     double operandTwo = GetOperandFromUser();
 
-                    Console.WriteLine("Choose any Operation to Execute\n1.Addition\n2.Subtraction\n3.Multiplication\n4.Division");
+                    Console.WriteLine("Choose any Operation to Execute\n1.Addition\n2.Subtraction\n3.Multiplication\n4.Division\n5.Exit");
 
                     bool isOptionValid = false;
                     int option;
@@ -68,18 +68,32 @@ namespace Assignemnt10DotNetUnderTheHood
                             double divisionAnswer = mathUtils.Divide(operandOne, operandTwo);
                             PrintResult(divisionAnswer);
                             break;
+                        case Option.Exit:
+                            stop = true;
+                            break;
                         default:
                             break;
                     }
+
+                    if (Console.ReadKey().Key == ConsoleKey.Escape)
+                    {
+                        throw new Exception();
+                    }
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
             }
+            while (stop);
         }
+
         private static double GetOperandFromUser()
         {
+            if (Console.ReadKey().Key == ConsoleKey.Escape)
+            {
+                throw new Exception();
+            }
             bool isNumberValid = false;
             double operand;
             string operandString = Console.ReadLine();
