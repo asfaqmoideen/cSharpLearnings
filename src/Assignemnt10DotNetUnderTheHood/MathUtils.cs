@@ -30,6 +30,10 @@ namespace Assignemnt10DotNetUnderTheHood
         /// <returns>result</returns>
         internal double Divide(double operandOne, double operandTwo)
         {
+            if (operandTwo == 0)
+            {
+                throw new DivideByZeroException();
+            }
             return operandOne / operandTwo;
         }
 
