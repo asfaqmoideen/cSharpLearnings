@@ -22,7 +22,7 @@ namespace Assignemnt10DotNetUnderTheHood
         private static void Main()
         {
             MathUtils mathUtils = new MathUtils();
-            bool stop = false;
+            bool stop = true;
             do
             {
                 try
@@ -39,14 +39,10 @@ namespace Assignemnt10DotNetUnderTheHood
 
                     Console.WriteLine("Choose any Operation to Execute\n1.Addition\n2.Subtraction\n3.Multiplication\n4.Division\n5.Exit");
 
-                    bool isOptionValid = false;
                     int option;
-                    string optionstring = Console.ReadLine();
-                    isOptionValid = int.TryParse(optionstring, out option) && (0 < option && option < 5);
-                    while (!isOptionValid)
+                    while (!int.TryParse(Console.ReadLine(), out option) && (0 < option && (option < 6)))
                     {
                         Console.WriteLine("Invalid Option");
-                        isOptionValid = int.TryParse(Console.ReadLine(), out option) && (0 < option && (option < 5));
                     }
 
                     Option useroption = (Option)option;
@@ -69,15 +65,10 @@ namespace Assignemnt10DotNetUnderTheHood
                             PrintResult(divisionAnswer);
                             break;
                         case Option.Exit:
-                            stop = true;
+                            stop = false;
                             break;
                         default:
                             break;
-                    }
-
-                    if (Console.ReadKey().Key == ConsoleKey.Escape)
-                    {
-                        throw new Exception();
                     }
                 }
                 catch (Exception ex)
@@ -90,19 +81,12 @@ namespace Assignemnt10DotNetUnderTheHood
 
         private static double GetOperandFromUser()
         {
-            if (Console.ReadKey().Key == ConsoleKey.Escape)
-            {
-                throw new Exception();
-            }
-            bool isNumberValid = false;
             double operand;
-            string operandString = Console.ReadLine();
-            isNumberValid = double.TryParse(operandString, out operand);
-            while (!isNumberValid)
+            while (!double.TryParse(Console.ReadLine(), out operand))
             {
                 Console.WriteLine("Invalid Operand");
-                isNumberValid = double.TryParse(Console.ReadLine(), out operand);
             }
+
             return operand;
         }
 
