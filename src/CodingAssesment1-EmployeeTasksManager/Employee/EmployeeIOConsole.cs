@@ -37,7 +37,7 @@
             }
             while (employeeSkills.Length ==0);
             skillsList.Add(employeeSkills);
-            string option = this.GetOptionToAddAnother();
+            string option = this.GetOptionToAddAnother("Skill");
             if (option == "1") { goto x; }
             return skillsList;
         }
@@ -62,11 +62,12 @@
         /// <summary>
         /// Get the option to add another employee
         /// </summary>
+        /// <param name="format">parameter as string</param>
         /// <returns>1 if yes </returns>
-        internal string GetOptionToAddAnother()
+        internal string GetOptionToAddAnother(string format)
         {
             string? option;
-            Console.WriteLine("Need to add Another\n1.Yes\nPress any key to skip");
+            Console.WriteLine($"Need to add Another {format}\n1.Yes\nPress any key to skip");
             return option = Console.ReadLine();
         }
     }

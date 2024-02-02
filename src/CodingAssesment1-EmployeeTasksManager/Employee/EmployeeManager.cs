@@ -47,7 +47,7 @@ namespace CodingAssesment1
             Employee employee = new Employee(employeeName, workingHours, employeeSkill, taskAssigned, availableDays);
             this._employees.Add(employee);
             Console.WriteLine("Totally, " + this._employees.Count() + "Employees Were Added");
-            string option = _console.GetOptionToAddAnother();
+            string option = _console.GetOptionToAddAnother("Employee");
             if (option == "1") { AddEmpoyee(); }
         }
 

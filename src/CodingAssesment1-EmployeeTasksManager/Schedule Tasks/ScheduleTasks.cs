@@ -47,9 +47,14 @@ namespace CodingAssesment1
                     {
                         return(employee, tasks);
                     }
+                    else
+                    {
+                        return (null, null);
+                    }
                 }
             }
-            return(null, null);
+
+            return (null, null);
         }
 
         /// <summary>
@@ -84,22 +89,29 @@ namespace CodingAssesment1
             if (this.PrioritiseTheTasks().Any() && _employeeManager.GetEmployees().Any())
             {
                 var (employee, tasks) = this.GetMatchedEmployeeForTask();
-                double skillMatchedEmployees = this.MatchedEmployeeCount();
-                double splittedHours = tasks.RequiredHours / skillMatchedEmployees;
-                if (splittedHours > 0)
+                if (employee  != null && tasks != null)
                 {
-                    employee.AssignedTask = tasks.Name;
+                    double skillMatchedEmployees = this.MatchedEmployeeCount();
+                    double splittedHours = tasks.RequiredHours / skillMatchedEmployees;
+                    if (tasks.RequiredHours > 0)
+                    {
+                        employee.AssignedTask = tasks.Name;
 
-                    double employeeWillWorkFor = employee.AvailableDays;
+                        double employeeWillWorkFor = employee.AvailableDays;
 
-                    employee.AvailableDays -= splittedHours / employee.WorkingHours;
+                        employee.AvailableDays -= splittedHours / employee.WorkingHours;
 
-                    tasks.RequiredHours -= employee.WorkingHours * employeeWillWorkFor;
+                        tasks.RequiredHours -= employee.WorkingHours * employeeWillWorkFor;
 
-                    Console.WriteLine("Task : " + tasks.Name + "Allocated to: " + employee.Name);
+                        Console.WriteLine("Task : " + tasks.Name + "Allocated to: " + employee.Name);
+                    } 
+                }
+                else
+                {
+                    Console.WriteLine("No Matching Tasks");
                 }
             }
-            else 
+            else
             {
                 Console.WriteLine("No Tasks & Employees were Added");
             }
