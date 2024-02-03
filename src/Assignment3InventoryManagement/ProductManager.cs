@@ -7,7 +7,6 @@ namespace Assignments
     /// </summary>
     public class ProductManager
     {
-        private UserInterface _userInterface;
         private List<Product> _productList;
 
         /// <summary>
@@ -16,7 +15,6 @@ namespace Assignments
         public ProductManager()
         {
             this._productList = new List<Product>();
-            this._userInterface = new UserInterface(this);
         }
 
         /// <summary>
