@@ -1,5 +1,6 @@
 ﻿namespace CodingAssesment1
-{   /// <summary>
+{
+    /// <summary>
     /// Tasks Manager
     /// </summary>
     internal class Tasks
@@ -11,14 +12,16 @@
         /// <param name="requiredHours">required hours to complete</param>
         /// <param name="deadlineInDays">deadline in days</param>
         /// <param name="requiredSkill">required skill</param>
-        /// <param name="description"> descriotion</param>
-        public Tasks(string name, double requiredHours, double deadlineInDays, string requiredSkill, string description)
+        /// <param name="description"> description</param>
+        public Tasks(string name, double requiredHours, DateTime deadlineInDays, string requiredSkill, string description)
         {
             this.Name = name;
             this.RequiredHours = requiredHours;
             this.DeadlineInDays = deadlineInDays;
             this.RequiredSkill = requiredSkill;
+            this.Description = description;
         }
+
         /// <summary>
         /// Gets or sets task Name
         /// </summary>
@@ -26,6 +29,7 @@
         /// Task Name
         /// </value>
         public string Name { get; set; }
+
         /// <summary>
         /// Gets or sets required hours
         /// </summary>
@@ -40,7 +44,7 @@
         /// <value>
         /// deadline in days to complet the task
         /// </value>
-        public double DeadlineInDays { get; set; }
+        public DateTime DeadlineInDays { get; set; }
 
         /// <summary>
         /// Gets or sets required Skills
@@ -48,6 +52,14 @@
         /// <value>
         /// required skill for this job
         /// </value>
-        public string RequiredSkill { get; set; } 
+        public string RequiredSkill { get; set; }
+
+        /// <summary>
+        /// Gets or sets Description for the atsk
+        /// </summary>
+        /// <value>
+        /// Description gven by the user
+        /// </value>
+        public string Description { get; set; }
     }
 }

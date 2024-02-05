@@ -1,4 +1,5 @@
 ﻿using ConsoleTables;
+
 namespace CodingAssesment1
 {
     /// <summary>
@@ -14,11 +15,11 @@ namespace CodingAssesment1
         /// </summary>
         public EmployeeManager()
         {
-            _employees = new List<Employee>();
-            _console = new EmployeeIOConsole();
+            this._employees = new List<Employee>();
+            this._console = new EmployeeIOConsole();
         }
 
-        private enum Option
+        private enum EmployeeOperations
         {
             Add = 1,
             View,
@@ -28,10 +29,10 @@ namespace CodingAssesment1
         /// <summary>
         /// To acces the employee list outside
         /// </summary>
-        /// <returns>d</returns>
+        /// <returns>the list of employees </returns>
         public List<Employee> GetEmployees()
         {
-            return _employees;
+            return this._employees;
         }
 
         /// <summary>
@@ -39,16 +40,18 @@ namespace CodingAssesment1
         /// </summary>
         public void AddEmpoyee()
         {
-            string employeeName = _console.GetEmployeeName();
-            List <string> employeeSkill = _console.GetEmployeeSkills();
-            double availableDays = _console.GetEmployeeAvailableHours();
-            string taskAssigned = null;
-            double workingHours = 8; //Constant working hours for all employees
-            Employee employee = new Employee(employeeName, workingHours, employeeSkill, taskAssigned, availableDays);
-            this._employees.Add(employee);
-            Console.WriteLine("Totally, " + this._employees.Count() + "Employees Were Added");
-            string option = _console.GetOptionToAddAnother("Employee");
-            if (option == "1") { AddEmpoyee(); }
+            bool isAddAnotherEmployee = true;
+            while (isAddAnotherEmployee)
+            {
+                string employeeName = this._console.GetEmployeeName();
+                List<string> employeeSkill = this._console.GetEmployeeSkills();
+                double availableDays = this._console.GetEmployeeAvailableHours();
+                List<string> taskAssigned = new List<string>();
+                Employee employee = new Employee(employeeName, employeeSkill, taskAssigned, availableDays);
+                this._employees.Add(employee);
+                Console.WriteLine("Totally, " + this._employees.Count() + " Employees Were Added");
+                isAddAnotherEmployee = this._console.IsAddAnotherTrue("Employee");
+            }
         }
 
         /// <summary>
@@ -88,15 +91,16 @@ namespace CodingAssesment1
         /// </summary>
         public void ViewAllEmployees()
         {
-            Console.WriteLine(_employees.Count());
+            Console.WriteLine(this._employees.Count());
             if (this._employees.Count() > 0)
             {
                 var employeeTable = new ConsoleTable("Employee Name: ", "Skills: ", "AssignedTask: ", "Availability");
                 foreach (Employee employee in this._employees)
                 {
-                    string skillSet = String.Join(",", employee.Skills);
+                    string skillSet = string.Join(",", employee.Skills);
                     employeeTable.AddRow(employee.Name, skillSet, employee.AssignedTask, employee.AvailableDays);
                 }
+
                 employeeTable.Write();
             }
             else
@@ -114,17 +118,17 @@ namespace CodingAssesment1
             Console.WriteLine("Choose any Operation\n1.AddEmployee\n2.ViewAllEmployee\n3.RemoveEmployee");
             bool isOptionInt = int.TryParse(Console.ReadLine(), out int option);
 
-            Option userOption = (Option)option;
+            EmployeeOperations userOption = (EmployeeOperations)option;
 
             switch (userOption)
             {
-                case Option.Add:
+                case EmployeeOperations.Add:
                     this.AddEmpoyee();
                     break;
-                case Option.Remove:
+                case EmployeeOperations.Remove:
                     this.RemoveEmpoyee();
                     break;
-                case Option.View:
+                case EmployeeOperations.View:
                     this.ViewAllEmployees();
                     break;
                 default:

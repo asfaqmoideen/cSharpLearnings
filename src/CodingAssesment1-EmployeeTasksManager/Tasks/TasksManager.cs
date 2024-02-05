@@ -1,4 +1,5 @@
 ﻿using ConsoleTables;
+
 namespace CodingAssesment1
 {
     /// <summary>
@@ -18,7 +19,7 @@ namespace CodingAssesment1
             this._taskConsole = new TaskIOConsole();
         }
 
-        private enum Option
+        private enum TaskOperations
         {
             Add = 1,
             View,
@@ -39,15 +40,18 @@ namespace CodingAssesment1
         /// </summary>
         public void AddTask()
         {
-            string taskName = this._taskConsole.GetTaskName();
-            string taskDescription = this._taskConsole.GetTaskDescription();
-            double requiredHours = this._taskConsole.GetTasksRequiredHours();
-            double deadlineInDays = this._taskConsole.GetTasksDeadlineInDays();
-            string requiredSkill = this._taskConsole.GetTaskRequiredSkills();
-            Tasks tasks = new Tasks(taskName, requiredHours, deadlineInDays, requiredSkill, taskDescription);
-            this._tasks.Add(tasks);
-            string addAnother = _taskConsole.AddAnotherTaskToTheList();
-            if (addAnother == "1") { this.AddTask(); }
+            bool isAddAnothertask = false;
+            while (isAddAnothertask)
+            {
+                string taskName = this._taskConsole.GetTaskName();
+                string taskDescription = this._taskConsole.GetTaskDescription();
+                double requiredHours = this._taskConsole.GetTasksRequiredHours();
+                DateTime taskDeadline = this._taskConsole.GetTaskDeadline();
+                string requiredSkill = this._taskConsole.GetTaskRequiredSkills();
+                Tasks tasks = new Tasks(taskName, requiredHours, taskDeadline, requiredSkill, taskDescription);
+                this._tasks.Add(tasks);
+                isAddAnothertask = this._taskConsole.IsAddAnother("Task");
+            }
         }
 
         /// <summary>
@@ -66,11 +70,11 @@ namespace CodingAssesment1
         /// </summary>
         /// <param name="taskName"> Emp</param>
         /// <returns>object of employee</returns>
-        public Tasks? SearchTasksFromTheList(string? taskName)
+        public Tasks SearchTasksFromTheList(string taskName)
         {
             if (this._tasks != null)
             {
-                foreach (Tasks tasks in _tasks)
+                foreach (Tasks tasks in this._tasks)
                 {
                     if (tasks.Name.ToLower() == taskName.ToLower())
                     {
@@ -87,13 +91,14 @@ namespace CodingAssesment1
         /// </summary>
         public void ViewAllTasks()
         {
-            if (_tasks != null)
+            if (this._tasks != null)
             {
                 var tasksTable = new ConsoleTable("Task Name", "Required Skills", "Deadline in Days ", "Required Hours to Complete");
                 foreach (Tasks tasks in this._tasks)
                 {
                     tasksTable.AddRow(tasks.Name, tasks.RequiredSkill, tasks.DeadlineInDays, tasks.RequiredHours);
                 }
+
                 tasksTable.Write(Format.MarkDown);
             }
         }
@@ -106,17 +111,17 @@ namespace CodingAssesment1
             Console.WriteLine("Choose any Operation\n1.AddTask\n2.ViewAllTasks\n3.RemoveTasks");
             bool isOptionInt = int.TryParse(Console.ReadLine(), out int option);
 
-            Option userOption = (Option)option;
+            TaskOperations userOption = (TaskOperations)option;
 
             switch (userOption)
             {
-                case Option.Add:
+                case TaskOperations.Add:
                     this.AddTask();
                     break;
-                case Option.Remove:
+                case TaskOperations.Remove:
                     this.RemoveTask();
                     break;
-                case Option.View:
+                case TaskOperations.View:
                     this.ViewAllTasks();
                     break;
                 default:

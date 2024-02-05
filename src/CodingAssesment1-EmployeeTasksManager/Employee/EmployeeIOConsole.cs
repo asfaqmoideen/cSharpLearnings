@@ -1,4 +1,5 @@
-﻿namespace CodingAssesment1
+﻿
+namespace CodingAssesment1
 {
     /// <summary>
     /// Gets employee name from the user
@@ -12,12 +13,12 @@
         public string GetEmployeeName()
         {
             string? employeeName;
-            do
+            Console.WriteLine("Enter Employee Name");
+            while ((employeeName = Console.ReadLine()).Length == 0)
             {
-                Console.WriteLine("Enter Employee Name");
-                employeeName = Console.ReadLine();
+                this.PrintInvalidInputMessage("Employee Name");
             }
-            while (employeeName.Length == 0);
+
             return employeeName;
         }
 
@@ -28,18 +29,29 @@
         public List <string> GetEmployeeSkills()
         {
             List<string> skillsList = new List<string>();
-            string? employeeSkills;
-            x:
+            string employeeSkills;
             do
             {
                 Console.WriteLine("Enter Employee Skills");
-                employeeSkills = Console.ReadLine();
+                string? employeeSkill;
+                while ((employeeSkill = Console.ReadLine()).Length == 0)
+                {
+                    this.PrintInvalidInputMessage("Skill");
+                }
+
+                skillsList.Add(employeeSkill);
             }
-            while (employeeSkills.Length ==0);
-            skillsList.Add(employeeSkills);
-            string option = this.GetOptionToAddAnother("Skill");
-            if (option == "1") { goto x; }
+            while (this.IsAddAnotherTrue("Skill"));
             return skillsList;
+        }
+
+        /// <summary>
+        /// Prints invalid input message
+        /// </summary>
+        /// <param name="format">format of input</param>
+        public void PrintInvalidInputMessage(string format)
+        {
+            Console.WriteLine($"Invalid {format} Input");
         }
 
         /// <summary>
@@ -49,13 +61,11 @@
         public double GetEmployeeAvailableHours()
         {
             double availableDays;
-            bool isAvailableDaysDouble;
             Console.WriteLine("Enter employe availablility in days");
-            do
+            while (!double.TryParse(Console.ReadLine(), out availableDays) && availableDays > 0)
             {
-                isAvailableDaysDouble = double.TryParse(Console.ReadLine(), out availableDays);
+                this.PrintInvalidInputMessage("EmployeeAvailableHours");
             }
-            while (!isAvailableDaysDouble && availableDays >0 );
             return availableDays;
         }
 
@@ -63,12 +73,12 @@
         /// Get the option to add another employee
         /// </summary>
         /// <param name="format">parameter as string</param>
-        /// <returns>1 if yes </returns>
-        internal string GetOptionToAddAnother(string format)
+        /// <returns>true if yes </returns>
+        public bool IsAddAnotherTrue(string format)
         {
-            string? option;
             Console.WriteLine($"Need to add Another {format}\n1.Yes\nPress any key to skip");
-            return option = Console.ReadLine();
+            string? option = Console.ReadLine();
+            return true ? option == "1" : false;
         }
     }
 }

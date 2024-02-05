@@ -45,7 +45,7 @@ namespace CodingAssesment1
                     bool isSkillMatched = employee.Skills.Contains(tasks.RequiredSkill);
                     if (isSkillMatched)
                     {
-                        return(employee, tasks);
+                        return (employee, tasks);
                     }
                     else
                     {
@@ -53,7 +53,6 @@ namespace CodingAssesment1
                     }
                 }
             }
-
             return (null, null);
         }
 
@@ -75,6 +74,7 @@ namespace CodingAssesment1
                     }
                 }
             }
+
             return skillMatchedEmployeeCount;
         }
 
@@ -89,22 +89,22 @@ namespace CodingAssesment1
             if (this.PrioritiseTheTasks().Any() && _employeeManager.GetEmployees().Any())
             {
                 var (employee, tasks) = this.GetMatchedEmployeeForTask();
-                if (employee  != null && tasks != null)
+                if (employee != null && tasks != null)
                 {
                     double skillMatchedEmployees = this.MatchedEmployeeCount();
                     double splittedHours = tasks.RequiredHours / skillMatchedEmployees;
                     if (tasks.RequiredHours > 0)
                     {
-                        employee.AssignedTask = tasks.Name;
+                        employee.AssignedTask.Add(tasks.Name);
 
-                        double employeeWillWorkFor = employee.AvailableDays;
+                        double employeeWillWorkFor = employee.AvailableDays * Employee.WorkingHours;
 
-                        employee.AvailableDays -= splittedHours / employee.WorkingHours;
+                        employee.AvailableDays -= splittedHours / Employee.WorkingHours;
 
-                        tasks.RequiredHours -= employee.WorkingHours * employeeWillWorkFor;
+                        tasks.RequiredHours -= Employee.WorkingHours * employeeWillWorkFor;
 
                         Console.WriteLine("Task : " + tasks.Name + "Allocated to: " + employee.Name);
-                    } 
+                    }
                 }
                 else
                 {
