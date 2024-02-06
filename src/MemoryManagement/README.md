@@ -8,4 +8,6 @@
 
 # Task2
 
-- 
+- Understatnding the memory allocation for refernce tyes and value types.
+- Created a integer array and added elements. usig VS diagnostic tool, it was found while adding each element extta bytes are consumed(using snapshot).
+- And multiplied a long number. 
