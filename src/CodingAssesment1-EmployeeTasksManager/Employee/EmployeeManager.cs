@@ -72,7 +72,7 @@ namespace CodingAssesment1
         /// <returns>object of employee</returns>
         public Employee SearchEmployeeFromTheList(string? employeeName)
         {
-            if (this._employees != null)
+            if (this._employees.Any())
             {
                 foreach (Employee employee in this._employees)
                 {
@@ -82,8 +82,6 @@ namespace CodingAssesment1
                     }
                 }
             }
-
-            return null;
         }
 
         /// <summary>
