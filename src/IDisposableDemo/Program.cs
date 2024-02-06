@@ -1,10 +1,30 @@
-﻿namespace Assignments
+﻿namespace IDisposableDemo
 {
+    /// <summary>
+    /// Initiate the program
+    /// </summary>
     internal class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Initiates the Program Execution
+        /// </summary>
+        private static void Main()
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("IDisposable Interface");
+
+            using (FileWriter fileWriter = new FileWriter("sample.txt"))
+            {
+                fileWriter.ExcuteFileWriter("Hello, Asfaq !");
+            }
+
+            using (FileReader fileReader = new FileReader("sample.txt"))
+            {
+                fileReader.ExecuteFileReader();
+            }
+
+            Console.WriteLine("Press any key to exit");
+
+            Console.ReadKey();
         }
     }
 }

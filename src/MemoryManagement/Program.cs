@@ -18,6 +18,9 @@
 
             Number number = new Number(50);
 
+            Console.WriteLine($"Value Before Modification\nValueTyepeVariable : {valueTypeVariable}\n" +
+            $"Reference Type Variable : {number.RefTypeVariable}\n");
+
             MultiplyTwoNumbers(number, valueTypeVariable);
 
             Console.WriteLine($"Value After Modification\nValueTyepeVariable : {valueTypeVariable}\n" +
