@@ -8,9 +8,9 @@
         /// <summary>
         /// Prints financial summary to the user
         /// </summary>
-        /// <param name="accBalance">tota acc blanace </param>
-        /// <param name="totalIncome">the total income</param>
-        /// <param name="totalExpense">the total expenditutre</param>
+        /// <param name="accBalance">Total Acount Balance</param>
+        /// <param name="totalIncome">Sum of Income</param>
+        /// <param name="totalExpense">Sum of Expenditures</param>
         public void ShowSummaryToTheUser(double accBalance, double totalIncome, double totalExpense)
         {
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
@@ -26,7 +26,7 @@
         /// Gets the expense category from the user
         /// </summary>
         /// <returns>Category as string</returns>
-        public string GetExpenseCategoryFromTheUser()
+        public string? GetExpenseCategoryFromTheUser()
         {
             Console.WriteLine("Expense Category");
             string? expenseCategory = Console.ReadLine();
@@ -34,10 +34,10 @@
         }
 
         /// <summary>
-        /// Return inocome source
+        /// Gets source of the income from the user
         /// </summary>
-        /// <returns>income source</returns>
-        public string GetIncomeSourceFromTheUser()
+        /// <returns>Income source as string</returns>
+        public string? GetIncomeSourceFromTheUser()
         {
             Console.WriteLine("Income Source");
             string? incomeSource = Console.ReadLine();
@@ -68,7 +68,7 @@
         /// Get option to add another entity
         /// </summary>
         /// <returns>option entered</returns>
-        public string AddAnotherEntity()
+        public string? AddAnotherEntity()
         {
             Console.WriteLine("[A]dd another or [M]enu");
             string? option = Console.ReadLine();
@@ -79,10 +79,10 @@
         /// Gets income amount from the user
         /// </summary>
         /// <returns>income amount as string</returns>
-        internal string GetExpenseAmountFromTheUser()
+        public string? GetExpenseAmountFromTheUser()
         {
             Console.WriteLine("Enter Expense Amount");
-            string expenseAmount = Console.ReadLine();
+            string? expenseAmount = Console.ReadLine();
             return expenseAmount;
         }
 
@@ -90,17 +90,17 @@
         /// Gets income amount from the user
         /// </summary>
         /// <returns>income amount as tring</returns>
-        internal string GetIncomeAmountFromTheUser()
+        public string? GetIncomeAmountFromTheUser()
         {
             Console.WriteLine("Enter Income Amount");
-            string incomeAmount = Console.ReadLine();
+            string? incomeAmount = Console.ReadLine();
             return incomeAmount;
         }
 
         /// <summary>
         /// Printing Redirecting to menu when it is called
         /// </summary>
-        internal void PrintRedirectingToMenu()
+        public void PrintRedirectingToMenu()
         {
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
             Console.WriteLine("Redirecing to Menu");
@@ -109,22 +109,22 @@
         /// <summary>
         /// get confirmation from the user
         /// </summary>
-        /// <returns>Yes or No as Y or C</returns>
-        internal string GetConfirmation()
+        /// <returns>Y if yes</returns>
+        public string? GetConfirmation()
         {
             Console.WriteLine("Confirm  Delete of Expense - [Y]es - [C]ancel");
-            string option = Console.ReadLine();
+            string? option = Console.ReadLine();
             return option;
         }
 
         /// <summary>
-        /// Will shoow the search results
+        /// Shows the search results to the user.
         /// </summary>
         /// <param name="amount">Expense Amount</param>
         /// <param name="category"> Expense Categoryfdsdf</param>
         /// <param name="createdAt">Expense created time </param>
         /// <param name="updatedAt">Expense updated time</param>
-        internal void ShowSearchResults(double amount, string category, DateTime createdAt, DateTime updatedAt)
+        public void ShowSearchResults(double amount, string category, DateTime createdAt, DateTime updatedAt)
         {
             Console.WriteLine("Search Result");
             Console.WriteLine("Amount :" + amount + "\n" + "Category :" + category +
@@ -135,10 +135,10 @@
         /// Option from the user
         /// </summary>
         /// <returns>1 if Inocme, 2 if epxpense</returns>
-        internal string ChooseTheOption()
+        public string? ChooseTheOption()
         {
             Console.WriteLine("Choose the opotion\n1.Income\n2.Expense");
-            string option = Console.ReadLine();
+            string? option = Console.ReadLine();
             return option;
         }
     }

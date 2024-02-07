@@ -1,5 +1,4 @@
 ﻿using Assignments;
-using System.ComponentModel.Design;
 
 namespace Assignments
 {
@@ -45,14 +44,13 @@ namespace Assignments
         /// </summary
         public void AddExpense()
         {
-            Console.Write("Adding a Expense\n");
             double newExpense = this.GetExpenseAmount();
-            string expenseCategory = this.GetExpenseCategory();
+            string? expenseCategory = this.GetExpenseCategory();
             DateTime expenseDate = DateTime.Now;
             DateTime updatedExpensedate = DateTime.Now;
             ExpenseEntity expenseEntity = new ExpenseEntity(newExpense, expenseCategory, expenseDate, updatedExpensedate);
-            AddExpenseToTheList(expenseEntity);
-            string option = this._userInterface.AddAnotherEntity();
+            this.AddExpenseToTheList(expenseEntity);
+            string? option = this._userInterface.AddAnotherEntity();
             Console.WriteLine("Expense Added");
             if (option == "A" || option == "a")
             {
@@ -79,12 +77,12 @@ namespace Assignments
         public void AddIncome()
         {
             double newIncome = this.GetIncomeAmount();
-            string incomeCategory = this.GetIncomeSource();
+            string? incomeCategory = this.GetIncomeSource();
             DateTime incomeDate = DateTime.Now;
             DateTime updatedIncomeDate = DateTime.Now;
             IncomeEntity incometracker = new IncomeEntity(newIncome, incomeCategory, incomeDate, updatedIncomeDate);
             this.AddIncomesToTheList(incometracker);
-            string option = this._userInterface.AddAnotherEntity();
+            string? option = this._userInterface.AddAnotherEntity();
             if (option == "A" || option == "a")
             {
                 this.AddIncome();
@@ -149,12 +147,12 @@ namespace Assignments
         {
             if (this._expenses.Count > 0)
             {
-                string searchCategory = this._userInterface.GetExpenseCategoryFromTheUser();
-                ExpenseEntity expenseResult = this.SearchExpenseFromTheList(searchCategory);
-                string option = this._userInterface.GetConfirmation();
+                string? searchCategory = this._userInterface.GetExpenseCategoryFromTheUser();
+                ExpenseEntity? expenseResult = this.SearchExpenseFromTheList(searchCategory);
+                string? option = this._userInterface.GetConfirmation();
                 if (option == "Y" || option == "y")
                 {
-                    RemoveExpenseFromTheList(expenseResult);
+                    this.RemoveExpenseFromTheList(expenseResult);
                 }
                 else
                 {
@@ -179,12 +177,15 @@ namespace Assignments
         /// <returns> expense entity as</returns>
         public ExpenseEntity? SearchExpenseFromTheList(string searchCategory)
         {
-            foreach (var expense in this._expenses)
+            if (!string.IsNullOrEmpty(searchCategory))
             {
-                if (expense.Category.ToLower() == searchCategory.ToLower())
+                foreach (var expense in this._expenses)
                 {
-                    this._userInterface.ShowSearchResults(expense.Amount, expense.Category, expense.CreatedAt, expense.UpdatedAt);
-                    return expense;
+                    if (expense.Category.ToLower() == searchCategory.ToLower())
+                    {
+                        this._userInterface.ShowSearchResults(expense.Amount, expense.Category, expense.CreatedAt, expense.UpdatedAt);
+                        return expense;
+                    }
                 }
             }
 
@@ -196,14 +197,17 @@ namespace Assignments
         /// </summary>
         /// <param name="searchCategory">search category</param>
         /// <returns> expense entity as</returns>
-        public IncomeEntity? SearchIncomeFromTheList(string searchCategory)
+        public IncomeEntity? SearchIncomeFromTheList(string? searchCategory)
         {
-            foreach (var income in this._incomes)
+            if (!string.IsNullOrEmpty(searchCategory))
             {
-                if (income.Source.ToLower() == searchCategory.ToLower())
+                foreach (var income in this._incomes)
                 {
-                    this._userInterface.ShowSearchResults(income.Amount, income.Source, income.CreatedAt, income.UpdatedAt);
-                    return income;
+                    if (income.Source.ToLower() == searchCategory.ToLower())
+                    {
+                        this._userInterface.ShowSearchResults(income.Amount, income.Source, income.CreatedAt, income.UpdatedAt);
+                        return income;
+                    }
                 }
             }
 
@@ -217,9 +221,9 @@ namespace Assignments
         {
             if (this._incomes.Count > 0)
             {
-                string searchCategory = this._userInterface.GetIncomeSourceFromTheUser();
-                IncomeEntity incomeResult = this.SearchIncomeFromTheList(searchCategory);
-                string option = this._userInterface.GetConfirmation();
+                string? searchCategory = this._userInterface.GetIncomeSourceFromTheUser();
+                IncomeEntity? incomeResult = this.SearchIncomeFromTheList(searchCategory);
+                string? option = this._userInterface.GetConfirmation();
 
                 if (option == "Y" || option == "y")
                 {
@@ -252,14 +256,14 @@ namespace Assignments
         {
             if (this._expenses.Count > 0)
             {
-                string searchCategory = this._userInterface.GetExpenseCategoryFromTheUser();
-                ExpenseEntity expenseResult = this.SearchExpenseFromTheList(searchCategory);
-                string option = this._userInterface.GetConfirmation();
+                string? searchCategory = this._userInterface.GetExpenseCategoryFromTheUser();
+                ExpenseEntity? expenseResult = this.SearchExpenseFromTheList(searchCategory);
+                string? option = this._userInterface.GetConfirmation();
 
                 if (option == "Y" || option == "y")
                 {
                     double newExpense = this.GetExpenseAmount();
-                    string newExpenseCategory = this._userInterface.GetExpenseCategoryFromTheUser();
+                    string? newExpenseCategory = this._userInterface.GetExpenseCategoryFromTheUser();
 
                     this.EditExpenseWithReferenceObject(expenseResult, newExpense, newExpenseCategory);
                 }
@@ -295,9 +299,7 @@ namespace Assignments
         /// <returns>true if the input is double, false elsewhere</returns>
         public bool IsAmountDouble(string expenseAmount, out double expenseAmountOutput)
         {
-            bool isExpenseDouble = false;
-            double expenseamount;
-            isExpenseDouble = double.TryParse(expenseAmount, out expenseamount);
+            bool isExpenseDouble = double.TryParse(expenseAmount, out double expenseamount);
             expenseAmountOutput = expenseamount;
             return isExpenseDouble && (expenseAmountOutput > 0);
         }
@@ -381,17 +383,18 @@ namespace Assignments
         }
 
         /// <summary>
-        /// Gets Income amount
+        /// Gets valid Income amount
         /// </summary>
         /// <returns>income amount as double</returns>
         public double GetExpenseAmount()
         {
-            string expesneAmountString = this._userInterface.GetExpenseAmountFromTheUser();
+            string? expesneAmountString = this._userInterface.GetExpenseAmountFromTheUser();
             double expenseAmountDouble;
             while (!this.IsAmountDouble(expesneAmountString, out expenseAmountDouble))
             {
                 expesneAmountString = this._userInterface.GetExpenseAmountFromTheUser();
             }
+
             return expenseAmountDouble;
         }
 
@@ -401,11 +404,12 @@ namespace Assignments
         /// <returns>validtaes and return expense category</returns>
         public string GetExpenseCategory()
         {
-            string expesneAmountString = this._userInterface.GetExpenseCategoryFromTheUser();
+            string? expesneAmountString = this._userInterface.GetExpenseCategoryFromTheUser();
             while (!this.IsExpenseCategoryUnique(expesneAmountString))
             {
                 expesneAmountString = this._userInterface.GetExpenseCategoryFromTheUser();
             }
+
             return expesneAmountString;
         }
 
@@ -415,7 +419,7 @@ namespace Assignments
         /// <returns>validtaes and return expense category</returns>
         public string GetIncomeSource()
         {
-            string expesneAmountString = this._userInterface.GetIncomeSourceFromTheUser();
+            string? expesneAmountString = this._userInterface.GetIncomeSourceFromTheUser();
             while (!this.IsIncomeSourceUnique(expesneAmountString))
             {
                 expesneAmountString = this._userInterface.GetIncomeSourceFromTheUser();
@@ -430,7 +434,7 @@ namespace Assignments
         /// <returns>return input as double</returns>
         public double GetIncomeAmount()
         {
-            string incomeAmountString = this._userInterface.GetIncomeAmountFromTheUser();
+            string? incomeAmountString = this._userInterface.GetIncomeAmountFromTheUser();
             double incomeAmountDouble;
             while (!this.IsAmountDouble(incomeAmountString, out incomeAmountDouble))
             {
@@ -447,16 +451,15 @@ namespace Assignments
         {
             if (this._incomes.Count > 0)
             {
-                string searchCategory = this._userInterface.GetIncomeSourceFromTheUser();
+                string? searchCategory = this._userInterface.GetIncomeSourceFromTheUser();
                 IncomeEntity? incomeResult = this.SearchIncomeFromTheList(searchCategory);
-                string option = this._userInterface.GetConfirmation();
+                string? option = this._userInterface.GetConfirmation();
 
                 if (option == "Y" || option == "y")
                 {
                     double newIncomeToBeEdited = this.GetIncomeAmount();
-                    string incomeCategoryToBeEdited = this._userInterface.GetIncomeSourceFromTheUser();
-                    DateTime updatedAt = DateTime.Now;
-                    EditIncomeWithReferenceObject(incomeResult, newIncomeToBeEdited, incomeCategoryToBeEdited);
+                    string? incomeCategoryToBeEdited = this._userInterface.GetIncomeSourceFromTheUser();
+                    this.EditIncomeWithReferenceObject(incomeResult, newIncomeToBeEdited, incomeCategoryToBeEdited);
                 }
                 else
                 {
@@ -483,7 +486,7 @@ namespace Assignments
         /// </summary>
         public void ShowRecord()
         {
-            string option = this._userInterface.ChooseTheOption();
+            string? option = this._userInterface.ChooseTheOption();
             if (option == "1")
             {
                 this.ViewIncome();
@@ -499,7 +502,7 @@ namespace Assignments
         /// </summary>
         public void EditRecord()
         {
-            string option = this._userInterface.ChooseTheOption();
+            string? option = this._userInterface.ChooseTheOption();
             if (option == "1")
             {
                 this.EditIncome();
@@ -515,7 +518,7 @@ namespace Assignments
         /// </summary>
         public void DeleteRecord()
         {
-            string option = this._userInterface.ChooseTheOption();
+            string? option = this._userInterface.ChooseTheOption();
             if (option == "1")
             {
                 this.DeleteIncome();
