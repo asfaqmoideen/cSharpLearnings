@@ -13,7 +13,10 @@
             }
         } 
   
- This Code Snippet creates inifinite integer array with lenght of 1000. 
+- This Code Snippet creates inifinite integer array with lenght of 1000. 
+- As we know, The Garbage Collector will assume that it is Large Living object
+- It moves it to the Generation 2 GC which will exponentially allocates memory, 
+- Which creates a memory leak
 
  ![MemoryLeakWithoutClear](MemoryLeakWithoutClear.png)
 
@@ -40,7 +43,9 @@ Hence the memory is allocating and leaking exponentially.
             }
         }
 
-here a try and finaly block is used, in finally block the list is cleared so the short lived objects are deleted. 
+- Here a try and finaly block is used, in finally block the list is cleared so the short lived objects are deleted.
+- As the lists are cleared immediately in the finally block, 
+- So the objects are short lived. Hence it was not moved to the Generation 2 GC
 
  ![MemoryProfilingWithClear](MemoryProfilingWithClear.png)
 
