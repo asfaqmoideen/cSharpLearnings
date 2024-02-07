@@ -21,21 +21,29 @@
             Console.WriteLine($"Value Before Modification\nValueTyepeVariable : {valueTypeVariable}\n" +
             $"Reference Type Variable : {number.RefTypeVariable}\n");
 
-            MultiplyTwoNumbers(number, valueTypeVariable);
+            IncrementTwoNumbers(number, valueTypeVariable);
 
             Console.WriteLine($"Value After Modification\nValueTyepeVariable : {valueTypeVariable}\n" +
                 $"Reference Type Variable : {number.RefTypeVariable}\n");
             CreateArrayOfIntegers();
-            CalculateLargeNumber();
+            MultiplyLargeNumber();
             Console.ReadKey();
         }
 
-        private static void MultiplyTwoNumbers(Number number, int valueTypeVariable)
+        /// <summary>
+        /// Increments any two Numbers passed as integer and object(ValueType and Refrence Type
+        /// </summary>
+        /// <param name="number">Objcet with a Integer property</param>
+        /// <param name="valueTypeVariable">Value type variale</param>
+        private static void IncrementTwoNumbers(Number number, int valueTypeVariable)
         {
             number.RefTypeVariable++;
             valueTypeVariable++;
         }
 
+        /// <summary>
+        /// Creates a integer array with larger size
+        /// </summary>
         private static void CreateArrayOfIntegers()
         {
             Int64[] integerArray = new Int64[120];
@@ -51,7 +59,10 @@
             }
         }
 
-        private static void CalculateLargeNumber()
+        /// <summary>
+        /// Multiplies two large numbers which are in value types
+        /// </summary>
+        private static void MultiplyLargeNumber()
         {
             long firtsLargeNumber = 678902345676789;
             long secondLargeNumber = firtsLargeNumber * 57987367890;

@@ -11,11 +11,11 @@
         /// <param name="projects">list of strings</param>
         public ProjectCreateAndDetroy(List<string> projects)
         {
-            Projects = projects;
+            this.Projects = projects;
         }
 
         /// <summary>
-        /// projects list
+        /// Gets or sets projects list
         /// </summary>
         /// <value>
         /// List of project

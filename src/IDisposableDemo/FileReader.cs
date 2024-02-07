@@ -18,7 +18,7 @@
         }
 
         /// <summary>
-        /// proceeds to read theline
+        /// Executes the StreamReader method defined in Streamrider
         /// </summary>
         public void ExecuteFileReader()
         {
@@ -27,7 +27,7 @@
         }
 
         /// <summary>
-        /// Disposes the 
+        /// Execuets the dispose method defined in IDisposable Method
         /// </summary>
         public void Dispose()
         {

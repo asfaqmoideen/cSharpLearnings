@@ -10,16 +10,16 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="FileWriter"/> class.
         /// </summary>
-        /// <param name="filepath">takes file path</param>
+        /// <param name="filepath">File path of the file</param>
         public FileWriter(string filepath)
         {
             this._streamWriter = new StreamWriter(filepath, true);
         }
 
         /// <summary>
-        /// Execute the file writter
+        /// Execute the file writter method written in StreamWriter Class
         /// </summary>
-        /// <param name="text">text to be written</param>
+        /// <param name="text">The text to be written in the File</param>
         public void ExcuteFileWriter(string text)
         {
             this._streamWriter.WriteLine(text);
@@ -27,7 +27,7 @@
         }
 
         /// <summary>
-        /// Dispose Method
+        /// Dispose Method to execute Dispose Method defined in IDisposable
         /// </summary>
         public void Dispose()
         {

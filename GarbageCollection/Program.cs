@@ -19,6 +19,9 @@ namespace Assignments
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Creates and destory large number of objects which have large capacity of string array
+        /// </summary>
         private static void CreateAndDestroyObjects()
         {
             ProjectCreateAndDetroy projectCreateAndDetroy;
@@ -28,6 +31,11 @@ namespace Assignments
                 projectCreateAndDetroy = null;
             }
         }
+
+        /// <summary>
+        /// Calls GC Collector Explicitly
+        /// Creates and destory large number of objects which have large capacity of string array
+        /// </summary>
         private static void CreateAndDestroyObjectsWithGCCollector()
         {
             ProjectCreateAndDetroy projectCreateAndDetroy;

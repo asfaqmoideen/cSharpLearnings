@@ -6,7 +6,7 @@
     internal class Program
     {
         /// <summary>
-        /// Initiates the Program Execution
+        /// Initiates the Program Execution with calling Stream Reader and Stream Writer
         /// </summary>
         private static void Main()
         {
