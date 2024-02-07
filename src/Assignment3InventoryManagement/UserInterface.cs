@@ -22,10 +22,10 @@
         /// <returns>returns the product name</returns>
         public string GetProductName()
         {
-            string productName;
+            string? productName;
             Console.WriteLine("Enter Product Name");
-            productName = Console.ReadLine()!;
-            while (_productManager.IsProductNameExists(productName))
+            productName = Console.ReadLine();
+            while (this._productManager.IsProductNameExists(productName))
             {
                 Console.WriteLine("Enter Unique product Name");
                 productName = Console.ReadLine() !;
@@ -40,15 +40,16 @@
         /// <returns>the product ID</returns>
         public string GetProductID()
         {
-            string productID;
+            string? productID;
             Console.WriteLine("Enter ID Name");
             productID = Console.ReadLine();
 
-            while(_productManager.IsProductIDExists(productID))
+            while(this._productManager.IsProductIDExists(productID))
             {
                 Console.WriteLine("Enter Uniquq ID Name");
                 productID = Console.ReadLine();
             }
+
             return productID;
         }
 
@@ -63,15 +64,14 @@
         /// <returns>Product Price</returns>
         public double GetProductPrice()
         {
-            string productprice;
+            string? productprice;
             double productPrice;
             do
             {
                 Console.WriteLine("Enter Product Price (Type - Double)");
                 productprice = Console.ReadLine();
             }
-            while (_productManager.IsProductPricePositiveDouble(productprice, out productPrice ) != true);
-            bool isPriceDouble;
+            while (this._productManager.IsProductPricePositiveDouble(productprice, out productPrice) != true);
             return productPrice;
         }
 
@@ -81,14 +81,14 @@
         /// <returns>re</returns>
         public uint GetProductQuantity()
         {
-            string productQuantityFromUser;
+            string? productQuantityFromUser;
             uint productQuantity;
             do
             {
                 Console.WriteLine("Enter Quantity (Type - Double)");
                 productQuantityFromUser = Console.ReadLine();
             }
-            while (_productManager.IsProductQuantityUInt(productQuantityFromUser, out productQuantity) != true);
+            while (this._productManager.IsProductQuantityUInt(productQuantityFromUser, out productQuantity) != true);
             return productQuantity;
         }
 
@@ -99,7 +99,7 @@
         /// <param name="productID">product ID</param>
         /// <param name="productPrice">price</param>
         /// <param name="productQuantity">quantity</param>
-        public void ShowResults(string productName, string productID, double productPrice, double productQuantity )
+        public void ShowResults(string productName, string productID, double productPrice, double productQuantity)
         {
             Console.WriteLine("ProductName: " + productName + "\n" + "ProductID: " + productID +
                 "\n" + "ProductPrice: " + productPrice + "\n" + "ProductQuantity: " + productQuantity + "\t");
@@ -113,7 +113,7 @@
         /// <param name="productPrice">product price</param>
         /// <param name="productQuantity">product quantity</param>
         /// <returns>yes or no from user input </returns>
-        public string ConfirmTheProduct(string productName, string productID, double productPrice, double productQuantity )
+        public string ConfirmTheProduct(string productName, string productID, double productPrice, double productQuantity)
         {
             Console.WriteLine("ProductName :" + productName + "\n" + "ProductID:" + productID +
                 "\n" + "ProductPrice: " + productPrice + "\n" + "ProductQuantity" + productQuantity + "\t");

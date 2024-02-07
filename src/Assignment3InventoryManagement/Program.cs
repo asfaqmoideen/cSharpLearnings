@@ -11,7 +11,7 @@ namespace Assignments
 
         private static void Main()
         {
-            string option;
+            string? option;
             do
             {
                 Console.WriteLine("Menu");

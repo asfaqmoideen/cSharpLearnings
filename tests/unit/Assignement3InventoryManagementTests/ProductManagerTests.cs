@@ -6,7 +6,7 @@ namespace Assignement3InventoryManagementTests
 
         [Theory]
         [InlineData("1223")]
-        [InlineData("12.1")]
+        [InlineData("12.134")]
         [InlineData("12.1")]
         public void ValidDoubleProductPrice_IsProductPricePositiveDouble_ReturnsTrue(string productPrice)
         {

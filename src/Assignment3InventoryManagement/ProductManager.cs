@@ -8,6 +8,7 @@ namespace Assignments
     public class ProductManager
     {
         private List<Product> _productList;
+        private UserInterface _userInterface;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductManager"/> class.
@@ -15,22 +16,23 @@ namespace Assignments
         public ProductManager()
         {
             this._productList = new List<Product>();
+            this._userInterface = new UserInterface(this);
         }
 
         /// <summary>
         /// Get the products in the list.
         /// </summary>
         /// <returns>returns product list</returns>
-        public IEnumerable<Product> GetProducts()
+        public List<Product> GetProducts()
         {
             return this._productList;
         }
 
         /// <summary>
-        /// Checks Whether product is already existing
+        /// Checks Whether product Name is already existing in the Products list
         /// </summary>
-        /// <param name="productName">sdds</param>
-        /// <returns>true if product name existing else false</returns>
+        /// <param name="productName">New name of the product to be added</param>
+        /// <returns>True if product name existing else false</returns>
         public bool IsProductNameExists(string productName)
         {
             var productNameExists = this._productList.Any(p => p.ProductName.ToLower() == productName.ToLower());
@@ -38,33 +40,24 @@ namespace Assignments
         }
 
         /// <summary>
-        /// validate whether the product ID is unique
+        /// Checks Whether product ID is already existing in the Products list
         /// </summary>
-        /// <param name="productID">ewr</param>
+        /// <param name="productID">New ID of the product to be added</param>
         /// <returns>true if product ID existing else false</returns>
         public bool IsProductIDExists(string productID)
         {
-            var productIDExists = this._productList.Any(p => p.ProductID.ToLower() == productID.ToLower());
-            return productIDExists;
+            return this._productList.Any(p => p.ProductID.ToLower() == productID.ToLower());
         }
 
         /// <summary>
-        /// Cheks whether double or not
+        /// Cheks whether the Product Price is Positive Double Value
         /// </summary>
-        /// <param name="productPrice">String input</param>
-        /// <param name="productPriceOutput">Double output</param>
-        /// <returns>true if product price double else false</returns>
+        /// <param name="productPrice">Product price from Cosole</param>
+        /// <param name="productPriceOutput">Parsed string to double</param>
+        /// <returns>True if product price double else false</returns>
         public bool IsProductPricePositiveDouble(string productPrice, out double productPriceOutput)
         {
-            bool isPriceDouble = false;
-            double productprice;
-            isPriceDouble = double.TryParse(productPrice, out productprice);
-            productPriceOutput = productprice;
-            if (isPriceDouble && (productprice >= 0))
-            {
-             return true;
-            }
-            return false;
+            return double.TryParse(productPrice, out productPriceOutput) && productPriceOutput >= 0;
         }
 
         /// <summary>
@@ -75,15 +68,11 @@ namespace Assignments
         /// <returns>true if product quantity int else false</returns>
         public bool IsProductQuantityUInt(string productQuantity, out uint productQuanityOutput)
         {
-            bool isPriceDouble = false;
-            uint productquantity;
-            isPriceDouble = uint.TryParse(productQuantity, out productquantity);
-            productQuanityOutput = productquantity;
-            return isPriceDouble;
+            return uint.TryParse(productQuantity, out productQuanityOutput);
         }
 
-        /// <summary>   
-        /// Method to add prouct in the Lit
+        /// <summary>
+        /// Method to add object prouct in the Lit
         /// </summary>
         /// <param name="product">gets objects and adds in the list</param>
         public void AddProductsToTheList(Product product)
@@ -92,7 +81,7 @@ namespace Assignments
         }
 
         /// <summary>
-        /// Removes the object from the list
+        /// Removes the object product from the list
         /// </summary>
         /// <param name="product">gets Object to delete</param>
         public void DeleteProductFromTheList(Product product)
@@ -129,7 +118,7 @@ namespace Assignments
             this.AddProductsToTheList(product);
             Console.WriteLine("Product Added");
             Console.WriteLine("[A]dd another Product or [M]enu");
-            string option = Console.ReadLine();
+            string? option = Console.ReadLine();
             if (option == "A" || option == "a")
             {
                 this.AddProducts();
@@ -191,25 +180,25 @@ namespace Assignments
         }
 
         /// <summary>
-        /// Method to delete products
+        /// Method to delete product from the list
         /// </summary>
         public void DeleteProduct()
         {
             if (this._productList.Count > 0)
             {
                 string searchNameOrID = this._userInterface.GetProductNameOrId();
-                Product searchResult = SearchProductInTheList(searchNameOrID);
+                Product searchResult = this.SearchProductInTheList(searchNameOrID);
                 string userConfirmation = this._userInterface.ConfirmTheProduct(searchResult.ProductName, searchResult.ProductID, searchResult.ProductPrice, searchResult.ProductQuantity);
 
                 if (userConfirmation == "Y" || userConfirmation == "y")
-                  {
-                            this.DeleteProductFromTheList(searchResult);
-                            Console.WriteLine("Product Deleted :(");
-                  }
+                {
+                    this.DeleteProductFromTheList(searchResult);
+                    Console.WriteLine("Product Deleted :(");
+                }
                 else if (userConfirmation == "C" || userConfirmation == "c")
-                  {
-                            this._userInterface.PrintOpertaionCancelled();
-                   }
+                {
+                    this._userInterface.PrintOpertaionCancelled();
+                }
             }
             else
             {
@@ -218,7 +207,7 @@ namespace Assignments
         }
 
         /// <summary>
-        /// Edits the products
+        /// Edits the product in the Product List
         /// </summary>
         public void EditProduct()
         {
@@ -229,18 +218,18 @@ namespace Assignments
                 string userConfirmation = this._userInterface.ConfirmTheProduct(searchResult.ProductName, searchResult.ProductID, searchResult.ProductPrice, searchResult.ProductQuantity);
 
                 if (userConfirmation == "Y" || userConfirmation == "y")
-                        {
-                            string productName = this._userInterface.GetProductName();
-                            string productID = this._userInterface.GetProductID();
-                            double productPrice = this._userInterface.GetProductPrice();
-                            uint productQuantity = this._userInterface.GetProductQuantity();
-                            this.EditProductsWithReference(searchResult, productName, productID, productPrice, productQuantity);
-                            Console.WriteLine("Product Edited Succesfully :)");
-                        }
-                        else if (userConfirmation == "C" || userConfirmation == "c")
-                        {
-                            this._userInterface.PrintOpertaionCancelled();
-                        }
+                {
+                    string productName = this._userInterface.GetProductName();
+                    string productID = this._userInterface.GetProductID();
+                    double productPrice = this._userInterface.GetProductPrice();
+                    uint productQuantity = this._userInterface.GetProductQuantity();
+                    this.EditProductsWithReference(searchResult, productName, productID, productPrice, productQuantity);
+                    Console.WriteLine("Product Edited Succesfully :)");
+                }
+                else if (userConfirmation == "C" || userConfirmation == "c")
+                {
+                    this._userInterface.PrintOpertaionCancelled();
+                }
             }
             else
             {

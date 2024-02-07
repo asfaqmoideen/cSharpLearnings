@@ -8,23 +8,23 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Product"/> class.
         /// </summary>
-        /// <param name="productName"> Mouse </param>
-        /// <param name="productID"> ELE12</param>
-        /// <param name="productPrice"> 500</param>
-        /// <param name="productQuantity">120 </param>
+        /// <param name="productName">Name of the Product</param>
+        /// <param name="productID">ID of the Product</param>
+        /// <param name="productPrice"> Price of the Product</param>
+        /// <param name="productQuantity">Quantity of the Product</param>
         public Product(string productName, string productID, double productPrice, uint productQuantity)
         {
-            ProductName = productName;
-            ProductID = productID;
-            ProductPrice = productPrice;
-            ProductQuantity = productQuantity;
+            this.ProductName = productName;
+            this.ProductID = productID;
+            this.ProductPrice = productPrice;
+            this.ProductQuantity = productQuantity;
         }
 
         /// <summary>
         /// Gets or sets ProductName
         /// </summary>
         /// <value>
-        /// Mouse
+        /// Name of the Product
         /// </value>
         public string ProductName { get; set; }
 
@@ -32,7 +32,7 @@
         /// Gets or sets Product ID
         /// </summary>
         /// <value>
-        /// ele12
+        /// ID of the Product
         /// </value>
         public string ProductID { get; set; }
 
@@ -40,7 +40,7 @@
         /// Gets or sets ProductPrice
         /// </summary>
         /// <value>
-        /// productprice
+        /// Price of the Product
         /// </value>
         public double ProductPrice { get; set; }
 
@@ -48,7 +48,7 @@
         /// Gets or sets ProductQuantity
         /// </summary>
         /// <value>
-        /// ProductQuantity
+        /// Quantity of the Product
         /// </value>
         public uint ProductQuantity { get; set; }
     }
