@@ -29,8 +29,8 @@ namespace CollectionsAndGenerics
             {
                 Console.WriteLine("Queue Operations Manager\nChoose any option to proced\n1.Add Persons to queue\n2.Remove person from queue\n3.Show all Persons\n0.Quit");
                 bool isUserOptionInt = int.TryParse(Console.ReadLine(), out int userOption);
-                QueueOperations bookOperations = (QueueOperations)userOption;
-                switch (bookOperations)
+                QueueOperations queueOperations = (QueueOperations)userOption;
+                switch (queueOperations)
                 {
                     case QueueOperations.AddPerson:
                         this.AddPersons();

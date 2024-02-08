@@ -61,7 +61,7 @@
                 this._books.Add(bookTitleT);
                 Console.WriteLine($"Totally {this._books.Count()} were Added");
                 Console.WriteLine("Add Another book ?\n1.Yes\nPress any key to skip");
-                string addAnother = Console.ReadLine();
+                string? addAnother = Console.ReadLine();
                 if (addAnother == "1")
                 {
                     addBooks = true;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Reflection.Metadata;
+
 namespace CollectionsAndGenerics
 {
     /// <summary>
@@ -10,7 +11,7 @@ namespace CollectionsAndGenerics
     public class StacksManager<T>
     {
         private Stack<T> _stacks = new Stack<T>();
-        private T[] _characterArray;
+        private T[]? _characterArray;
 
         /// <summary>
         /// Prints the reversed string with operation in stack
