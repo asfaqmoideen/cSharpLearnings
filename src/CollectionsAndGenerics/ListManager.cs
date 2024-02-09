@@ -7,6 +7,7 @@
     public class ListManager<T>
     {
         private List<T> _books = new List<T>();
+        private CommonMethods<T> _commonMethods = new CommonMethods<T>();
 
         private enum ListOperations
         {
@@ -57,19 +58,10 @@
             while (addBooks)
             {
                 Console.WriteLine("Add a new Book");
-                T bookTitleT = this.GetAndConvertBookType("Add");
+                T bookTitleT = this._commonMethods.GetAndConvertStringToType("Add Book");
                 this._books.Add(bookTitleT);
                 Console.WriteLine($"Totally {this._books.Count()} were Added");
-                Console.WriteLine("Add Another book ?\n1.Yes\nPress any key to skip");
-                string? addAnother = Console.ReadLine();
-                if (addAnother == "1")
-                {
-                    addBooks = true;
-                }
-                else
-                {
-                    addBooks = false;
-                }
+                addBooks = this._commonMethods.IsAddAnotherDetail("Book");
             }
         }
 
@@ -78,7 +70,7 @@
         /// </summary>
         private void RemoveBooks()
         {
-            T bookTitleT = this.GetAndConvertBookType("Remove");
+            T bookTitleT = this._commonMethods.GetAndConvertStringToType("Remove Boooks");
             this._books.Remove(bookTitleT);
             Console.WriteLine($"Book named : {bookTitleT} have been deleted");
         }
@@ -88,7 +80,7 @@
         /// </summary>
         private void SearchBooks()
         {
-            T bookTitleT = this.GetAndConvertBookType("Find");
+            T bookTitleT = this._commonMethods.GetAndConvertStringToType("Find Availablity of Book");
             if (this._books.Contains(bookTitleT))
             {
                 Console.WriteLine("Yes the book is in the list");
@@ -97,12 +89,6 @@
             {
                 Console.WriteLine("Book not Found");
             }
-        }
-
-        private T GetAndConvertBookType(string useCase)
-        {
-            Console.WriteLine($"Enter Book Title to {useCase}");
-            return (T)Convert.ChangeType(Console.ReadLine(), typeof(T));
         }
     }
 }

@@ -10,6 +10,7 @@ namespace CollectionsAndGenerics
     public class QueuesManager<T>
     {
         private Queue<T> _queueOfPerons = new Queue<T>();
+        private CommonMethods<T> _commonMethods = new CommonMethods<T>();
 
         private enum QueueOperations
         {
@@ -27,7 +28,8 @@ namespace CollectionsAndGenerics
             bool stop = false;
             do
             {
-                Console.WriteLine("Queue Operations Manager\nChoose any option to proced\n1.Add Persons to queue\n2.Remove person from queue\n3.Show all Persons\n0.Quit");
+                Console.WriteLine("Queue Operations Manager\nChoose any option to proced\n1.Add Persons to queue" +
+                    "\n2.Remove first person from queue\n3.Show all Persons after removal\n0.Quit");
                 bool isUserOptionInt = int.TryParse(Console.ReadLine(), out int userOption);
                 QueueOperations queueOperations = (QueueOperations)userOption;
                 switch (queueOperations)
@@ -59,22 +61,12 @@ namespace CollectionsAndGenerics
             bool addPersons = true;
             while (addPersons)
             {
-                T bookTitleT = this.GetPersonAndConvertToGeneric("Add");
+                T bookTitleT = this._commonMethods.GetAndConvertStringToType("Add a new Person");
 
                 this._queueOfPerons.Enqueue(bookTitleT);
 
                 Console.WriteLine($"Totally {this._queueOfPerons.Count()} were Added");
-                Console.WriteLine("Add Another person ?\n1.Yes\nPress any key to skip");
-                string addAnother = Console.ReadLine();
-
-                if (addAnother == "1")
-                {
-                    addPersons = true;
-                }
-                else
-                {
-                    addPersons = false;
-                }
+                addPersons = this._commonMethods.IsAddAnotherDetail("Person");
             }
         }
 
@@ -95,12 +87,6 @@ namespace CollectionsAndGenerics
             {
                 Console.WriteLine(person);
             }
-        }
-
-        private T GetPersonAndConvertToGeneric(string useCase)
-        {
-            Console.WriteLine($"Enter Person to {useCase}");
-            return (T)Convert.ChangeType(Console.ReadLine(), typeof(T));
         }
     }
 }

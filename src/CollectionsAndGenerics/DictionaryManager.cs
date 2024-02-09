@@ -12,6 +12,8 @@ namespace CollectionsAndGenerics
         where TKey : notnull
     {
         private readonly Dictionary<TKey, TValue> _dictionaryOfDetails = new Dictionary<TKey, TValue>();
+        private CommonMethods<TKey> _commonMethods = new CommonMethods<TKey>();
+        private CommonMethods<TValue> _commonMethodsForInt = new CommonMethods<TValue>();
 
         private enum DictionaryOperations
         {
@@ -35,10 +37,10 @@ namespace CollectionsAndGenerics
                 switch (dictionaryOperations)
                 {
                     case DictionaryOperations.AddDetails:
-                        this.AddBooks();
+                        this.AddStudents();
                         break;
                     case DictionaryOperations.RemoveDetais:
-                        this.RemoveBooks();
+                        this.RemoveStudent();
                         break;
                     case DictionaryOperations.SearchDetails:
                         this.SearchStudnetGrade();
@@ -56,38 +58,27 @@ namespace CollectionsAndGenerics
         /// <summary>
         /// Gets input from the user and adds the book titles in a list
         /// </summary>
-        private void AddBooks()
+        private void AddStudents()
         {
             bool addStudent = true;
             while (addStudent)
             {
-                TKey studentNameT = this.GetTKeyAndConvertToGeneric("Add new Studnet");
-                TValue studentGradeT = this.GetTValueAndConvertToGeneric(studentNameT);
+                TKey studentNameT = this._commonMethods.GetAndConvertStringToType("Student Name");
+                TValue studentGradeT = this._commonMethodsForInt.GetAndConvertStringToType("Student Grade");
 
                 this._dictionaryOfDetails.Add(studentNameT, studentGradeT);
 
                 Console.WriteLine($"Totally {this._dictionaryOfDetails.Count()} were Added");
-                addStudent = this.IsAddAnotherDetail();
+                addStudent = this._commonMethods.IsAddAnotherDetail("Book");
             }
-        }
-
-        /// <summary>
-        /// Confirm user to add another details
-        /// </summary>
-        /// <returns>True if user press 1</returns>
-        private bool IsAddAnotherDetail()
-        {
-            Console.WriteLine("Add Another Detail ?\n1.Yes\nPress any key to skip");
-            string? addAnother = Console.ReadLine();
-            return true ? addAnother == "1" : false;
         }
 
         /// <summary>
         /// Removes a specific book from the list
         /// </summary>
-        private void RemoveBooks()
+        private void RemoveStudent()
         {
-            TKey detailToBeRemoved = this.GetTKeyAndConvertToGeneric("Remove");
+            TKey detailToBeRemoved = this._commonMethods.GetAndConvertStringToType("Remove Student");
 
             this._dictionaryOfDetails.Remove(detailToBeRemoved);
 
@@ -99,7 +90,7 @@ namespace CollectionsAndGenerics
         /// </summary>
         private void SearchStudnetGrade()
         {
-            TKey detailToBeSearch = this.GetTKeyAndConvertToGeneric("Find");
+            TKey detailToBeSearch = this._commonMethods.GetAndConvertStringToType("Find St");
             if (this._dictionaryOfDetails.ContainsKey(detailToBeSearch))
             {
                 Console.WriteLine($"Yes the studnet named {detailToBeSearch} is Found with Grade {this._dictionaryOfDetails[detailToBeSearch]}");
@@ -108,18 +99,6 @@ namespace CollectionsAndGenerics
             {
                 Console.WriteLine("Student not Found");
             }
-        }
-
-        private TKey GetTKeyAndConvertToGeneric(string useCase)
-        {
-            Console.WriteLine($"Enter Name to {useCase}");
-            return (TKey)Convert.ChangeType(Console.ReadLine(), typeof(TKey));
-        }
-
-        private TValue GetTValueAndConvertToGeneric(TKey useCase)
-        {
-            Console.WriteLine($"Enter Grade of the {useCase}");
-            return (TValue)Convert.ChangeType(Console.ReadLine(), typeof(TValue));
         }
     }
 }
