@@ -1,13 +1,12 @@
 ﻿namespace CollectionsAndGenerics
 {
     /// <summary>
-    /// Holds, Manipulates and manage the list of books
+    /// Holds, Manipulates and manage the in-memory list of books
     /// </summary>
     /// <typeparam name="T">Generic Type </typeparam>
     public class ListManager<T>
     {
         private List<T> _books = new List<T>();
-        private CommonMethods<T> _commonMethods = new CommonMethods<T>();
 
         private enum ListOperations
         {
@@ -58,10 +57,10 @@
             while (addBooks)
             {
                 Console.WriteLine("Add a new Book");
-                T bookTitleT = this._commonMethods.GetAndConvertStringToType("Add Book");
+                T bookTitleT = CommonMethods.GetAndConvertStringToType<T>("Add Book");
                 this._books.Add(bookTitleT);
                 Console.WriteLine($"Totally {this._books.Count()} were Added");
-                addBooks = this._commonMethods.IsAddAnotherDetail("Book");
+                addBooks = CommonMethods.IsAddAnotherDetail("Book");
             }
         }
 
@@ -70,7 +69,7 @@
         /// </summary>
         private void RemoveBooks()
         {
-            T bookTitleT = this._commonMethods.GetAndConvertStringToType("Remove Boooks");
+            T bookTitleT = CommonMethods.GetAndConvertStringToType<T>("Remove Boooks");
             this._books.Remove(bookTitleT);
             Console.WriteLine($"Book named : {bookTitleT} have been deleted");
         }
@@ -80,7 +79,7 @@
         /// </summary>
         private void SearchBooks()
         {
-            T bookTitleT = this._commonMethods.GetAndConvertStringToType("Find Availablity of Book");
+            T bookTitleT = CommonMethods.GetAndConvertStringToType<T>("Find Availablity of Book");
             if (this._books.Contains(bookTitleT))
             {
                 Console.WriteLine("Yes the book is in the list");

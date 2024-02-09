@@ -11,7 +11,7 @@ namespace Assignments
         private static StacksManager<char> stacks = new StacksManager<char>();
         private static QueuesManager<string> queues = new QueuesManager<string>();
         private static DictionaryManager<string, int> dictionaryManager = new DictionaryManager<string, int>();
-        private static ReadOnlyCollections readOnlyCollections = new ReadOnlyCollections();
+        private static IEnumerableCollections readOnlyCollections = new IEnumerableCollections();
 
         private enum CollectionsAndGenerics
         {
@@ -33,12 +33,12 @@ namespace Assignments
             {
                 try
                 {
-                Console.WriteLine("Working With Collections\nEnter a Option to Proceed\n1.BookManager\n2.Stack Operations" +
-                    "\n3.QueueOperations\n4.Dictionary Operations\n5.Read Only Collections\n0 or Press any key to Quit");
-                bool isUserOptionInt = int.TryParse(Console.ReadLine(), out int userOption);
-                CollectionsAndGenerics collectionsAndGenerics = (CollectionsAndGenerics)userOption;
+                    Console.WriteLine("Working With Collections\nEnter a Option to Proceed\n1.BookManager\n2.Stack Operations" +
+                        "\n3.QueueOperations\n4.Dictionary Operations\n5.Read Only Collections\n0 or Press any key to Quit");
+                    bool isUserOptionInt = int.TryParse(Console.ReadLine(), out int userOption);
+                    CollectionsAndGenerics collectionsAndGenerics = (CollectionsAndGenerics)userOption;
 
-                stop = ExecuteUserOperation(stop, collectionsAndGenerics);
+                    stop = ExecuteUserOperation(stop, collectionsAndGenerics);
                 }
                 catch (Exception ex)
                 {

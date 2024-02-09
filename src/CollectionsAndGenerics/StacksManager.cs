@@ -11,7 +11,7 @@ namespace CollectionsAndGenerics
     public class StacksManager<T>
     {
         private Stack<T> _stacks = new Stack<T>();
-        private T[]? _characterArray;
+        private T[] _characterArray;
 
         /// <summary>
         /// Prints the reversed string with operation in stack
@@ -30,6 +30,8 @@ namespace CollectionsAndGenerics
         {
             Console.WriteLine("Enter a String to Reverse");
             string? stringFromUser = Console.ReadLine();
+            stringFromUser = stringFromUser ?? string.Empty;
+
             this._characterArray = (T[])Convert.ChangeType(stringFromUser.ToCharArray(), typeof(T[]));
 
             foreach (var character in this._characterArray)

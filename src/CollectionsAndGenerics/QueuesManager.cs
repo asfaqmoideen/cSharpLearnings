@@ -9,8 +9,7 @@ namespace CollectionsAndGenerics
     /// <typeparam name="T">Generic type</typeparam>
     public class QueuesManager<T>
     {
-        private Queue<T> _queueOfPerons = new Queue<T>();
-        private CommonMethods<T> _commonMethods = new CommonMethods<T>();
+        private Queue<T> _queueOfPersons = new Queue<T>();
 
         private enum QueueOperations
         {
@@ -54,36 +53,36 @@ namespace CollectionsAndGenerics
         }
 
         /// <summary>
-        /// Gets input from the user and adds the persons in the queue
+        /// Gets input from the user and adds the persons in the in-memory queue
         /// </summary>
         private void AddPersons()
         {
             bool addPersons = true;
             while (addPersons)
             {
-                T bookTitleT = this._commonMethods.GetAndConvertStringToType("Add a new Person");
+                T bookTitleT = CommonMethods.GetAndConvertStringToType<T>("Add a new Person");
 
-                this._queueOfPerons.Enqueue(bookTitleT);
+                this._queueOfPersons.Enqueue(bookTitleT);
 
-                Console.WriteLine($"Totally {this._queueOfPerons.Count()} were Added");
-                addPersons = this._commonMethods.IsAddAnotherDetail("Person");
+                Console.WriteLine($"Totally {this._queueOfPersons.Count()} were Added");
+                addPersons = CommonMethods.IsAddAnotherDetail("Person");
             }
         }
 
         /// <summary>
-        /// Removes the book from the list
+        /// Removes person from in-memory Queue
         /// </summary>
         private void RemoveFirstPerson()
         {
-            this._queueOfPerons.Dequeue();
+            this._queueOfPersons.Dequeue();
         }
 
         /// <summary>
-        /// Search the books from the List
+        /// Search person from in-memory Queue
         /// </summary>
         private void ShowAllPersons()
         {
-            foreach (var person in this._queueOfPerons)
+            foreach (var person in this._queueOfPersons)
             {
                 Console.WriteLine(person);
             }

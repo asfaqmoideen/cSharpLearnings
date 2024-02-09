@@ -4,9 +4,9 @@ using System.Collections;
 namespace CollectionsAndGenerics
 {
     /// <summary>
-    /// Creates, Holds, Manipulates the Collection in IEnumerable Interface
+    /// Creates, Holds, Manipulates the in-memory Collection in IEnumerable Interface
     /// </summary>
-    public class ReadOnlyCollections
+    public class IEnumerableCollections
     {
         /// <summary>
         /// Execute the operation in the Class ReadOnlyCollections
@@ -14,12 +14,8 @@ namespace CollectionsAndGenerics
         public void ExecuteReadOnlyCollections()
         {
             Console.WriteLine("IEnumerable Collections ");
-            List<int> integerList;
-            int[] integerArray;
-            Queue<int> integerQueue;
-            Stack<int> integerStack;
 
-            this.GenerateCollections(out integerList, out integerArray, out integerQueue, out integerStack);
+            this.GenerateCollections(out List<int> integerList, out int[] integerArray, out Queue<int> integerQueue, out Stack<int> integerStack);
             this.PrintDetailsInCollections(integerList, integerArray, integerQueue, integerStack);
 
             IReadOnlyDictionary<string, int> immutableDictionary = this.GenerateDictionary();
@@ -45,7 +41,7 @@ namespace CollectionsAndGenerics
         }
 
         /// <summary>
-        /// Generated IEnumerable based Collection
+        /// Generated IEnumerable based in-memory Collection
         /// </summary>
         /// <param name="integerList">List of Integers</param>
         /// <param name="integerArray">Array of Integers</param>

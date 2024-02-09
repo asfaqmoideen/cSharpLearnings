@@ -4,16 +4,14 @@ using System.Linq;
 namespace CollectionsAndGenerics
 {
     /// <summary>
-    /// Creates, Holds and Manipulates the dictionariers
+    /// Creates, Holds and Manipulates the in-memory dictionariers
     /// </summary>
-    /// <typeparam name="TKey">Key of the dictionary</typeparam>
-    /// <typeparam name="TValue">Key Value of the dictionary</typeparam>
+    /// <typeparam name="TKey">Key of the in-memory dictionary</typeparam>
+    /// <typeparam name="TValue">Key Value of the in-memory dictionary</typeparam>
     public class DictionaryManager<TKey, TValue>
         where TKey : notnull
     {
         private readonly Dictionary<TKey, TValue> _dictionaryOfDetails = new Dictionary<TKey, TValue>();
-        private CommonMethods<TKey> _commonMethods = new CommonMethods<TKey>();
-        private CommonMethods<TValue> _commonMethodsForInt = new CommonMethods<TValue>();
 
         private enum DictionaryOperations
         {
@@ -31,7 +29,8 @@ namespace CollectionsAndGenerics
             bool stop = false;
             do
             {
-                Console.WriteLine("Students Score Manager\nChoose any option to proced\n1.Add Student Details\n2.Remove Student Details\n3.Search Student Details\n4.Quit");
+                Console.WriteLine("Students Score Manager\nChoose any option to proced" +
+                    "\n1.Add Student Details\n2.Remove Student Details\n3.Search Student Details\n4.Quit");
                 bool isUserOptionInt = int.TryParse(Console.ReadLine(), out int userOption);
                 DictionaryOperations dictionaryOperations = (DictionaryOperations)userOption;
                 switch (dictionaryOperations)
@@ -43,7 +42,7 @@ namespace CollectionsAndGenerics
                         this.RemoveStudent();
                         break;
                     case DictionaryOperations.SearchDetails:
-                        this.SearchStudnetGrade();
+                        this.SearchStudentGrade();
                         break;
                     case DictionaryOperations.Quit:
                         stop = true;
@@ -56,29 +55,29 @@ namespace CollectionsAndGenerics
         }
 
         /// <summary>
-        /// Gets input from the user and adds the book titles in a list
+        /// Gets input from the user and adds the Students Detsils in a in-memory Dictionary
         /// </summary>
         private void AddStudents()
         {
             bool addStudent = true;
             while (addStudent)
             {
-                TKey studentNameT = this._commonMethods.GetAndConvertStringToType("Student Name");
-                TValue studentGradeT = this._commonMethodsForInt.GetAndConvertStringToType("Student Grade");
+                TKey studentNameT = CommonMethods.GetAndConvertStringToType<TKey>("Student Name");
+                TValue studentGradeT = CommonMethods.GetAndConvertStringToType<TValue>("Student Grade");
 
                 this._dictionaryOfDetails.Add(studentNameT, studentGradeT);
 
                 Console.WriteLine($"Totally {this._dictionaryOfDetails.Count()} were Added");
-                addStudent = this._commonMethods.IsAddAnotherDetail("Book");
+                addStudent = CommonMethods.IsAddAnotherDetail("Studnet");
             }
         }
 
         /// <summary>
-        /// Removes a specific book from the list
+        /// Removes a studenet detail from in-memory dictionary
         /// </summary>
         private void RemoveStudent()
         {
-            TKey detailToBeRemoved = this._commonMethods.GetAndConvertStringToType("Remove Student");
+            TKey detailToBeRemoved = CommonMethods.GetAndConvertStringToType<TKey>("Remove Student");
 
             this._dictionaryOfDetails.Remove(detailToBeRemoved);
 
@@ -86,14 +85,15 @@ namespace CollectionsAndGenerics
         }
 
         /// <summary>
-        /// Search the books from the List
+        /// Search the books from the in-memory Dictionary
         /// </summary>
-        private void SearchStudnetGrade()
+        private void SearchStudentGrade()
         {
-            TKey detailToBeSearch = this._commonMethods.GetAndConvertStringToType("Find St");
+            TKey detailToBeSearch = CommonMethods.GetAndConvertStringToType<TKey>("Find Student");
             if (this._dictionaryOfDetails.ContainsKey(detailToBeSearch))
             {
-                Console.WriteLine($"Yes the studnet named {detailToBeSearch} is Found with Grade {this._dictionaryOfDetails[detailToBeSearch]}");
+                Console.WriteLine($"Yes the studnet named {detailToBeSearch} is Found with " +
+                    $"Grade {this._dictionaryOfDetails[detailToBeSearch]}");
             }
             else
             {
