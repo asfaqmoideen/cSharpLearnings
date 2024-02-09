@@ -11,6 +11,7 @@ namespace Assignments
         private static StacksManager<char> stacks = new StacksManager<char>();
         private static QueuesManager<string> queues = new QueuesManager<string>();
         private static DictionaryManager<string, int> dictionaryManager = new DictionaryManager<string, int>();
+        private static ReadOnlyCollections readOnlyCollections = new ReadOnlyCollections();
 
         private enum CollectionsAndGenerics
         {
@@ -19,6 +20,7 @@ namespace Assignments
             Stacks,
             Queue,
             Dictionary,
+            ReadOnlyCollections,
         }
 
         /// <summary>
@@ -30,8 +32,9 @@ namespace Assignments
             do
             {
                 try
-                { 
-                Console.WriteLine("Working With Collections\nEnter a Option to Proceed\n1.BookManager\n2.Stack Operations\n3.QueueOperations\n0.Quit");
+                {
+                Console.WriteLine("Working With Collections\nEnter a Option to Proceed\n1.BookManager\n2.Stack Operations" +
+                    "\n3.QueueOperations\n4.Dictionary Operations\n5.Read Only Collections\n0 or Press any key to Quit");
                 bool isUserOptionInt = int.TryParse(Console.ReadLine(), out int userOption);
                 CollectionsAndGenerics collectionsAndGenerics = (CollectionsAndGenerics)userOption;
 
@@ -63,6 +66,9 @@ namespace Assignments
                     break;
                 case CollectionsAndGenerics.Dictionary:
                     dictionaryManager.ExecuteTheOperation();
+                    break;
+                case CollectionsAndGenerics.ReadOnlyCollections:
+                    readOnlyCollections.ExecuteReadOnlyCollections();
                     break;
                 default:
                     Console.WriteLine("Invalid Choice");

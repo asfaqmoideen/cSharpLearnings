@@ -77,7 +77,7 @@ namespace CollectionsAndGenerics
         /// <returns>True if user press 1</returns>
         private bool IsAddAnotherDetail()
         {
-            Console.WriteLine("Add Another book ?\n1.Yes\nPress any key to skip");
+            Console.WriteLine("Add Another Detail ?\n1.Yes\nPress any key to skip");
             string? addAnother = Console.ReadLine();
             return true ? addAnother == "1" : false;
         }
