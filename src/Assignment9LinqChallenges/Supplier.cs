@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Assignment9LinqChallenges
-{   
+{
     /// <summary>
     /// Supplier properties Class
     /// </summary>
@@ -21,7 +21,7 @@ namespace Assignment9LinqChallenges
         {
             this.SupplierName = supplierName;
             this.SupplierId = supplierId;
-            this.ProductId = productId; 
+            this.ProductId = productId;
         }
 
         /// <summary>

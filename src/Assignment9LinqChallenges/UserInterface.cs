@@ -22,13 +22,13 @@
         /// <returns>returns the product name</returns>
         public string GetProductName()
         {
-            string productName;
+            string? productName;
             Console.WriteLine("Enter Product Name");
-            productName = Console.ReadLine()!;
-            while (_productManager.IsProductNameExists(productName))
+            productName = Console.ReadLine();
+            while (this._productManager.IsProductNameExists(productName))
             {
                 Console.WriteLine("Enter Unique product Name");
-                productName = Console.ReadLine()!;
+                productName = Console.ReadLine();
             }
 
             return productName;
@@ -40,15 +40,15 @@
         /// <returns>Product Price</returns>
         public double GetProductPrice()
         {
-            string productprice;
             double productPrice;
-            do
+            Console.WriteLine("Enter Product Price");
+            string? productPriceInput = Console.ReadLine();
+            while (!this._productManager.IsProductPricePositiveDouble(productPriceInput, out productPrice))
             {
-                Console.WriteLine("Enter Product Price (Type - Double)");
-                productprice = Console.ReadLine();
+                Console.WriteLine("Invalid Product Price");
+                productPriceInput = Console.ReadLine();
             }
-            while (_productManager.IsProductPricePositiveDouble(productprice, out productPrice) != true);
-            bool isPriceDouble;
+
             return productPrice;
         }
 
@@ -58,9 +58,13 @@
         /// <returns>supplier name</returns>
         public string GetSupplierName()
         {
-            string supplierName;
             Console.WriteLine("Enter Supplier Name");
-            supplierName = Console.ReadLine();
+            string? supplierName;
+            while ((supplierName = Console.ReadLine()) == null)
+            {
+                Console.WriteLine("Enter Valid Input");
+            }
+
             return supplierName;
         }
 
@@ -70,9 +74,13 @@
         /// <returns>the product ID</returns>
         public string GetProductcategory()
         {
-            string productcategory;
             Console.WriteLine("Enter Category");
-            productcategory = Console.ReadLine();
+            string? productcategory;
+            while ((productcategory = Console.ReadLine()) == null)
+            {
+                Console.WriteLine("Enter Valid Input");
+            }
+
             return productcategory;
         }
 
@@ -82,15 +90,15 @@
         /// <returns>re</returns>
         public uint GetProductId()
         {
-            string getProductIdFromUser;
             uint getProductId;
-
-            do
+            Console.WriteLine("Enter Product Id - Int");
+            string? getProductIdFromUser = Console.ReadLine();
+            while (!this._productManager.IsGivenIdUInt(getProductIdFromUser, out getProductId))
             {
-                Console.WriteLine("Enter Product Id - Int");
+                Console.WriteLine("Invalid Input");
                 getProductIdFromUser = Console.ReadLine();
             }
-            while (!_productManager.IsProductIdUInt(getProductIdFromUser, out getProductId));
+
             return getProductId;
         }
 
@@ -100,15 +108,15 @@
         /// <returns>supplier id</returns>
         public uint GetSupplierId()
         {
-            string getSupplierIdFromUser;
             uint getSupplierId;
-
-            do
+            Console.WriteLine("Enter Supplier ID");
+            string? getSupplierIdFromUser = Console.ReadLine();
+            while (!this._productManager.IsGivenIdUInt(getSupplierIdFromUser, out getSupplierId))
             {
-                Console.WriteLine("Enter Supplier Id - Int");
+                Console.WriteLine("Invalid Input");
                 getSupplierIdFromUser = Console.ReadLine();
             }
-            while (!_productManager.IsProductIdUInt(getSupplierIdFromUser, out getSupplierId));
+
             return getSupplierId;
         }
     }
