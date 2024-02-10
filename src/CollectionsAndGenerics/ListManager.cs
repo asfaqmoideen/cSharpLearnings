@@ -59,7 +59,7 @@
                 Console.WriteLine("Add a new Book");
                 T bookTitleT = CommonMethods.GetAndConvertStringToType<T>("Add Book");
                 this._books.Add(bookTitleT);
-                Console.WriteLine($"Totally {this._books.Count()} were Added");
+                Console.WriteLine($"Totally {this._books.Count} were Added");
                 addBooks = CommonMethods.IsAddAnotherDetail("Book");
             }
         }

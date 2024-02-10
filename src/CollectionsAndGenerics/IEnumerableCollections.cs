@@ -89,10 +89,7 @@ namespace CollectionsAndGenerics
         /// <returns>Readonly Dictionary</returns>
         private IReadOnlyDictionary<string, int> GenerateDictionary()
         {
-            Dictionary<string, int> alphabetDictionary = new Dictionary<string, int>();
-
-            string tKey = string.Empty;
-
+            Dictionary<string, int> alphabetDictionary = new ();
             for (int i = 65; i < 120; i++)
             {
                 char tKeychar = (char)i;

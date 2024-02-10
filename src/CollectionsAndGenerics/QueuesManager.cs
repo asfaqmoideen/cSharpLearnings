@@ -64,7 +64,7 @@ namespace CollectionsAndGenerics
 
                 this._queueOfPersons.Enqueue(bookTitleT);
 
-                Console.WriteLine($"Totally {this._queueOfPersons.Count()} were Added");
+                Console.WriteLine($"Totally {this._queueOfPersons.Count} were Added");
                 addPersons = CommonMethods.IsAddAnotherDetail("Person");
             }
         }

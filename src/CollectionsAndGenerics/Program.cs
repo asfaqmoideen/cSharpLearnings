@@ -7,11 +7,11 @@ namespace Assignments
     /// </summary>
     public class Program
     {
-        private static ListManager<string> listManager = new ListManager<string>();
-        private static StacksManager<char> stacks = new StacksManager<char>();
-        private static QueuesManager<string> queues = new QueuesManager<string>();
-        private static DictionaryManager<string, int> dictionaryManager = new DictionaryManager<string, int>();
-        private static IEnumerableCollections readOnlyCollections = new IEnumerableCollections();
+        private static ListManager<string> listManager = new ();
+        private static StacksManager<char> stacks = new ();
+        private static QueuesManager<string> queues = new ();
+        private static DictionaryManager<string, int> dictionaryManager = new ();
+        private static IEnumerableCollections readOnlyCollections = new ();
 
         private enum CollectionsAndGenerics
         {
