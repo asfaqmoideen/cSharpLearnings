@@ -25,7 +25,7 @@ namespace Assignments
         /// Enabling to view expenses list outside the class
         /// </summary>
         /// <returns>returns the list of expenses when it called</returns>
-        public IEnumerable<ExpenseEntity> GetExpense()
+        public List<ExpenseEntity> GetExpense()
         {
             return this._expenses;
         }
@@ -34,7 +34,7 @@ namespace Assignments
         /// Enabling to view incomes list outside the class
         /// </summary>
         /// <returns>returns the list of incomes when it called</returns>
-        public IEnumerable<IncomeEntity> GetIncome()
+        public List<IncomeEntity> GetIncome()
         {
             return this._incomes;
         }

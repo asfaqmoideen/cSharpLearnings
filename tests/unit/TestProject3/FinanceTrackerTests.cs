@@ -9,133 +9,106 @@ namespace ExpenseTrackerTests
         [InlineData("120")]
         [InlineData("12.1")]
         [InlineData("150")]
-
-        public void ProvidedValidIncomeAmount_IsIncomeAmountDouble_ReturnsTrue(string InocmeAmount)
+        public void ValidInputAmount_IsProvidedAmountDouble_ReturnsTrue(string InocmeAmount)
         {
             FinanceTracker financeTracker = new FinanceTracker();
-            bool isvalid;
-            double result;
 
-            isvalid = financeTracker.IsAmountDouble(InocmeAmount, out result);
+            bool isvalidDouble = financeTracker.IsAmountDouble(InocmeAmount, out double resultAmountConvertedToDouble);
 
-            Assert.True(isvalid);
+            Assert.True(isvalidDouble);
         }
 
         [Theory]
         [InlineData("1Hundred")]
         [InlineData("Thousand")]
         [InlineData("Fourhundred")]
-        public void ProvidedInValidIncomeAmount_IsIncomeAmountDouble_ReturnsFalse(string InocmeAmount)
+        public void InValidInputAmount_IsProvidedAmountDouble_ReturnsFalse(string InocmeAmount)
         {
             FinanceTracker financeTracker = new FinanceTracker();
-            bool isvalid;
-            double resultAmount;
 
-            isvalid = financeTracker.IsAmountDouble(InocmeAmount, out resultAmount);
+            bool isvalidDouble = financeTracker.IsAmountDouble(InocmeAmount, out double resultAmountConvertedToDouble);
 
-            Assert.False(isvalid);
+            Assert.False(isvalidDouble);
         }   
-        [Theory]
-        [InlineData("1Hundred")]
-        [InlineData("Thousand")]
-        [InlineData("Fourhundred")]
-        public void ProvidedInValidExpenseAmount_IsExpenseAmountDouble_ReturnsFalse(string ExpenseAmount)
-        {
-            FinanceTracker financeTracker = new FinanceTracker();
-            bool isvalid;
-            double resultAmount;
-
-            isvalid = financeTracker.IsAmountDouble(ExpenseAmount, out resultAmount);
-
-            Assert.False(isvalid);
-        }
 
         [Theory]
-        [InlineData("120")]
-        [InlineData("12.1")]
-        [InlineData("150")]
+        [InlineData(12000,"Freelancing","10-12-2002","2-12-2002")]
+        [InlineData(25000,"Sales","10-12-2002","2-12-2002")]
+        [InlineData(40000,"salary","10-12-2002","2-12-2002")]
 
-        public void ProvidedValidexpenseAmount_IsExpenseAmountDouble_ReturnsTrue(string ExpenseAmount)
+        public void ValidIncomeParamters_AddIncomeToTheList_IncomesSuccessfullyAdded(double incomeAmount, string incomeSource, string CreatedAt, string updatedAt)
         {
-            FinanceTracker financeTracker = new FinanceTracker();
-            bool isvalid;
-            double result;
-
-            isvalid = financeTracker.IsAmountDouble(ExpenseAmount, out result);
-
-            Assert.True(isvalid);
-        }
-
-        [Theory]
-        [InlineData(12000,"salary","10-12-2002","2-12-2002")]
-
-        public void ProvidedIncomeParamters_AddIncomeToTheList_ContainsInTheList(double Income, string IncomeSource, string CreatedAt, string updatedAt)
-        {
-            DateTime createdDateTime = DateTime.Parse(CreatedAt);
+            DateTime createdDateTime = DateTime.Now;
             DateTime UpdatedDateTime = DateTime.Parse(updatedAt);
-            IncomeEntity incomeEntity = new IncomeEntity(Income, IncomeSource, createdDateTime, UpdatedDateTime);
+            IncomeEntity incomeEntity = new IncomeEntity(incomeAmount, incomeSource, createdDateTime, UpdatedDateTime);
             FinanceTracker financeTracker = new FinanceTracker();
+            List<IncomeEntity> incomes = financeTracker.GetIncome();
 
             financeTracker.AddIncomesToTheList(incomeEntity);
 
-            Assert.Contains(incomeEntity, financeTracker.GetIncome());
+            Assert.Contains(incomeEntity, incomes);
         }
 
         [Theory]
         [InlineData(1200, "food", "10-12-2002", "2-12-2002")]
-        public void ProvidedExpenseParamters_AddExpenseToTheList_ContainsInTheList(double ExpenseAmount, string ExpenseCategory, string CreatedAt, string updatedAt)
+        [InlineData(400, "Transport", "10-12-2002", "2-12-2002")]
+        [InlineData(900, "Gadgets", "10-12-2002", "2-12-2002")]
+        public void ValidExpenseParamters_AddExpenseToTheList_ExpenseSuccesfullyAdded(double expenseAmount, string expenseCategory, string CreatedAt, string updatedAt)
         {
-            DateTime createdDateTime = DateTime.Parse(CreatedAt);
+            DateTime createdDateTime = DateTime.Now;
             DateTime UpdatedDateTime = DateTime.Parse(updatedAt);
-            ExpenseEntity expenseEntity = new ExpenseEntity(ExpenseAmount, ExpenseCategory, createdDateTime, UpdatedDateTime);
+            ExpenseEntity expenseEntity = new ExpenseEntity(expenseAmount, expenseCategory, createdDateTime, UpdatedDateTime);
             FinanceTracker financeTracker = new FinanceTracker();
+            List<ExpenseEntity> expenses = financeTracker.GetExpense();
 
             financeTracker.AddExpenseToTheList(expenseEntity);
 
-            Assert.Contains(expenseEntity, financeTracker.GetExpense());
+            Assert.Contains(expenseEntity, expenses);
         }
         [Theory]
         [InlineData (2200, "snacks")]
-        public void AddedExpenseParametersToTheList_EditSpecifiExpenseFromTheList_ContainsInTheList(double newExpenseAmount, string newExpenseCategory)
+        public void ValidExpenseParametersToTheList_EditSpecifiExpenseFromTheList_ExpenseSuccesfullyEdited(double newExpenseAmount, string newExpenseCategory)
         {
             var (expenseEntity, financeTracker) = AddExpense();
 
             financeTracker.EditExpenseWithReferenceObject(expenseEntity, newExpenseAmount, newExpenseCategory);
+            List<ExpenseEntity> expenses = financeTracker.GetExpense();
 
-            Assert.Contains(expenseEntity, financeTracker.GetExpense());
+            Assert.Contains(expenseEntity, expenses);
         }
 
         [Theory]
         [InlineData ("food")]
-        public void AddedExpenseParametersToTheList_IsExpenseCtaegoryDouble_ReturnsTrue(string newExpenseCategory)
+        public void AddedExpenseParametersToTheList_IsExpenseCtaegoryUnique_ReturnsTrue(string newExpenseCategory)
         {
             var (expenseEntity, financeTracker) = AddExpense();
 
-            var result = financeTracker.IsExpenseCategoryUnique (newExpenseCategory);
+            bool result = financeTracker.IsExpenseCategoryUnique(newExpenseCategory);
 
             Assert.False(result);
         }
 
         [Theory]
         [InlineData ("Juice")]
-        public void AddedExpenseParametersToTheList_IsExpenseCtaegoryDouble_ReturnsFalse(string newExpenseCategory)
+        public void AddedExpenseParametersToTheList_IsExpenseCtaegoryUnique_ReturnsFalse(string newExpenseCategory)
         {
             var (expenseEntity, financeTracker) = AddExpense();
 
-            var result = financeTracker.IsExpenseCategoryUnique (newExpenseCategory);
+            bool result = financeTracker.IsExpenseCategoryUnique(newExpenseCategory);
 
             Assert.True(result);
         }
 
         [Theory]
         [InlineData(220000, "freelancer")]
-        public void AddedIncomeParametersToTheList_EditSpecificIncomeFromTheList_ContainsInTheList(double newIncomeAmount, string newIncomeCategory)
+        public void AddedIncomeParametersToTheList_EditSpecificIncomeFromTheList_IncomeSuccesfullyEdited(double newIncomeAmount, string newIncomeCategory)
         {
             var (incomeEntity, financeTracker) = AddIncome();
 
             financeTracker.EditIncomeWithReferenceObject(incomeEntity, newIncomeAmount, newIncomeCategory);
+            List<IncomeEntity> incomes = financeTracker.GetIncome();
 
-            Assert.Contains(incomeEntity, financeTracker.GetIncome());
+            Assert.Contains(incomeEntity, incomes);
         }
 
         [Theory]
@@ -155,17 +128,20 @@ namespace ExpenseTrackerTests
         {
             var (incomeEntity, financeTracker) = AddIncome();
 
-            var result = financeTracker.IsIncomeSourceUnique(newIncomeCategory);
+            bool result = financeTracker.IsIncomeSourceUnique(newIncomeCategory);
 
             Assert.False(result);
         }
-        public void AddedExpenseParametersToTheList_RemoveSpecifiExpenseFromTheList_NotContainsInTheList()
+
+        [Fact]
+        public void AddedExpenseParametersToTheList_RemoveSpecifiExpenseFromTheList_ExpensesSuccesfullyRemoved()
         {
             var (expenseEntity, financeTracker) = AddExpense();
 
             financeTracker.RemoveExpenseFromTheList(expenseEntity);
+            List<ExpenseEntity> expenses = financeTracker.GetExpense();
 
-            Assert.DoesNotContain(expenseEntity, financeTracker.GetExpense());
+            Assert.DoesNotContain(expenseEntity, expenses);
         }
 
         [Theory]
@@ -178,14 +154,16 @@ namespace ExpenseTrackerTests
 
             Assert.Equal(searchResult, expenseEntity);
         }
-        
-        public void AddedIncomeParametersToTheList_RemoveSpecifiIncomeFromTheList_NotContainsInTheList()
+
+        [Fact]
+        public void AddedIncomeParametersToTheList_RemoveSpecifiIncomeFromTheList_IncomeSuccessfullyRemoved()
         {
             var (incomeEntity, financeTracker) = AddIncome();
 
             financeTracker.RemoveIncomeFromTheList(incomeEntity);
+            List<IncomeEntity> incomes = financeTracker.GetIncome();
 
-            Assert.DoesNotContain(incomeEntity, financeTracker.GetIncome());
+            Assert.DoesNotContain(incomeEntity, incomes);
         }
 
  
@@ -202,18 +180,18 @@ namespace ExpenseTrackerTests
 
         public (IncomeEntity, FinanceTracker) AddIncome()
         {
-            DateTime createdDateTime = DateTime.Parse("10 - 12 - 2002");
-            DateTime UpdatedDateTime = DateTime.Parse("2-12-2002");
-            IncomeEntity incomeEntity = new IncomeEntity(12000, "Salary", createdDateTime, UpdatedDateTime);
+            DateTime createdDateTime = DateTime.Now;
+            DateTime updatedDateTime = DateTime.Parse("2-12-2002");
+            IncomeEntity incomeEntity = new IncomeEntity(12000, "Salary", createdDateTime, updatedDateTime);
             FinanceTracker financeTracker = new FinanceTracker();
             financeTracker.AddIncomesToTheList(incomeEntity);
             return (incomeEntity, financeTracker);
         }
         public (ExpenseEntity, FinanceTracker) AddExpense()
         {
-            DateTime createdDateTime = DateTime.Parse("10-12-2002");
-            DateTime UpdatedDateTime = DateTime.Parse("2-12-2002");
-            ExpenseEntity expenseEntity = new ExpenseEntity(1200, "Food", createdDateTime, UpdatedDateTime);
+            DateTime createdDateTime = DateTime.Now;
+            DateTime updatedDateTime = DateTime.Parse("2-12-2002");
+            ExpenseEntity expenseEntity = new ExpenseEntity(1200, "Food", createdDateTime, updatedDateTime);
             FinanceTracker financeTracker = new FinanceTracker();
             financeTracker.AddExpenseToTheList(expenseEntity);
             return (expenseEntity, financeTracker);
