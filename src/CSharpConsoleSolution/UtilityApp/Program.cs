@@ -1,16 +1,15 @@
-﻿namespace Assignments
+﻿namespace CSharpConsoleSolution;
+
+/// <summary>
+/// Initiates the project execution
+/// </summary>
+internal class Program
 {
     /// <summary>
-    /// Initiates the project execution
+    /// Entry point of the program
     /// </summary>
-    internal class Program
+    private static void Main()
     {
-        /// <summary>
-        /// Entry point of the program
-        /// </summary>
-        private static void Main()
-        {
-            Console.WriteLine("Utility App");
-        }
+        Console.WriteLine("Utility App");
     }
 }

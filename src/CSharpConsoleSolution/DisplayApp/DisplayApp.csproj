@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UtilityApp\UtilityApp.csproj" />
+    <ProjectReference Include="..\UserInputApp\UserInputApp.csproj" />
   </ItemGroup>
 
 </Project>

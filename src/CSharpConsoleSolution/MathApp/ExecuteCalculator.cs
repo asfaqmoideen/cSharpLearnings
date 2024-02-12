@@ -26,14 +26,12 @@
             {
                 try
                 {
-                    Console.WriteLine("\tSimple Calculator");
+                    UserOutputConsole.PrintAny("Simple Calculator");
 
                     double operandOne, operandTwo;
                     GetOperandsFromTheUser(out operandOne, out operandTwo);
 
-                    Console.WriteLine("Choose any Operation to Execute\n1.Addition\n2.Subtraction\n3.Multiplication\n4.Division\n5.Exit");
-
-                    int option = UserIOConsole.GetUserOption();
+                    int option = UserOutputConsole.GetUserOption("Choose any Operation to Execute\n1.Addition\n2.Subtraction\n3.Multiplication\n4.Division\n5.Exit");
 
                     Option useroption = (Option)option;
                     stop = ExecuteUserOperation(_mathUtils, stop, operandOne, operandTwo, useroption);
@@ -48,11 +46,9 @@
 
         private static void GetOperandsFromTheUser(out double operandOne, out double operandTwo)
         {
-            Console.WriteLine("Enter First Number : ");
-            operandOne = UserIOConsole.GetOperandFromUser();
+            operandOne = UserOutputConsole.GetOperands("Enter First Number : ");
 
-            Console.WriteLine("Enter Second Number : ");
-            operandTwo = UserIOConsole.GetOperandFromUser();
+            operandTwo = UserOutputConsole.GetOperands("Enter Second Number : ");
         }
 
         private static bool ExecuteUserOperation(MathUtils mathUtils, bool stop, double operandOne, double operandTwo, Option useroption)
@@ -61,19 +57,19 @@
             {
                 case Option.Add:
                     double additionAnswer = mathUtils.Addition(operandOne, operandTwo);
-                    UserIOConsole.PrintResult(additionAnswer);
+                    UserOutputConsole.PrintResult(additionAnswer);
                     break;
                 case Option.Subtract:
                     double subtractAnswer = mathUtils.Subtract(operandTwo, operandOne);
-                    UserIOConsole.PrintResult(subtractAnswer);
+                    UserOutputConsole.PrintResult(subtractAnswer);
                     break;
                 case Option.Multiply:
                     double multiplyAnswer = mathUtils.Multiplication(operandOne, operandOne);
-                    UserIOConsole.PrintResult(multiplyAnswer);
+                    UserOutputConsole.PrintResult(multiplyAnswer);
                     break;
                 case Option.Divide:
                     double divisionAnswer = mathUtils.Divide(operandOne, operandTwo);
-                    UserIOConsole.PrintResult(divisionAnswer);
+                    UserOutputConsole.PrintResult(divisionAnswer);
                     break;
                 case Option.Exit:
                     stop = false;
