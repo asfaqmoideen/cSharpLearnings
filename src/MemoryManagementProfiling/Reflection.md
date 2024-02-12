@@ -37,6 +37,6 @@
 
 ## Reflection
 
-- We made short living large objects in the `Allocate()` as List of Large value Integer arrays. It is still in the Gen 1
+- We made short living large objects in the `Allocate()` as List of Large List of 1000 value Integer arrays. It is still in the Gen 1
 - Makes the memory allocation large and exponentially growing. 
 - In Task 2 we made a finally block which will clear the list of integer array. that is we are clearing the array which is placed in Gen 2 and mapped from gen 1 making it short lived
