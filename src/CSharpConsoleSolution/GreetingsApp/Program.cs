@@ -11,7 +11,7 @@
         private static void Main()
         {
             Console.WriteLine("Hello, people\nThis is from greetings app, Have a Nice day :)");
-            ExecuteCalculator.Main();
+            ExecuteCalculator.ExecuteMathOperation();
         }
     }
 }

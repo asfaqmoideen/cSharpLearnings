@@ -19,7 +19,7 @@
         /// <summary>
         /// The initialization of the program
         /// </summary>
-        public static void Main()
+        public static void ExecuteMathOperation()
         {
             bool stop = true;
             do
