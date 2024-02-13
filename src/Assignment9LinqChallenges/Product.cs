@@ -18,7 +18,7 @@ namespace Assignment9LinqChallenges
         /// <param name="productName">product name</param>
         /// <param name="productPrice">product price </param>
         /// <param name="productCategory">product category</param>
-        public Product(uint productId, string productName, double productPrice, string productCategory)
+        public Product(int productId, string productName, double productPrice, string productCategory)
         {
             this.ProductId = productId;
             this.ProductName = productName;
@@ -32,7 +32,7 @@ namespace Assignment9LinqChallenges
         /// <value>
         /// ProductID
         /// </value>
-        public uint ProductId { get; set; }
+        public int ProductId { get; set; }
 
         /// <summary>
         /// Gets or sets ProductNames

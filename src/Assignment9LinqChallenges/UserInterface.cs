@@ -5,16 +5,7 @@
     /// </summary>
     internal class UserInterface
     {
-        private ProductManager _productManager;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserInterface"/> class.
-        /// </summary>
-        /// <param name="productManager">y</param>
-        public UserInterface(ProductManager productManager)
-        {
-            this._productManager = productManager;
-        }
+        private ConsoleInputValidator _validator = new ConsoleInputValidator();
 
         /// <summary>
         /// checks whether the product name is unique
@@ -25,9 +16,9 @@
             string? productName;
             Console.WriteLine("Enter Product Name");
             productName = Console.ReadLine();
-            while (this._productManager.IsProductNameExists(productName))
+            while (productName.Count() == 0)
             {
-                Console.WriteLine("Enter Unique product Name");
+                Console.WriteLine("Enter not null value");
                 productName = Console.ReadLine();
             }
 
@@ -43,7 +34,7 @@
             double productPrice;
             Console.WriteLine("Enter Product Price");
             string? productPriceInput = Console.ReadLine();
-            while (!this._productManager.IsProductPricePositiveDouble(productPriceInput, out productPrice))
+            while (!this._validator.IsProductPricePositiveDouble(productPriceInput, out productPrice))
             {
                 Console.WriteLine("Invalid Product Price");
                 productPriceInput = Console.ReadLine();
@@ -88,14 +79,14 @@
         /// Gets product quantity from the user
         /// </summary>
         /// <returns>re</returns>
-        public uint GetProductId()
+        public int GetProductId()
         {
-            uint getProductId;
+            int getProductId;
             Console.WriteLine("Enter Product Id - Int");
             string? getProductIdFromUser = Console.ReadLine();
-            while (!this._productManager.IsGivenIdUInt(getProductIdFromUser, out getProductId))
+            while (!this._validator.IsGivenIdPositiveInt(getProductIdFromUser, out getProductId))
             {
-                Console.WriteLine("Invalid Input");
+                Console.WriteLine("Enter Not null value");
                 getProductIdFromUser = Console.ReadLine();
             }
 
@@ -106,12 +97,12 @@
         /// gets supplier id
         /// </summary>
         /// <returns>supplier id</returns>
-        public uint GetSupplierId()
+        public int GetSupplierId()
         {
-            uint getSupplierId;
+            int getSupplierId;
             Console.WriteLine("Enter Supplier ID");
             string? getSupplierIdFromUser = Console.ReadLine();
-            while (!this._productManager.IsGivenIdUInt(getSupplierIdFromUser, out getSupplierId))
+            while (!this._validator.IsGivenIdPositiveInt(getSupplierIdFromUser, out getSupplierId))
             {
                 Console.WriteLine("Invalid Input");
                 getSupplierIdFromUser = Console.ReadLine();

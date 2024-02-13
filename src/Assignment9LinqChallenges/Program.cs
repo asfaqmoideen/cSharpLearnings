@@ -8,7 +8,9 @@ namespace Assignments
     public class Program
     {
         private static ProductManager productManager = new ProductManager();
+        private static SupplierManager supplierManager = new SupplierManager();
         private static LinqToObjects linqToObjects = new LinqToObjects();
+        private static LINQOperationsManager operationsManager = new LINQOperationsManager(productManager, supplierManager);
 
         private enum Option
         {
@@ -53,24 +55,24 @@ namespace Assignments
                     productManager.AddProducts();
                     break;
                 case Option.AddSuppliers:
-                    productManager.AddSuppliers();
+                    supplierManager.AddSuppliers();
                     break;
                 case Option.Task1:
-                    productManager.SortProducts();
-                    productManager.GroupProducts();
+                    operationsManager.SortProducts();
+                    operationsManager.GroupProducts();
                     break;
                 case Option.Task2:
-                    productManager.GroupProducts();
+                    operationsManager.GroupProducts();
                     break;
                 case Option.Task3:
                     linqToObjects.ArrayLinqToObjects();
                     break;
                 case Option.Task4:
-                    productManager.SortProductsWithBooks();
-                    productManager.OptimisedSortProductsWithBooks();
+                    operationsManager.SortProductsWithBooks();
+                    operationsManager.OptimisedSortProductsWithBooks();
                     break;
                 case Option.Task5:
-                    productManager.Task6();
+                    operationsManager.Task6();
                     break;
             }
         }

@@ -17,7 +17,7 @@ namespace Assignment9LinqChallenges
         /// <param name="supplierName">supplierName</param>
         /// <param name="supplierId">suuplierId</param>
         /// <param name="productId">productId</param>
-        public Supplier(string supplierName, uint supplierId, uint productId)
+        public Supplier(string supplierName, int supplierId, int productId)
         {
             this.SupplierName = supplierName;
             this.SupplierId = supplierId;
@@ -38,7 +38,7 @@ namespace Assignment9LinqChallenges
         /// <value>
         /// supplier Id
         /// </value>
-        public uint SupplierId { get; set; }
+        public int SupplierId { get; set; }
 
         /// <summary>
         /// Gets or sets Product Id
@@ -46,6 +46,6 @@ namespace Assignment9LinqChallenges
         /// <value>
         /// productId
         /// </value>
-        public uint ProductId { get; set; }
+        public int ProductId { get; set; }
     }
 }
