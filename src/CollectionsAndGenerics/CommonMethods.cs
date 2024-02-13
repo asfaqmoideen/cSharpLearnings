@@ -17,7 +17,7 @@ namespace CollectionsAndGenerics
         {
             Console.WriteLine($"Add Another {useCase} ?\n1.Yes\nPress any key to skip");
             string? addAnother = Console.ReadLine();
-            return true && addAnother == "1";
+            return addAnother == "1";
         }
 
         /// <summary>

@@ -4,7 +4,7 @@
     /// Holds, Manipulates and manage the in-memory list of books
     /// </summary>
     /// <typeparam name="T">Generic Type </typeparam>
-    public class ListManager<T>
+    public class BooksManager<T>
     {
         private List<T> _books = new List<T>();
 
@@ -13,18 +13,19 @@
             AddBooks = 1,
             RemoveBooks,
             SearchBooks,
+            ShowAllBooks,
             Quit,
         }
 
         /// <summary>
         /// Execute the list operations according to the users choice
         /// </summary>
-        public void ExecuteTheOperation()
+        public void ShowBooksManagerMenu()
         {
             bool stop = false;
             do
             {
-                Console.WriteLine("Book Manager\nChoose any option to proced\n1.Add Books\n2.Remove Books\n3.Search Books\n4.Quit");
+                Console.WriteLine("Book Manager\nChoose any option to proced\n1.Add Books\n2.Remove Books\n3.Search Books\n4.Show All Books\n5.Quit");
                 bool isUserOptionInt = int.TryParse(Console.ReadLine(), out int userOption);
                 ListOperations bookOperations = (ListOperations)userOption;
                 switch (bookOperations)
@@ -37,6 +38,9 @@
                         break;
                     case ListOperations.SearchBooks:
                         this.SearchBooks();
+                        break;
+                    case ListOperations.ShowAllBooks:
+                        this.ShowAllBooks();
                         break;
                     case ListOperations.Quit:
                         stop = true;
@@ -87,6 +91,14 @@
             else
             {
                 Console.WriteLine("Book not Found");
+            }
+        }
+
+        private void ShowAllBooks()
+        {
+            foreach (T book in this._books)
+            {
+                Console.WriteLine(book);
             }
         }
     }

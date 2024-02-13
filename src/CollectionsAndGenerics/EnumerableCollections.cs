@@ -6,7 +6,7 @@ namespace CollectionsAndGenerics
     /// <summary>
     /// Creates, Holds, Manipulates the in-memory Collection in IEnumerable Interface
     /// </summary>
-    public class IEnumerableCollections
+    public class EnumerableCollections
     {
         /// <summary>
         /// Execute the operation in the Class ReadOnlyCollections

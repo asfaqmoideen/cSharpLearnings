@@ -8,7 +8,7 @@ namespace CollectionsAndGenerics
     /// Creates,Holds and manipulates the stacks
     /// </summary>
     /// <typeparam name="T">generic type</typeparam>
-    public class StacksManager<T>
+    public class StackManager<T>
     {
         private Stack<T> _stacks = new Stack<T>();
         private T[] _characterArray;

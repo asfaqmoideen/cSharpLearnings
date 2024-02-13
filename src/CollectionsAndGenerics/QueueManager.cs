@@ -7,7 +7,7 @@ namespace CollectionsAndGenerics
     /// Creates Holds and Manipulates Queues.
     /// </summary>
     /// <typeparam name="T">Generic type</typeparam>
-    public class QueuesManager<T>
+    public class QueueManager<T>
     {
         private Queue<T> _queueOfPersons = new Queue<T>();
 
@@ -22,7 +22,7 @@ namespace CollectionsAndGenerics
         /// <summary>
         /// Execute the list operations according to the users choice
         /// </summary>
-        public void ExecuteTheOperation()
+        public void ShowQueueManagerMenu()
         {
             bool stop = false;
             do
