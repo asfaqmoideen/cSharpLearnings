@@ -110,5 +110,23 @@
 
             return getSupplierId;
         }
+
+        /// <summary>
+        /// Gets option for main menu
+        /// </summary>
+        /// <returns>option integer value</returns>
+        public int GetMainMenuOption()
+        {
+            int option;
+            Console.WriteLine("\nEnter a Option to Proceed\n1.AddProducts\n2.AddSuppliers\n3.Task1-Sorting\n4. Task2 -Grouping" +
+             "\n5.Task3-Array with LINQ\n6.Task-4 Sorting & optimised Sorting\n7.Advanced LINQ Query");
+
+            while (!this._validator.IsOptionInputValid(Console.ReadLine() !, out option))
+            {
+                Console.WriteLine("Enter Valid Option");
+            }
+
+            return option;
+        }
     }
 }

@@ -28,5 +28,16 @@ namespace Assignment9LinqChallenges
         {
             return double.TryParse(productPrice, out productPriceOutput) && productPriceOutput > 0;
         }
+
+        /// <summary>
+        /// validates user input if the input is int and lies between 1-5
+        /// </summary>
+        /// <param name="optionInput">string input form the user</param>
+        /// <param name="option">Valid int output</param>
+        /// <returns>True if The input is valid</returns>
+        public bool IsOptionInputValid(string optionInput, out int option)
+        {
+            return int.TryParse(optionInput, out option) && (option > 0 && (option < 8));
+        }
     }
 }

@@ -33,24 +33,32 @@ namespace Assignment9LinqChallenges
         /// <summary>
         /// Sorts products with category electronics, product price greater than 500 and shows average price.
         /// </summary>
-        public void SortProducts()
+        public void SortProductsWithCategoryAndPriceRange()
         {
             Console.WriteLine("\nTask 1 - Sorting the products with Category Electronics and Descending Price above 500");
+
             var sortQuery = this._products.Where(p => p.Category == "Electronics" && p.ProductPrice > 500).ToList();
+
             var selectQuery = sortQuery.Select(p2 => new { p2.ProductName, p2.ProductPrice }).ToList();
+
             var orderByDescending = selectQuery.OrderByDescending(p1 => p1.ProductPrice).ToList();
+
             orderByDescending.ForEach(p => Console.WriteLine(p.ProductName + "-" + p.ProductPrice));
+
             var averagePrice = orderByDescending.Average(p => p.ProductPrice);
+
             Console.WriteLine("Average Price:" + averagePrice);
         }
 
         /// <summary>
         /// Group the products according to category and find expensive price
         /// </summary>
-        public void GroupProducts()
+        public void GroupProductsByCategoryAndExpensivePrice()
         {
             Console.WriteLine("\nTask2 - Grouping Products by category and sorting by Expensive Price, Mapping with Suppliers");
+
             var groupQuery = this._products.GroupBy(p => p.Category).ToList();
+
             foreach (var group in groupQuery)
             {
                 Console.WriteLine("Category : " + group.Key + " has : " + group.Count());
@@ -66,10 +74,12 @@ namespace Assignment9LinqChallenges
         /// <summary>
         /// Sort Products with books category and price
         /// </summary>
-        public void SortProductsWithBooks()
+        public void ProductsOfCategoryBook()
         {
             Console.WriteLine("\nTask 4.1 - Sorting the products with Category Books and Price");
+
             var sortQuery = this._products.Where(p => p.Category == "Books").OrderBy(p => p.ProductPrice).ToList();
+
             sortQuery.ForEach(p => Console.WriteLine(p.ProductName + " : " + p.ProductPrice));
         }
 
@@ -79,6 +89,7 @@ namespace Assignment9LinqChallenges
         public void OptimisedSortProductsWithBooks()
         {
             Console.WriteLine("\nTask 4.2 - Optimised parallel query - Sorting the products with Category Books and Price");
+
             var sortQuery = this._products.AsParallel().Where(p => p.Category == "Books").OrderBy(p => p.ProductPrice).ToList();
             sortQuery.ForEach(p => Console.WriteLine(p.ProductName + " : " + p.ProductPrice));
         }
