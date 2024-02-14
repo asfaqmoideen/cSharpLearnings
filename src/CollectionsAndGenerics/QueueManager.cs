@@ -67,12 +67,12 @@ namespace CollectionsAndGenerics
             bool addPersons = true;
             while (addPersons)
             {
-                T bookTitleT = CommonMethods.GetAndConvertStringToType<T>("Add a new Person");
+                T bookTitleT = ConsoleUserInterface.GetAndConvertStringToType<T>("Add a new Person");
 
                 this._queueOfPersons.Enqueue(bookTitleT);
 
                 Console.WriteLine($"Totally {this._queueOfPersons.Count} were Added");
-                addPersons = CommonMethods.IsAddAnotherDetail("Person");
+                addPersons = ConsoleUserInterface.IsAddAnotherDetail("Person");
             }
         }
 

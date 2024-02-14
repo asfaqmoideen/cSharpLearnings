@@ -69,13 +69,13 @@ namespace CollectionsAndGenerics
             bool addStudent = true;
             while (addStudent)
             {
-                TKey studentNameT = CommonMethods.GetAndConvertStringToType<TKey>("Student Name");
-                TValue studentGradeT = CommonMethods.GetAndConvertStringToType<TValue>("Student Grade");
+                TKey studentNameT = ConsoleUserInterface.GetAndConvertStringToType<TKey>("Student Name");
+                TValue studentGradeT = ConsoleUserInterface.GetAndConvertStringToType<TValue>("Student Grade");
 
                 this._dictionaryOfDetails.Add(studentNameT, studentGradeT);
 
                 Console.WriteLine($"Totally {this._dictionaryOfDetails.Count()} were Added");
-                addStudent = CommonMethods.IsAddAnotherDetail("Studnet");
+                addStudent = ConsoleUserInterface.IsAddAnotherDetail("Studnet");
             }
         }
 
@@ -84,7 +84,7 @@ namespace CollectionsAndGenerics
         /// </summary>
         private void RemoveStudent()
         {
-            TKey detailToBeRemoved = CommonMethods.GetAndConvertStringToType<TKey>("Remove Student");
+            TKey detailToBeRemoved = ConsoleUserInterface.GetAndConvertStringToType<TKey>("Remove Student");
 
             this._dictionaryOfDetails.Remove(detailToBeRemoved);
 
@@ -96,7 +96,7 @@ namespace CollectionsAndGenerics
         /// </summary>
         private void SearchStudentGrade()
         {
-            TKey detailToBeSearch = CommonMethods.GetAndConvertStringToType<TKey>("Find Student");
+            TKey detailToBeSearch = ConsoleUserInterface.GetAndConvertStringToType<TKey>("Find Student");
             if (this._dictionaryOfDetails.ContainsKey(detailToBeSearch))
             {
                 Console.WriteLine($"Yes the studnet named {detailToBeSearch} is Found with " +

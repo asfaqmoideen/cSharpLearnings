@@ -38,6 +38,7 @@
             switch (bookOperations)
             {
                 case ListOperations.AddBooks:
+
                     this.AddBooks();
                     break;
                 case ListOperations.RemoveBooks:
@@ -66,9 +67,9 @@
             bool addBooks = true;
             while (addBooks)
             {
-                T bookTitleT = CommonMethods.GetAndConvertStringToType<T>("Add Book");
+                T bookTitleT = ConsoleUserInterface.GetAndConvertStringToType<T>("Add Book");
                 this.AddBook(bookTitleT);
-                addBooks = CommonMethods.IsAddAnotherDetail("Book");
+                addBooks = ConsoleUserInterface.IsAddAnotherDetail("Book");
             }
         }
 
@@ -87,7 +88,7 @@
         /// </summary>
         private void RemoveBooks()
         {
-            T bookTitleT = CommonMethods.GetAndConvertStringToType<T>("Remove Boooks");
+            T bookTitleT = ConsoleUserInterface.GetAndConvertStringToType<T>("Remove Boooks");
             this._books.Remove(bookTitleT);
             Console.WriteLine($"Book named : {bookTitleT} have been deleted");
         }
@@ -97,7 +98,7 @@
         /// </summary>
         private void SearchBooks()
         {
-            T bookTitleT = CommonMethods.GetAndConvertStringToType<T>("Find Availablity of Book");
+            T bookTitleT = ConsoleUserInterface.GetAndConvertStringToType<T>("Find Availablity of Book");
             if (this._books.Contains(bookTitleT))
             {
                 Console.WriteLine("Yes the book is in the list");

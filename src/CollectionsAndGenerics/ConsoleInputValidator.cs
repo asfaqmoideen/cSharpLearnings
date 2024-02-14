@@ -15,5 +15,15 @@
         {
             return int.TryParse(optionInput, out option);
         }
+
+        /// <summary>
+        /// Checks whether the give input is not null
+        /// </summary>
+        /// <param name="consoleInputValue">Got from console readline</param>
+        /// <returns>True if the Inout is not null</returns>
+        public static bool IsGivenIputIsNotNull(string? consoleInputValue)
+        {
+            return consoleInputValue != null && consoleInputValue.Length > 0;
+        }
     }
 }
