@@ -24,34 +24,41 @@ namespace CollectionsAndGenerics
         /// <summary>
         /// Execute the list operations according to the users choice
         /// </summary>
-        public void ExecuteTheOperation()
+        public void ShowDictionaryManagerMenu()
         {
-            bool stop = false;
+            bool stop;
+
             do
             {
-                Console.WriteLine("Students Score Manager\nChoose any option to proced" +
+                int userOption = ConsoleUserInterface.PrintMenuDetailsAndGetOptionFromUser("Students Score Manager\nChoose any option to proced" +
                     "\n1.Add Student Details\n2.Remove Student Details\n3.Search Student Details\n4.Quit");
-                bool isUserOptionInt = int.TryParse(Console.ReadLine(), out int userOption);
+
                 DictionaryOperations dictionaryOperations = (DictionaryOperations)userOption;
-                switch (dictionaryOperations)
-                {
-                    case DictionaryOperations.AddDetails:
-                        this.AddStudents();
-                        break;
-                    case DictionaryOperations.RemoveDetais:
-                        this.RemoveStudent();
-                        break;
-                    case DictionaryOperations.SearchDetails:
-                        this.SearchStudentGrade();
-                        break;
-                    case DictionaryOperations.Quit:
-                        stop = true;
-                        break;
-                    default:
-                        break;
-                }
+                stop = this.ExecuteDictionaryManager(dictionaryOperations);
             }
             while (!stop);
+        }
+
+        private bool ExecuteDictionaryManager(DictionaryManager<TKey, TValue>.DictionaryOperations dictionaryOperations)
+        {
+            switch (dictionaryOperations)
+            {
+                case DictionaryOperations.AddDetails:
+                    this.AddStudents();
+                    break;
+                case DictionaryOperations.RemoveDetais:
+                    this.RemoveStudent();
+                    break;
+                case DictionaryOperations.SearchDetails:
+                    this.SearchStudentGrade();
+                    break;
+                case DictionaryOperations.Quit:
+                    return true;
+                default:
+                    break;
+            }
+
+            return false;
         }
 
         /// <summary>

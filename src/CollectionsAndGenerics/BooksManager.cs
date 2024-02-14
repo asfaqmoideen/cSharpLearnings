@@ -25,31 +25,37 @@
             bool stop = false;
             do
             {
-                Console.WriteLine("Book Manager\nChoose any option to proced\n1.Add Books\n2.Remove Books\n3.Search Books\n4.Show All Books\n5.Quit");
-                bool isUserOptionInt = int.TryParse(Console.ReadLine(), out int userOption);
+                int userOption = ConsoleUserInterface.PrintMenuDetailsAndGetOptionFromUser("BooksManager\n1.Add Books" +
+                    "\n2.Remove Books\n3.Search Books\n4.Show All Books \n5.Quit");
                 ListOperations bookOperations = (ListOperations)userOption;
-                switch (bookOperations)
-                {
-                    case ListOperations.AddBooks:
-                        this.AddBooks();
-                        break;
-                    case ListOperations.RemoveBooks:
-                        this.RemoveBooks();
-                        break;
-                    case ListOperations.SearchBooks:
-                        this.SearchBooks();
-                        break;
-                    case ListOperations.ShowAllBooks:
-                        this.ShowAllBooks();
-                        break;
-                    case ListOperations.Quit:
-                        stop = true;
-                        break;
-                    default:
-                        break;
-                }
+                stop = this.ExecuteBooksManagerMenu(bookOperations);
             }
             while (!stop);
+        }
+
+        private bool ExecuteBooksManagerMenu(BooksManager<T>.ListOperations bookOperations)
+        {
+            switch (bookOperations)
+            {
+                case ListOperations.AddBooks:
+                    this.AddBooks();
+                    break;
+                case ListOperations.RemoveBooks:
+                    this.RemoveBooks();
+                    break;
+                case ListOperations.SearchBooks:
+                    this.SearchBooks();
+                    break;
+                case ListOperations.ShowAllBooks:
+                    this.ShowAllBooks();
+                    break;
+                case ListOperations.Quit:
+                    return true;
+                default:
+                    break;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -60,12 +66,20 @@
             bool addBooks = true;
             while (addBooks)
             {
-                Console.WriteLine("Add a new Book");
                 T bookTitleT = CommonMethods.GetAndConvertStringToType<T>("Add Book");
-                this._books.Add(bookTitleT);
-                Console.WriteLine($"Totally {this._books.Count} were Added");
+                this.AddBook(bookTitleT);
                 addBooks = CommonMethods.IsAddAnotherDetail("Book");
             }
+        }
+
+        /// <summary>
+        /// Accepsts Generic parameter and adds to the In-memory list
+        /// </summary>
+        /// <param name="bookTitleT">Title of the book</param>
+        private void AddBook(T bookTitleT)
+        {
+            this._books.Add(bookTitleT);
+            Console.WriteLine($"Totally {this._books.Count} were Added");
         }
 
         /// <summary>

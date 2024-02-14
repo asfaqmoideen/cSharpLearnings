@@ -96,9 +96,7 @@ namespace CollectionsAndGenerics
                 alphabetDictionary.Add(tKeychar.ToString(), i);
             }
 
-            IReadOnlyDictionary<string, int> immutableAlphabetDictionary = alphabetDictionary;
-
-            return immutableAlphabetDictionary;
+            return alphabetDictionary;
         }
 
         /// <summary>

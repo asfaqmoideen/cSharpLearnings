@@ -27,16 +27,16 @@
         /// <param name="stop">true when stop is pressed</param>
         public void MainMenu(out bool stop)
         {
-            Console.WriteLine("Working With Collections\nEnter a Option to Proceed\n1.BookManager\n2.Stack Operations" +
+            int userOption = ConsoleUserInterface.PrintMenuDetailsAndGetOptionFromUser("Working With Collections\nEnter a Option to Proceed\n1.BookManager\n2.Stack Operations" +
                                     "\n3.QueueOperations\n4.Dictionary Operations\n5.Read Only Collections\n0 or Press any key to Quit");
 
-            stop = this.ExecuteUserOperation();
+            stop = this.ExecuteUserOperation(userOption);
         }
 
-        private bool ExecuteUserOperation()
+        private bool ExecuteUserOperation(int userOption)
         {
-            bool isUserOptionInt = int.TryParse(Console.ReadLine(), out int userOption);
             CollectionsAndGenerics operationToBeperformed = (CollectionsAndGenerics)userOption;
+
             switch (operationToBeperformed)
             {
                 case CollectionsAndGenerics.BookManager:
@@ -49,7 +49,7 @@
                     this._queues.ShowQueueManagerMenu();
                     break;
                 case CollectionsAndGenerics.Dictionary:
-                    this._dictionaryManager.ExecuteTheOperation();
+                    this._dictionaryManager.ShowDictionaryManagerMenu();
                     break;
                 case CollectionsAndGenerics.ReadOnlyCollections:
                     this._readOnlyCollections.ExecuteReadOnlyCollections();

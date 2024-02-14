@@ -27,29 +27,36 @@ namespace CollectionsAndGenerics
             bool stop = false;
             do
             {
-                Console.WriteLine("Queue Operations Manager\nChoose any option to proced\n1.Add Persons to queue" +
+                int userOption = ConsoleUserInterface.PrintMenuDetailsAndGetOptionFromUser("Queue Operations Manager\nChoose any option to proced\n1.Add Persons to queue" +
                     "\n2.Remove first person from queue\n3.Show all Persons after removal\n0.Quit");
-                bool isUserOptionInt = int.TryParse(Console.ReadLine(), out int userOption);
                 QueueOperations queueOperations = (QueueOperations)userOption;
-                switch (queueOperations)
-                {
-                    case QueueOperations.AddPerson:
-                        this.AddPersons();
-                        break;
-                    case QueueOperations.Remove:
-                        this.RemoveFirstPerson();
-                        break;
-                    case QueueOperations.ShowAll:
-                        this.ShowAllPersons();
-                        break;
-                    case QueueOperations.Quit:
-                        stop = true;
-                        break;
-                    default:
-                        break;
-                }
+
+                stop = this.ExecuteQueueManagerOperation(queueOperations);
             }
             while (!stop);
+        }
+
+        private bool ExecuteQueueManagerOperation(QueueManager<T>.QueueOperations queueOperations)
+        {
+            switch (queueOperations)
+            {
+                case QueueOperations.AddPerson:
+                    this.AddPersons();
+                    break;
+                case QueueOperations.Remove:
+                    this.RemoveFirstPerson();
+                    break;
+                case QueueOperations.ShowAll:
+                    this.ShowAllPersons();
+                    break;
+                case QueueOperations.Quit:
+                    return true;
+                default:
+                    Console.WriteLine("Invalid Choice");
+                    break;
+            }
+
+            return false;
         }
 
         /// <summary>
