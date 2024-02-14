@@ -1,4 +1,5 @@
-﻿using FilesStreamsReadWrite;
+﻿using System.Collections.Generic;
+using FilesStreamsReadWrite;
 
 namespace Assignments
 {
@@ -12,20 +13,12 @@ namespace Assignments
         /// </summary>
         private static async Task Main()
         {
-            SynchronousStreamProccessor syncStream = new ();
-            AsynchronousStreamProcessor asyncStream = new ();
             Console.WriteLine("File Stream Manager");
             try
             {
-                syncStream.FileStreamWriter(@"C:\FileStreams\newlyWrittenFile.txt");
-                syncStream.FileStreamReader(@"C:\FileStreams\newlyWrittenFile.txt");
-                syncStream.BufferedStreamReader(@"C:\FileStreams\newlyWrittenFile.txt");
-                syncStream.ReadProccesAndWriteDataToNewFile(@"C:\FileStreams\newlyWrittenFile.txt", @"C:\FileStreams\processedData.txt");
+                ExecuteSyncStreams();
 
-                await asyncStream.FileStreamWriter(@"C:\FileStreams\asyncnewlyWrittenFile.txt");
-                await asyncStream.FileStreamReader(@"C:\FileStreams\asyncnewlyWrittenFile.txt");
-                await asyncStream.BufferedStreamReader(@"C:\FileStreams\asyncnewlyWrittenFile.txt");
-                await asyncStream.ReadProccesAndWriteDataToNewFile(@"C:\FileStreams\asyncnewlyWrittenFile.txt", @"C:\FileStreams\asyncprocessesData.txt");
+                await ExecuteAsyncStreams();
             }
             catch (Exception ex)
             {
@@ -34,6 +27,44 @@ namespace Assignments
 
             Console.WriteLine("Press any key to exit");
             Console.ReadKey();
+        }
+
+        private static void ExecuteSyncStreams()
+        {
+            SynchronousStreamProccessor syncStream = new ();
+            Dictionary<string, string> syncFilePaths = new Dictionary<string, string>()
+                {
+                    { @"C:\FileStreams\newlyWrittenFile.txt", @"C:\FileStreams\processedData.txt" },
+                    { @"C:\FileStreams\newlyWrittenFile1.txt", @"C:\FileStreams\processedData1.txt" },
+                    { @"C:\FileStreams\newlyWrittenFile2.txt", @"C:\FileStreams\processedData2.txt" },
+                };
+
+            foreach (KeyValuePair<string, string> pair in syncFilePaths)
+            {
+                syncStream.FileStreamWriter(pair.Key);
+                syncStream.FileStreamReader(pair.Key);
+                syncStream.BufferedStreamReader(pair.Key);
+                syncStream.ReadProccesAndWriteDataToNewFile(pair.Key, pair.Value);
+            }
+        }
+
+        private static async Task ExecuteAsyncStreams()
+        {
+            AsynchronousStreamProcessor asyncStream = new ();
+            Dictionary<string, string> asyncFilePaths = new Dictionary<string, string>()
+                {
+                    { @"C:\FileStreams\asyncnewlyWrittenFile.txt", @"C:\FileStreams\asyncprocessesData.txt" },
+                    { @"C:\FileStreams\asyncnewlyWrittenFile1.txt", @"C:\FileStreams\asyncprocessesData1.txt" },
+                    { @"C:\FileStreams\asyncnewlyWrittenFile2.txt", @"C:\FileStreams\asyncprocessesData2.txt" },
+                };
+
+            foreach (KeyValuePair<string, string> pair in asyncFilePaths)
+            {
+                await asyncStream.FileStreamWriter(pair.Key);
+                await asyncStream.FileStreamReader(pair.Key);
+                await asyncStream.BufferedStreamReader(pair.Key);
+                await asyncStream.ReadProccesAndWriteDataToNewFile(pair.Key, pair.Value);
+            }
         }
     }
 }
