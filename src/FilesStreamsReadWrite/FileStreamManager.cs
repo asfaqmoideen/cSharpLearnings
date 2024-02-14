@@ -10,7 +10,8 @@ namespace FilesStreamsReadWrite
     /// </summary>
     public class FileStreamManager
     {
-        private string _path = "newlyWrittenFile.txt";
+        private static string _path = "newlyWrittenFile.txt";
+        private System.IO.FileInfo _file = new FileInfo(_path);
 
         /// <summary>
         /// Writes into the files
@@ -24,9 +25,9 @@ namespace FilesStreamsReadWrite
                 byte[] buffer = Encoding.ASCII.GetBytes(data);
                 memoryStream.Write(buffer, 0, buffer.Length);
 
-                using (FileStream fileStream = new FileStream(this._path, FileMode.OpenOrCreate))
+                using (FileStream fileStream = new FileStream(_path, FileMode.OpenOrCreate))
                 {
-                    while (new System.IO.FileInfo("newlyWrittenFile.txt").Length < 1073741824)
+                    while (this._file.Length < 1073741824)
                     {
                         byte[] writeBuffer = memoryStream.ToArray();
                         fileStream.Write(writeBuffer, 0, writeBuffer.Length);
@@ -40,7 +41,7 @@ namespace FilesStreamsReadWrite
         /// </summary>
         public void FileStreamReader()
         {
-            using (FileStream fileStream = new FileStream(this._path, FileMode.Open))
+            using (FileStream fileStream = new FileStream(_path, FileMode.Open))
             {
                 byte[] buffer = new byte[1024];
                 int bytesRead;
@@ -53,8 +54,8 @@ namespace FilesStreamsReadWrite
                 }
 
                 stopwatch.Stop();
-                var ts = stopwatch.Elapsed;
-                Console.WriteLine(ts.Milliseconds);
+                var timeTakenUsingFileStream= stopwatch.Elapsed;
+                Console.WriteLine(timeTakenUsingFileStream.Milliseconds);
             }
         }
     }
