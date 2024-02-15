@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using FilesStreamsReadWrite;
 
 namespace Assignments
@@ -26,11 +27,14 @@ namespace Assignments
             }
 
             Console.WriteLine("Press any key to exit");
+            Console.WriteLine();
             Console.ReadKey();
         }
 
         private static void ExecuteSyncStreams()
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             SynchronousStreamProccessor syncStream = new ();
             Dictionary<string, string> syncFilePaths = new Dictionary<string, string>()
                 {
@@ -46,10 +50,15 @@ namespace Assignments
                 syncStream.BufferedStreamReader(pair.Key);
                 syncStream.ReadProccesAndWriteDataToNewFile(pair.Key, pair.Value);
             }
+
+            stopwatch.Stop();
+            Console.WriteLine($"The Time for synchronous proccesing is {stopwatch.Elapsed}");
         }
 
         private static async Task ExecuteAsyncStreams()
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             AsynchronousStreamProcessor asyncStream = new ();
             Dictionary<string, string> asyncFilePaths = new Dictionary<string, string>()
                 {
@@ -65,6 +74,9 @@ namespace Assignments
                 await asyncStream.BufferedStreamReader(pair.Key);
                 await asyncStream.ReadProccesAndWriteDataToNewFile(pair.Key, pair.Value);
             }
+
+            stopwatch.Stop();
+            Console.WriteLine($"The Time for synchronous proccesing is {stopwatch.Elapsed}");
         }
     }
 }
