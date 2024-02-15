@@ -5,11 +5,11 @@
     /// </summary>
     public class MainMenuExecutionManager
     {
-        private BooksManager<string> _listManager = new BooksManager<string>();
-        private StackManager<char> _stacks = new StackManager<char>();
-        private QueueManager<string> _queues = new QueueManager<string>();
-        private DictionaryManager<string, int> _dictionaryManager = new DictionaryManager<string, int>();
+        private BooksManagerExecutor _booksManagerExecutor = new BooksManagerExecutor();
+        private StudentManagerExecutor _studentManagerExecutor = new StudentManagerExecutor();
+        private QueueManagerExecutor _queueManagerExecutor = new QueueManagerExecutor();
         private EnumerableCollections _readOnlyCollections = new EnumerableCollections();
+        private StackManager<char> _stacks = new StackManager<char>();
 
         private enum CollectionsAndGenerics
         {
@@ -27,8 +27,10 @@
         /// <param name="stop">true when stop is pressed</param>
         public void MainMenu(out bool stop)
         {
-            int userOption = ConsoleUserInterface.PrintMenuDetailsAndGetOptionFromUser("Working With Collections\nEnter a Option to Proceed\n1.BookManager\n2.Stack Operations" +
+            Console.WriteLine("Working With Collections\nEnter an Option to Proceed\n1.BookManager\n2.Stack Operations" +
                                     "\n3.QueueOperations\n4.Dictionary Operations\n5.Read Only Collections\n0 or Press any key to Quit");
+
+            int userOption = ConsoleUserInterface.GetOptionFromUser();
 
             stop = this.ExecuteUserOperation(userOption);
         }
@@ -40,16 +42,17 @@
             switch (operationToBeperformed)
             {
                 case CollectionsAndGenerics.BookManager:
-                    this._listManager.ShowBooksManagerMenu();
+                    this._booksManagerExecutor.ShowBooksManagerMenu();
                     break;
                 case CollectionsAndGenerics.Stacks:
-                    this._stacks.ReverseStringWithStacks();
+                    string stringToReverse = ConsoleUserInterface.GetStringFromTheUser("Reverse the string");
+                    this._stacks.ReverseStringWithStacks(stringToReverse.ToCharArray());
                     break;
                 case CollectionsAndGenerics.Queue:
-                    this._queues.ShowQueueManagerMenu();
+                    this._queueManagerExecutor.ShowQueueManagerMenu();
                     break;
                 case CollectionsAndGenerics.Dictionary:
-                    this._dictionaryManager.ShowDictionaryManagerMenu();
+                    this._studentManagerExecutor.ShowStudentManagerMenu();
                     break;
                 case CollectionsAndGenerics.ReadOnlyCollections:
                     this._readOnlyCollections.ExecuteReadOnlyCollections();

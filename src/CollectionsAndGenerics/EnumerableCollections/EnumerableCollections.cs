@@ -15,11 +15,19 @@ namespace CollectionsAndGenerics
         {
             Console.WriteLine("IEnumerable Collections ");
 
-            this.GenerateCollections(out List<int> integerList, out int[] integerArray, out Queue<int> integerQueue, out Stack<int> integerStack);
-            this.PrintDetailsInCollections(integerList, integerArray, integerQueue, integerStack);
+            List<int> integerList = new List<int> { 1, 2, 2, 4, 6, 7 };
+
+            int[] integerArray = integerList.ToArray();
+
+            Queue<int> integerQueue = new Queue<int>(integerList);
+
+            Stack<int> integerStack = new Stack<int>(integerList);
+
+            this.PrintSumOfElementsInCollections(integerList, integerArray, integerQueue, integerStack);
 
             IReadOnlyDictionary<string, int> immutableDictionary = this.GenerateDictionary();
-            this.PrintDictionary(immutableDictionary);
+
+            PrintReadOnlyDictionary<string, int>.PrintDictionary(immutableDictionary);
         }
 
         /// <summary>
@@ -29,7 +37,7 @@ namespace CollectionsAndGenerics
         /// <param name="integerArray">Array of Integers</param>
         /// <param name="integerQueue">Queue of Integers</param>
         /// <param name="integerStack">Statck of Integers</param>
-        private void PrintDetailsInCollections(List<int> integerList, int[] integerArray, Queue<int> integerQueue, Stack<int> integerStack)
+        private void PrintSumOfElementsInCollections(List<int> integerList, int[] integerArray, Queue<int> integerQueue, Stack<int> integerStack)
         {
             Console.WriteLine($"Sum of elements in List {this.SumOfElements(integerList)}");
 
@@ -38,33 +46,6 @@ namespace CollectionsAndGenerics
             Console.WriteLine($"Sum of elements in Queue {this.SumOfElements(integerQueue)}");
 
             Console.WriteLine($"Sum of elements in Stack {this.SumOfElements(integerStack)}");
-        }
-
-        /// <summary>
-        /// Generated IEnumerable based in-memory Collection
-        /// </summary>
-        /// <param name="integerList">List of Integers</param>
-        /// <param name="integerArray">Array of Integers</param>
-        /// <param name="integerQueue">Queue of Integer</param>
-        /// <param name="integerStack">Stack of Integer</param>
-        private void GenerateCollections(out List<int> integerList, out int[] integerArray, out Queue<int> integerQueue, out Stack<int> integerStack)
-        {
-            integerList = new List<int> { 1, 2, 2, 4, 6, 7 };
-
-            integerArray = integerList.ToArray();
-
-            integerQueue = new Queue<int>();
-
-            foreach (int integer in integerArray)
-            {
-                integerQueue.Enqueue(integer);
-            }
-
-            integerStack = new Stack<int>();
-            foreach (int integer in integerArray)
-            {
-                integerStack.Push(integer);
-            }
         }
 
         /// <summary>
@@ -97,18 +78,6 @@ namespace CollectionsAndGenerics
             }
 
             return alphabetDictionary;
-        }
-
-        /// <summary>
-        /// Prints the key value pairs from the passed dictionary.
-        /// </summary>
-        /// <param name="dictionaryToBePrinted">Dictionary in  IReadOnlyDictionaryFormat</param>
-        private void PrintDictionary(IReadOnlyDictionary<string, int> dictionaryToBePrinted)
-        {
-            foreach (KeyValuePair<string, int> pair in dictionaryToBePrinted)
-            {
-                Console.WriteLine($"{pair.Key} : {pair.Value}");
-            }
         }
     }
 }
