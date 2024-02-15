@@ -14,12 +14,18 @@ namespace Assignments
         /// </summary>
         private static async Task Main()
         {
+            LogErrorsWithMultipleUsers logErrorsWithMultipleUsers = new LogErrorsWithMultipleUsers();
             Console.WriteLine("File Stream Manager");
             try
             {
                 ExecuteSyncStreams();
 
                 await ExecuteAsyncStreams();
+
+                for (int i = 0; i < 10; i++)
+                {
+                    logErrorsWithMultipleUsers.LogError("Multiple users");
+                }
             }
             catch (Exception ex)
             {

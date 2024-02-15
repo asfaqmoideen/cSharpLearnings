@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "acceptance", "acceptance", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTracker", "src\ExpenseTracker\ExpenseTracker.csproj", "{D38016B5-819D-4CEA-8FBA-F29A9316FD5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTrackerTests", "tests\unit\TestProject3\ExpenseTrackerTests.csproj", "{C3CE270A-06FC-4B5C-BC39-32F6E18A1702}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTrackerTests", "tests\unit\TestProject3\ExpenseTrackerTests.csproj", "{C3CE270A-06FC-4B5C-BC39-32F6E18A1702}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilesStreamsReadWrite", "src\FilesStreamsReadWrite\FilesStreamsReadWrite.csproj", "{E89E1748-CB90-4CE8-9A58-3489114F5521}"
 EndProject

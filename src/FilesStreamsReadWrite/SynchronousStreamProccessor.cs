@@ -20,7 +20,7 @@ namespace FilesStreamsReadWrite
 
             byte[] buffer = Encoding.ASCII.GetBytes(data);
 
-            using (FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
+            using (Stream fileStream = new FileStream(filePath, FileMode.OpenOrCreate))
             {
                 while (fileStream.Length < 1073741824)
                 {
