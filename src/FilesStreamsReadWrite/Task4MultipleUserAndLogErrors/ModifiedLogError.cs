@@ -7,7 +7,7 @@ namespace FilesStreamsReadWrite
     /// </summary>
     public class ModifiedLogError
     {
-        private object _lockTheThread = new object();
+        private static object _lockTheThread = new object();
 
         /// <summary>
         /// Modfied logger
@@ -17,7 +17,7 @@ namespace FilesStreamsReadWrite
         public static void ModifiedLogger(string errorMessage, string userId)
         {
             string logFile = $"log_user{userId}.txt";
-            lock (this._lockTheThread)
+            lock (_lockTheThread)
             {
                 using (FileStream filewriter = new FileStream(logFile, FileMode.Append))
                 {

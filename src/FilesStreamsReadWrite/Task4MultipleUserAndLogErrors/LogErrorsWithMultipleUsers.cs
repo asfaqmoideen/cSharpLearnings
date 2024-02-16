@@ -13,7 +13,7 @@ namespace FilesStreamsReadWrite
         /// Log Error Method
         /// </summary>
         /// <param name="erorMessage">Error message</param>
-        public void LogError(string erorMessage)
+        public static void LogError(string erorMessage)
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {

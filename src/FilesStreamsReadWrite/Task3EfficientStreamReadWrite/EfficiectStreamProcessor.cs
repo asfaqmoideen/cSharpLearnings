@@ -8,7 +8,10 @@ namespace FilesStreamsReadWrite
     /// </summary>
     public class EfficiectStreamProcessor
     {
-        private void StreamWriterUsing()
+        /// <summary>
+        /// Modified stream writer
+        /// </summary>
+        public void StreamWriter()
         {
             string path = "newFilePath";
             string data = "newDataPath";
@@ -26,7 +29,10 @@ namespace FilesStreamsReadWrite
             }
         }
 
-        private void StreamReaderUsing()
+        /// <summary>
+        /// Modified stream reader
+        /// </summary>
+        public void StreamReader()
         {
             string path = "newFilePath";
             using (StreamReader streamReader = new (path, true))

@@ -7,9 +7,12 @@
     {
         private Thread[] _threads = new Thread[10];
 
-        private void Logtester()
+        /// <summary>
+        /// Log testeer
+        /// </summary>
+        public void Logtester()
         {
-            for (int numberOfUsers = 0; numberOfUsers<=10; numberOfUsers++)
+            for (int numberOfUsers = 0; numberOfUsers < 10; numberOfUsers++)
             {
                 this._threads[numberOfUsers] = new Thread(() =>
                 {
@@ -18,6 +21,8 @@
                     {
                         string errorMessage = $" User attempted{numberOfUsers} at the same time";
                         ModifiedLogError.ModifiedLogger(errorMessage, userId);
+
+                       // LogErrorsWithMultipleUsers.LogError("Attempted With Multiple users");
                     }
                 });
                 this._threads[numberOfUsers].Start();
