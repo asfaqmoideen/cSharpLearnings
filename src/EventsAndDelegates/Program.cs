@@ -1,4 +1,6 @@
-﻿namespace EventsAndDelegates
+﻿using static EventsAndDelegates.ProductManager;
+
+namespace EventsAndDelegates
 {
     /// <summary>
     /// Initiates the program Execution
@@ -25,6 +27,28 @@
             LambdaExpressions lambdaExpressions = new LambdaExpressions();
             lambdaExpressions.GenerateList(15);
 
+            ProductManager productManager = new ProductManager();
+            productManager.ExecuteProductManager();
+
+            SortDelegate sortByName = productManager.SortByName;
+            Console.WriteLine("Sort By Name");
+            productManager.SortAndDisplay(sortByName);
+
+            SortDelegate sortByCategory = productManager.SortByCategory;
+            Console.WriteLine("Sort By Category");
+            productManager.SortAndDisplay(sortByCategory);
+
+            SortDelegate sortByPrice = productManager.SortByPrice;
+            Console.WriteLine("Sort By Price");
+            productManager.SortAndDisplay(sortByPrice);
+
+            BookManager bookManager = new BookManager();
+            bookManager.ExecuteBookManager();
+
+            ShapesManger shapesManger = new ShapesManger();
+            shapesManger.PatternMatching();
+
+            Console.WriteLine("Completed Press any key to exit");
             Console.ReadKey();
         }
     }

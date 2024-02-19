@@ -44,6 +44,8 @@
             {
                 Console.Write(number + ",");
             }
+
+            Console.WriteLine("---------End-----------");
         }
     }
 }
