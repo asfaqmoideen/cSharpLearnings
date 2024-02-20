@@ -1,4 +1,5 @@
-﻿namespace BoilerControllerConsole
+﻿
+namespace BoilerControllerConsole
 {
     /// <summary>
     /// Gets Valid Input from the user 
@@ -19,6 +20,17 @@
             }
 
             return userOption;
+        }
+
+        /// <summary>
+        /// Gets userconfirmation
+        /// </summary>
+        /// <param name="useCaseForConfirmation"> Information to get confirmation</param>
+        /// <returns>true if yes, else false</returns>
+        public static bool GetUserConfirmation(string useCaseForConfirmation)
+        {
+            Console.WriteLine($"Press Tab to {useCaseForConfirmation}");
+            return Console.ReadKey().Key == ConsoleKey.Tab;
         }
     }
 }
