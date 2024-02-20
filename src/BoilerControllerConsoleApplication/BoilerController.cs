@@ -86,10 +86,11 @@ namespace BoilerControllerConsole
             {
                 throw new InvalidOperationException("System status is not in Operational Mode");
             }
+
             this._systemStatus = "Stopped";
             this.WriteTOLogFile(this._systemStatus);
         }
-            
+
         /// <summary>
         /// runs reset lockout swicth
         /// </summary>
@@ -114,7 +115,7 @@ namespace BoilerControllerConsole
         /// </summary>
         public void SimulateBoilerErrors()
         {
-            throw new NotImplementedException();
+            this.StopBoilerSequence();
         }
 
         private void ShowSwitchPositions()
