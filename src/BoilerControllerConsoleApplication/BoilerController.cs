@@ -7,9 +7,9 @@ namespace BoilerControllerConsole
     /// </summary>
     public class BoilerController
     {
-        private string _systemStatus;
+        private string _systemStatus = " ";
         private string _logFilePath = "Boiler Log.txt";
-        private BoilerSwitches _switches = new (false, false);
+        private BoilerSwitches _switches = new(false, false);
 
         /// <summary>
         /// Handles the interlock switch
@@ -20,7 +20,7 @@ namespace BoilerControllerConsole
 
             if (ConsoleUserInterface.GetUserConfirmation("To Change Swicth State"))
             {
-                this.ToggleLockout();
+                this.ToogleInterlock();
             }
 
             var displayInterLockSwitch = this._switches.InterLock ? $"Inter Lock Switch toggled to Open" : $"Interlock switch is Closed";
@@ -63,12 +63,12 @@ namespace BoilerControllerConsole
             }
 
             Console.WriteLine("You're All set to Start the Boiler  Sequence");
-            TimerController timerControllerPrepurge = new ("Pre-Purge");
+            TimerController timerControllerPrepurge = new("Pre-Purge");
             this.WriteTOLogFile("Pre-Purge Started");
             timerControllerPrepurge.RunTimer();
             this.WriteTOLogFile("Pre-Purge Completed");
 
-            TimerController timerControllerIgnition = new ("Ignition");
+            TimerController timerControllerIgnition = new("Ignition");
             this.WriteTOLogFile("Ignition Started");
             timerControllerIgnition.RunTimer();
             this.WriteTOLogFile("Ignition Completed");
@@ -89,6 +89,7 @@ namespace BoilerControllerConsole
 
             this._systemStatus = "Stopped";
             this.WriteTOLogFile(this._systemStatus);
+            this._switches = new (false, false);
         }
 
         /// <summary>
@@ -100,7 +101,7 @@ namespace BoilerControllerConsole
 
             if (ConsoleUserInterface.GetUserConfirmation("To Change Swicth State"))
             {
-                this.ToogleInterlock();
+                this._switches.LockoutReset = true;
             }
 
             var displayLockoutResetSwitch = this._switches.LockoutReset ? $"Lockout Reset Switch toggled to Open" : $"Lockout Reset switch is Closed";
@@ -133,24 +134,9 @@ namespace BoilerControllerConsole
                 throw new Exception("First Open Reset Lockout Switch");
             }
 
-            Console.WriteLine("Interlock Swicth");
-            int interlockSwitchPosition = ConsoleUserInterface.GetOptionFromTheUser();
-            if (interlockSwitchPosition == 1)
-            {
-                this._switches.InterLock = true;
-                this._systemStatus = "Ready";
-                this.WriteTOLogFile(this._systemStatus);
-            }
-        }
-
-        private void ToggleLockout()
-        {
-            Console.WriteLine("Lockout Reset Switch");
-            int lockoutSwicthPosition = ConsoleUserInterface.GetOptionFromTheUser();
-            if (lockoutSwicthPosition == 1)
-            {
-                this._switches.LockoutReset = true;
-            }
+            this._switches.InterLock = true;
+            this._systemStatus = "Ready";
+            this.WriteTOLogFile(this._systemStatus);
         }
 
         /// <summary>

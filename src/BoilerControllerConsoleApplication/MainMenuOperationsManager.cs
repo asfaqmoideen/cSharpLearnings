@@ -68,7 +68,7 @@ namespace BoilerControllerConsole
             Console.WriteLine("2. Stop Boiler Sequence");
             Console.WriteLine("3. Simulate Boiler Errors");
             Console.WriteLine("4. Toogle Run InterLock Switch");
-            Console.WriteLine("4. Run Reset Lockout");
+            Console.WriteLine("5. Run Reset Lockout");
             Console.WriteLine("6. Event Log");
             Console.WriteLine("0. Exit Application");
         }
