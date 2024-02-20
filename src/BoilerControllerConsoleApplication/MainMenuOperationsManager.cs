@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 
 namespace BoilerControllerConsole
-{   
+{
     /// <summary>
     /// Execute the main menu operations
     /// </summary>
@@ -16,6 +16,7 @@ namespace BoilerControllerConsole
             StopBoilerSequence,
             SimulateBoilerErrors,
             ToogleRunInterLockSwitch,
+            RunResetLockout,
             EventLog,
         }
 
@@ -44,6 +45,9 @@ namespace BoilerControllerConsole
                 case BoilerControllerOperations.ToogleRunInterLockSwitch:
                     this._boilerController.RunInterLockSwitch();
                     break;
+                case BoilerControllerOperations.RunResetLockout:
+                    this._boilerController.RunResetLockout();
+                    break;
                 case BoilerControllerOperations.EventLog:
                     this._boilerController.ShowEventLog();
                     break;
@@ -64,7 +68,8 @@ namespace BoilerControllerConsole
             Console.WriteLine("2. Stop Boiler Sequence");
             Console.WriteLine("3. Simulate Boiler Errors");
             Console.WriteLine("4. Toogle Run InterLock Switch");
-            Console.WriteLine("5. Event Log");
+            Console.WriteLine("4. Run Reset Lockout");
+            Console.WriteLine("6. Event Log");
             Console.WriteLine("0. Exit Application");
         }
     }

@@ -7,6 +7,7 @@ namespace BoilerControllerConsole
     /// </summary>
     public class BoilerController
     {
+        private string _systemStatus;
         private string _logFilePath = "Boiler Log.txt";
         private BoilerSwitches _switches = new (false, false);
 
@@ -19,16 +20,14 @@ namespace BoilerControllerConsole
 
             if (ConsoleUserInterface.GetUserConfirmation("To Change Swicth State"))
             {
-                this.ToogleSwitchState();
+                this.ToggleLockout();
             }
 
             var displayInterLockSwitch = this._switches.InterLock ? $"Inter Lock Switch toggled to Open" : $"Interlock switch is Closed";
-            var displayLockoutResetSwitch = this._switches.LockoutReset ? $"Lockout Reset Switch toggled to Open" : $"Lockout Reset switch is Closed";
 
             this.ShowSwitchPositions();
 
             this.WriteTOLogFile(displayInterLockSwitch);
-            this.WriteTOLogFile(displayLockoutResetSwitch);
         }
 
         /// <summary>
@@ -54,14 +53,6 @@ namespace BoilerControllerConsole
         }
 
         /// <summary>
-        /// Simluate the Errors on the boiler
-        /// </summary>
-        public void SimulateBoilerErrors()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// Starts the boiler sequence
         /// </summary>
         public void StartBoilerSequence()
@@ -72,16 +63,56 @@ namespace BoilerControllerConsole
             }
 
             Console.WriteLine("You're All set to Start the Boiler  Sequence");
-            TimerController timerController = new ("Pre-Purge");
+            TimerController timerControllerPrepurge = new ("Pre-Purge");
             this.WriteTOLogFile("Pre-Purge Started");
-            timerController.RunTimer();
+            timerControllerPrepurge.RunTimer();
             this.WriteTOLogFile("Pre-Purge Completed");
+
+            TimerController timerControllerIgnition = new ("Ignition");
+            this.WriteTOLogFile("Ignition Started");
+            timerControllerIgnition.RunTimer();
+            this.WriteTOLogFile("Ignition Completed");
+
+            this._systemStatus = "Operational";
+            this.WriteTOLogFile(this._systemStatus);
         }
 
         /// <summary>
         /// Stops the boiler sequence
         /// </summary>
         public void StopBoilerSequence()
+        {
+            if (!_systemStatus.Equals("Operational"))
+            {
+                throw new InvalidOperationException("System status is not in Operational Mode");
+            }
+            this._systemStatus = "Stopped";
+            this.WriteTOLogFile(this._systemStatus);
+        }
+            
+        /// <summary>
+        /// runs reset lockout swicth
+        /// </summary>
+        public void RunResetLockout()
+        {
+            this.ShowSwitchPositions();
+
+            if (ConsoleUserInterface.GetUserConfirmation("To Change Swicth State"))
+            {
+                this.ToogleInterlock();
+            }
+
+            var displayLockoutResetSwitch = this._switches.LockoutReset ? $"Lockout Reset Switch toggled to Open" : $"Lockout Reset switch is Closed";
+
+            this.ShowSwitchPositions();
+
+            this.WriteTOLogFile(displayLockoutResetSwitch);
+        }
+
+        /// <summary>
+        /// Simluate the Errors on the boiler
+        /// </summary>
+        public void SimulateBoilerErrors()
         {
             throw new NotImplementedException();
         }
@@ -94,20 +125,30 @@ namespace BoilerControllerConsole
             Console.WriteLine(displayLockoutResetSwitch);
         }
 
-        private void ToogleSwitchState()
+        private void ToogleInterlock()
         {
-            Console.WriteLine("Toogle Switches\nPress 1 to Close,0 to Open");
+            if (!this._switches.LockoutReset)
+            {
+                throw new Exception("First Open Reset Lockout Switch");
+            }
+
             Console.WriteLine("Interlock Swicth");
             int interlockSwitchPosition = ConsoleUserInterface.GetOptionFromTheUser();
+            if (interlockSwitchPosition == 1)
+            {
+                this._switches.InterLock = true;
+                this._systemStatus = "Ready";
+                this.WriteTOLogFile(this._systemStatus);
+            }
+        }
+
+        private void ToggleLockout()
+        {
             Console.WriteLine("Lockout Reset Switch");
             int lockoutSwicthPosition = ConsoleUserInterface.GetOptionFromTheUser();
-            if (interlockSwitchPosition == 1 && lockoutSwicthPosition == 1)
+            if (lockoutSwicthPosition == 1)
             {
-                this._switches = new (true, true);
-            }
-            else if (interlockSwitchPosition == 0 && lockoutSwicthPosition == 0)
-            {
-                this._switches = new (false, false);
+                this._switches.LockoutReset = true;
             }
         }
 

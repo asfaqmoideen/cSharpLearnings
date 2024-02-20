@@ -1,5 +1,4 @@
-﻿
-namespace BoilerControllerConsole
+﻿namespace BoilerControllerConsole
 {
     /// <summary>
     /// Gets Valid Input from the user 

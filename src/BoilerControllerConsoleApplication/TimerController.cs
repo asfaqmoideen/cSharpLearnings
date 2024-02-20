@@ -35,6 +35,9 @@
             Console.WriteLine($"{DateTime.Now} Starting{this.EventInformation}.\n");
 
             var stateTimer = new Timer(TimerStatus, autoEvent, 1000, 250);
+
+            autoEvent.WaitOne();
+            stateTimer.Dispose();
         }
 
         private void TimerStatus(object stateInfo)

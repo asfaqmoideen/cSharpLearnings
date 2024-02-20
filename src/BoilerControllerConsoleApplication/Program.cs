@@ -1,8 +1,7 @@
 ﻿using System.Net.Http.Headers;
 
 namespace BoilerControllerConsole
-
-{   
+{
     /// <summary>
     /// Initiates the Program Execution
     /// </summary>
@@ -27,7 +26,6 @@ namespace BoilerControllerConsole
                     Console.WriteLine(globalException.Message);
                 }
             }
-
         }
     }
 }
