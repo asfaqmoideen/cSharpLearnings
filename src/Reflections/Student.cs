@@ -30,16 +30,6 @@ namespace Reflections
         /// <value>
         /// Student Id
         /// </value>
-        public string StudentId { get; set;}
-
-        /// <summary>
-        /// sets the value of the property
-        /// </summary>
-        /// <param name="propertyInfo">property info</param>
-        /// <param name="value">object value</param>
-        public void SetValue(PropertyInfo propertyInfo, object value)
-        {
-            propertyInfo.SetValue(this, value, null);
-        }
+        public string StudentId { get; set; }
     }
 }

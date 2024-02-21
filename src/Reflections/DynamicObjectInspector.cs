@@ -1,4 +1,6 @@
-﻿namespace Reflections
+﻿using System.Reflection;
+
+namespace Reflections
 {
     /// <summary>
     /// Inspects the objects with relevant methods
@@ -16,6 +18,30 @@
             foreach (var propertyInfo in property)
             {
                 Console.WriteLine(propertyInfo);
+            }
+            Console.WriteLine("Enter a Property To edit");
+            string newValue = Console.ReadLine()!;
+        }
+
+        /// <summary>
+        /// Edits the property info
+        /// </summary>
+        /// <param name="obj">object of</param>
+        /// <param name="propertyName">Property name to be set</param>
+        /// <param name="newValue">obj1</param>
+        public void EditPropertyDetails(object obj, string propertyName, object newValue)
+        {
+            Type type = obj.GetType();
+            var isPropertyValid = type.GetProperties().
+                Any(p => p.Name == propertyName);
+            if (!isPropertyValid)
+            {
+                throw new Exception("Property is Not Defined");
+            }
+            else
+            {
+                PropertyInfo property = type.GetProperty(propertyName) !;
+                property.SetValue(obj, newValue);
             }
         }
     }
