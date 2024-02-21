@@ -7,7 +7,64 @@
     {
         private enum ReflectionOperations
         {
-            
+            Quit,
+            InspectAssemblyMetaData,
+            DynamicObjectInspector,
+            DynamicMethodInvoker,
+            DynamicTypeBuilder,
+            PluginSystem,
+            MockingFramework,
+            SerializationAPI,
+        }
+
+        /// <summary>
+        /// Execute the user operations
+        /// </summary>
+        /// <returns>true if user press quit</returns>
+        public bool ExecuteMainMenu()
+        {
+            int userOption = ConsoleInterfaceController.GetOptionFromTheUser();
+            Student student = new Student("asfaq", "pass", "12");
+
+            ReflectionOperations operationToPerform = (ReflectionOperations)userOption;
+
+            switch (operationToPerform)
+            {
+                case ReflectionOperations.InspectAssemblyMetaData:
+                    InspectAssembly assembly = new InspectAssembly();
+                    assembly.ExecuteAssemblyInspector();
+                    break;
+                case ReflectionOperations.DynamicObjectInspector:
+                    ExecuteDynamicObjectInspector(student);
+                    break;
+                case ReflectionOperations.DynamicMethodInvoker:
+                    ExecuteDynamicMethodInvoker();
+                    break;
+                case ReflectionOperations.Quit:
+                    return true;
+                default:
+                    Console.WriteLine("Invalid Option");
+                    break;
+            }
+
+            return false;
+        }
+
+        private static void ExecuteDynamicMethodInvoker()
+        {
+            DynamicMethodInvoker methodInvoker = new ();
+            PrintDetails printDetails = new PrintDetails();
+            string methodName = ConsoleInterfaceController.GetStringFromTheUser("to search property name");
+            methodInvoker.GetMethodInfo(printDetails, methodName);
+        }
+
+        private static void ExecuteDynamicObjectInspector(Student student)
+        {
+            DynamicObjectInspector dynamicObjectInspector = new ();
+            dynamicObjectInspector.GetTypeof(student);
+            string propertyName = ConsoleInterfaceController.GetStringFromTheUser("to Search the Property Name");
+            string newValue = ConsoleInterfaceController.GetStringFromTheUser("new value of the property to change");
+            dynamicObjectInspector.EditPropertyDetails(student, propertyName, newValue);
         }
     }
 }

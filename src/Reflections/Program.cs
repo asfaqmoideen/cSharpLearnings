@@ -12,15 +12,21 @@ namespace Assignments
         /// </summary>
         private static void Main()
         {
-            Student student = new Student ();
-            DynamicObjectInspector dynamicObjectInspector = new ();
-            dynamicObjectInspector.GetTypeof(student);
+            bool stopFlag = false;
 
-            InspectAssembly assembly = new InspectAssembly();
-            assembly.ExecuteAssemblyInspector();
-
-            Console.WriteLine("Program Completed!");
-            Console.ReadKey();
+            while (!stopFlag)
+            {
+                MainMenuExecutionManager mainMenuExecutionManager = new();
+                Console.WriteLine("Reflection in C#");
+                try
+                {
+                    stopFlag = mainMenuExecutionManager.ExecuteMainMenu();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
         }
     }
 }

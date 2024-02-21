@@ -17,10 +17,8 @@ namespace Reflections
             var property = type.GetProperties();
             foreach (var propertyInfo in property)
             {
-                Console.WriteLine(propertyInfo);
+                Console.WriteLine($"{propertyInfo.Name} - {propertyInfo.GetValue(obj)}");
             }
-            Console.WriteLine("Enter a Property To edit");
-            string newValue = Console.ReadLine()!;
         }
 
         /// <summary>
@@ -43,6 +41,8 @@ namespace Reflections
                 PropertyInfo property = type.GetProperty(propertyName) !;
                 property.SetValue(obj, newValue);
             }
+
+            this.GetTypeof(obj);
         }
     }
 }
