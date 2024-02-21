@@ -3,14 +3,14 @@
 namespace FilesStreamsReadWrite
 {
     /// <summary>
-    /// Modified log error
+    /// Holds the methods of optimized log errors with multiple users
     /// </summary>
     public class ModifiedLogError
     {
         private static object _lockTheThread = new object();
 
         /// <summary>
-        /// Modfied logger
+        /// Modfied logger which locks the thread when multiple users logs at a time.
         /// </summary>
         /// <param name="errorMessage"> Error Message</param>
         /// <param name="userId">user id</param>

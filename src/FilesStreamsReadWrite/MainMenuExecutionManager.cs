@@ -5,11 +5,6 @@
     /// </summary>
     public class MainMenuExecutionManager
     {
-        private SynchronousStreamProccessor _synchronous = new SynchronousStreamProccessor();
-        private AsynchronousStreamProcessor _asynchronous = new AsynchronousStreamProcessor();
-        private EfficiectStreamProcessor _efficiectStream = new EfficiectStreamProcessor();
-        private LogTester _logTester = new LogTester();
-
         private enum MainMenuOperations
         {
             SyncStream = 1,
@@ -23,7 +18,8 @@
         /// </summary>
         public void ShowMainMenu()
         {
-            Console.WriteLine("Working with Files and Streams\n1.Synchronous File Stream\n2.Asynchronous FieStream\n3.Efficient File Stream\n4.Modified " +
+            Console.WriteLine("Working with Files and Streams\n1.Synchronous File Stream" +
+                "\n2.Asynchronous FieStream\n3.Efficient File Stream\n4.Modified " +
                 " & UnModified Logger With Multiple users");
         }
 
@@ -42,17 +38,21 @@
             switch (operationToBePerformed)
             {
                 case MainMenuOperations.SyncStream:
-                    this._synchronous.ExecuteSyncStreams();
+                    SynchronousStreamProccessor synchronous = new ();
+                    synchronous.ExecuteSyncStreams();
                     break;
                 case MainMenuOperations.AsyncStream:
-                    await this._asynchronous.ExecuteAsyncStreams();
+                    AsynchronousStreamProcessor asynchronous = new ();
+                    await asynchronous.ExecuteAsyncStreams();
                     break;
                 case MainMenuOperations.EfficientStream:
-                    this._efficiectStream.StreamWriter();
-                    this._efficiectStream.StreamReader();
+                    EfficiectStreamProcessor efficiectStream = new ();
+                    efficiectStream.StreamWriter();
+                    efficiectStream.StreamReader();
                     break;
                 case MainMenuOperations.ModifiedLogError:
-                    this._logTester.Logtester();
+                    LogTester logTester = new ();
+                    logTester.Logtester();
                     break;
                 default:
                     Console.WriteLine("Invalid Option");

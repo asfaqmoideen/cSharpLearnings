@@ -21,8 +21,6 @@
                     {
                         string errorMessage = $" User attempted{numberOfUsers} at the same time";
                         ModifiedLogError.ModifiedLogger(errorMessage, userId);
-
-                       // LogErrorsWithMultipleUsers.LogError("Attempted With Multiple users");
                     }
                 });
                 this._threads[numberOfUsers].Start();

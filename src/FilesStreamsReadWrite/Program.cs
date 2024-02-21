@@ -14,7 +14,7 @@ namespace Assignments
         /// </summary>
         private static async Task Main()
         {
-            MainMenuExecutionManager mainMenu = new MainMenuExecutionManager();
+            MainMenuExecutionManager mainMenu = new ();
             Console.WriteLine("File Stream Manager");
             try
             {

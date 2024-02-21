@@ -12,6 +12,8 @@
 - All the Functioalities in the task 1 were made to Async Functions 
 - The await keyword is used to call the async functions
 
+![StreamReadandWrite](assets/Sync_async_Stream.png)
+
 ## Task 3 
 
 - The Fiven Code is modified with Stream reader.
@@ -22,3 +24,5 @@
 
 - The Given code will throw error in the function call
 - The Modified Logger uses the Lock keyword which will lock the thread. 
+
+![Multiusers](assets/multiusers.png)
