@@ -45,6 +45,10 @@
                     DynamicTypeBuilder builder = new DynamicTypeBuilder();
                     builder.TypeBuilder();
                     break;
+                case ReflectionOperations.PluginSystem:
+                    PluginManager pluginManager = new PluginManager();
+                    pluginManager.ExecutePluginManager();
+                    break;
                 case ReflectionOperations.Quit:
                     return true;
                 default:

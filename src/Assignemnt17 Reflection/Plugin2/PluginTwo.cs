@@ -10,7 +10,7 @@
         /// </summary>
         public void PrintGreetings()
         {
-            Console.WriteLine("Hello, World !");
+            Console.WriteLine("Hello, Soliton !");
         }
     }
 }

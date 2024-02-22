@@ -12,15 +12,14 @@ namespace Assignments
         /// </summary>
         private static void Main()
         {
-            bool stopFlag = false;
+            bool exitFlag = false;
+            MainMenuExecutionManager mainMenuExecutionManager = new ();
 
-            while (!stopFlag)
+            while (!exitFlag)
             {
-                MainMenuExecutionManager mainMenuExecutionManager = new();
-                Console.WriteLine("Reflection in C#");
                 try
                 {
-                    stopFlag = mainMenuExecutionManager.ExecuteMainMenu();
+                    exitFlag = mainMenuExecutionManager.ExecuteMainMenu();
                 }
                 catch (Exception ex)
                 {
