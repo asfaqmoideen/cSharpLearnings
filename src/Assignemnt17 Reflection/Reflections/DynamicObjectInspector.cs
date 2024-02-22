@@ -44,5 +44,5 @@ namespace Reflections
 
             this.GetTypeof(obj);
         }
-    }
+    }   
 }

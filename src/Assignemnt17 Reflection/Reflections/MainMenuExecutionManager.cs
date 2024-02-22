@@ -23,6 +23,7 @@
         /// <returns>true if user press quit</returns>
         public bool ExecuteMainMenu()
         {
+            ShowMainMenu();
             int userOption = ConsoleInterfaceController.GetOptionFromTheUser();
             Student student = new Student("asfaq", "pass", "12");
 
@@ -39,6 +40,10 @@
                     break;
                 case ReflectionOperations.DynamicMethodInvoker:
                     ExecuteDynamicMethodInvoker();
+                    break;
+                case ReflectionOperations.DynamicTypeBuilder:
+                    DynamicTypeBuilder builder = new DynamicTypeBuilder();
+                    builder.TypeBuilder();
                     break;
                 case ReflectionOperations.Quit:
                     return true;
@@ -65,6 +70,18 @@
             string propertyName = ConsoleInterfaceController.GetStringFromTheUser("to Search the Property Name");
             string newValue = ConsoleInterfaceController.GetStringFromTheUser("new value of the property to change");
             dynamicObjectInspector.EditPropertyDetails(student, propertyName, newValue);
+        }
+
+        private static void ShowMainMenu()
+        {
+            Console.WriteLine("Choose a Option to proceed");
+            Console.WriteLine("1." + ReflectionOperations.InspectAssemblyMetaData);
+            Console.WriteLine("2." + ReflectionOperations.DynamicObjectInspector);
+            Console.WriteLine("3." + ReflectionOperations.DynamicMethodInvoker);
+            Console.WriteLine("4." + ReflectionOperations.DynamicTypeBuilder);
+            Console.WriteLine("5." + ReflectionOperations.PluginSystem);
+            Console.WriteLine("6." + ReflectionOperations.MockingFramework);
+            Console.WriteLine("7." + ReflectionOperations.SerializationAPI);
         }
     }
 }
