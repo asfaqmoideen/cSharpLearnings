@@ -15,7 +15,7 @@
             do
             {
                 Console.WriteLine("Enter Employee Name");
-                employeeName = Console.ReadLine();
+                employeeName = Console.ReadLine() !;
             }
             while (employeeName.Length == 0);
             return employeeName;
@@ -29,16 +29,19 @@
         {
             List<string> skillsList = new List<string>();
             string? employeeSkills;
-            x:
-            do
+            bool addSkill = true;
+            while (addSkill)
             {
-                Console.WriteLine("Enter Employee Skills");
-                employeeSkills = Console.ReadLine();
+                do
+                {
+                    Console.WriteLine("Enter Employee Skills");
+                    employeeSkills = Console.ReadLine() !;
+                }
+                while (employeeSkills.Length == 0);
+                skillsList.Add(employeeSkills);
+                addSkill = this.IsAddAnotherEmployee("Skill");
             }
-            while (employeeSkills.Length ==0);
-            skillsList.Add(employeeSkills);
-            string option = this.GetOptionToAddAnother("Skill");
-            if (option == "1") { goto x; }
+
             return skillsList;
         }
 
@@ -55,7 +58,7 @@
             {
                 isAvailableDaysDouble = double.TryParse(Console.ReadLine(), out availableDays);
             }
-            while (!isAvailableDaysDouble && availableDays >0 );
+            while (!isAvailableDaysDouble && availableDays > 0);
             return availableDays;
         }
 
@@ -63,12 +66,12 @@
         /// Get the option to add another employee
         /// </summary>
         /// <param name="format">parameter as string</param>
-        /// <returns>1 if yes </returns>
-        internal string GetOptionToAddAnother(string format)
+        /// <returns>true if yes </returns>
+        internal bool IsAddAnotherEmployee(string format)
         {
-            string? option;
             Console.WriteLine($"Need to add Another {format}\n1.Yes\nPress any key to skip");
-            return option = Console.ReadLine();
+            string option = Console.ReadLine() !;
+            return option == "1";
         }
     }
 }

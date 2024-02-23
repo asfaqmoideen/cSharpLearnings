@@ -1,4 +1,5 @@
 ﻿using ConsoleTables;
+
 namespace CodingAssesment1
 {
     /// <summary>
@@ -14,8 +15,8 @@ namespace CodingAssesment1
         /// </summary>
         public EmployeeManager()
         {
-            _employees = new List<Employee>();
-            _console = new EmployeeIOConsole();
+            this._employees = new List<Employee>();
+            this._console = new EmployeeIOConsole();
         }
 
         private enum Option
@@ -31,7 +32,7 @@ namespace CodingAssesment1
         /// <returns>d</returns>
         public List<Employee> GetEmployees()
         {
-            return _employees;
+            return this._employees;
         }
 
         /// <summary>
@@ -39,16 +40,14 @@ namespace CodingAssesment1
         /// </summary>
         public void AddEmpoyee()
         {
-            string employeeName = _console.GetEmployeeName();
-            List <string> employeeSkill = _console.GetEmployeeSkills();
-            double availableDays = _console.GetEmployeeAvailableHours();
-            string taskAssigned = null;
-            double workingHours = 8; //Constant working hours for all employees
-            Employee employee = new Employee(employeeName, workingHours, employeeSkill, taskAssigned, availableDays);
-            this._employees.Add(employee);
-            Console.WriteLine("Totally, " + this._employees.Count() + "Employees Were Added");
-            string option = _console.GetOptionToAddAnother("Employee");
-            if (option == "1") { AddEmpoyee(); }
+            bool addEployye = true;
+            while (addEployye)
+            {
+                Employee employee = this.GetEmployeeDetails();
+                this._employees.Add(employee);
+                Console.WriteLine($"Totally {this._employees.Count} were added");
+                addEployye = this._console.IsAddAnotherEmployee("employee");
+            }
         }
 
         /// <summary>
@@ -79,6 +78,8 @@ namespace CodingAssesment1
                     }
                 }
             }
+
+            throw new Exception("No employees were added");
         }
 
         /// <summary>
@@ -86,15 +87,17 @@ namespace CodingAssesment1
         /// </summary>
         public void ViewAllEmployees()
         {
-            Console.WriteLine(_employees.Count());
+            Console.WriteLine(this._employees.Count());
             if (this._employees.Count() > 0)
             {
                 var employeeTable = new ConsoleTable("Employee Name: ", "Skills: ", "AssignedTask: ", "Availability");
                 foreach (Employee employee in this._employees)
                 {
-                    string skillSet = String.Join(",", employee.Skills);
-                    employeeTable.AddRow(employee.Name, skillSet, employee.AssignedTask, employee.AvailableDays);
+                    string skillSet = string.Join(",", employee.Skills);
+                    string assignedTask = string.Join(",", employee.AssignedTask);
+                    employeeTable.AddRow(employee.Name, skillSet, assignedTask, employee.AvailableDays);
                 }
+
                 employeeTable.Write();
             }
             else

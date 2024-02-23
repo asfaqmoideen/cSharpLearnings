@@ -1,4 +1,5 @@
 ﻿using ConsoleTables;
+
 namespace CodingAssesment1
 {
     /// <summary>
@@ -39,7 +40,7 @@ namespace CodingAssesment1
         /// </summary>
         public void AddTask()
         {
-            bool isAddAnothertask = false;
+            bool isAddAnothertask = true;
             while (isAddAnothertask)
             {
                 Tasks tasks = this.GetTaskDetails();
@@ -68,7 +69,7 @@ namespace CodingAssesment1
         {
             if (this._tasks != null)
             {
-                foreach (Tasks tasks in _tasks)
+                foreach (Tasks tasks in this._tasks)
                 {
                     if (tasks.Name.ToLower() == taskName.ToLower())
                     {
@@ -85,13 +86,14 @@ namespace CodingAssesment1
         /// </summary>
         public void ViewAllTasks()
         {
-            if (_tasks != null)
+            if (this._tasks.Any())
             {
                 var tasksTable = new ConsoleTable("Task Name", "Required Skills", "Deadline in Days ", "Required Hours to Complete");
                 foreach (Tasks tasks in this._tasks)
                 {
                     tasksTable.AddRow(tasks.Name, tasks.RequiredSkill, tasks.DeadlineInDays, tasks.RequiredHours);
                 }
+
                 tasksTable.Write(Format.MarkDown);
             }
         }
@@ -122,6 +124,7 @@ namespace CodingAssesment1
                     break;
             }
         }
+
         private Tasks GetTaskDetails()
         {
             string taskName = this._taskConsole.GetTaskName();

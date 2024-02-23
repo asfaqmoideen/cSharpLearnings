@@ -1,5 +1,6 @@
 ﻿namespace CodingAssesment1
-{   /// <summary>
+{
+    /// <summary>
     /// Gets input from the user
     /// </summary>
     internal class TaskIOConsole
@@ -16,9 +17,10 @@
                 Console.WriteLine("Enter Task Name");
                 taskName = Console.ReadLine() !;
             }
-            while (taskName.Length ==0);
+            while (taskName.Length == 0);
             return taskName;
         }
+
         /// <summary>
         /// Gets Tasks Description from the user
         /// </summary>
@@ -31,7 +33,7 @@
                 Console.WriteLine("Enter Task Description");
                 taskDescription = Console.ReadLine() !;
             }
-            while (taskDescription.Length ==0);
+            while (taskDescription.Length == 0);
             return taskDescription;
         }
 
@@ -47,9 +49,10 @@
                 Console.WriteLine("Enter Tasks Required Skills");
                 requiredSkills = Console.ReadLine() !;
             }
-            while (requiredSkills.Length ==0);
+            while (requiredSkills.Length == 0);
             return requiredSkills;
         }
+
         /// <summary>
         /// Get Required to complete the task
         /// </summary>
@@ -71,26 +74,28 @@
         /// Task deadline in days
         /// </summary>
         /// <returns>deadline inn days</returns>
-        public double GetTasksDeadlineInDays()
+        public DateTime GetTaskDeadline()
         {
             DateTime taskDeadline;
             Console.WriteLine("Enter Deadline date");
 
-            while (DateTime.TryParse(Console.ReadLine() !, out taskDeadline) && taskDeadline > DateTime.Now)
+            while (!DateTime.TryParse(Console.ReadLine() !, out taskDeadline) && taskDeadline > DateTime.Now)
             {
-                isdeadlineInDaysDouble = double.TryParse(Console.ReadLine(), out deadlineInDays);
+                Console.WriteLine("Enter valid date");
             }
 
             return taskDeadline;
         }
+
         /// <summary>
         /// Gets add option to add another task from the user
         /// </summary>
+        /// <param name="useCase">gets use case</param>
         /// <returns>1 if Yes</returns>
-        internal string AddAnotherTaskToTheList()
+        internal bool IsAddAnother(string useCase)
         {
             string option = Console.ReadLine() !;
-            Console.WriteLine($"Want to add another {format} ?\n 1.Yes\n Press any ket to skip");
+            Console.WriteLine($"Want to add another {useCase} ?\n 1.Yes\n Press any ket to skip");
             return option == "1";
         }
     }
