@@ -7,9 +7,9 @@
     {
         private static FinanceTracker _incometracker = new FinanceTracker();
 
-        private static void Main(string[] args)
+        private static void Main()
         {
-            string option;
+            string? option;
             Console.WriteLine("\t\tWelcome to Expense Tracker");
             do
             {
@@ -23,7 +23,7 @@
             while (option != "q" && option != "Q");
         }
 
-        private static void PerformOperation(string option)
+        private static void PerformOperation(string? option)
         {
             switch (option)
             {
@@ -45,6 +45,9 @@
                     break;
                 case "6":
                     _incometracker.DeleteRecord();
+                    break;
+                default:
+                    Console.WriteLine("Invalid Input");
                     break;
             }
         }
