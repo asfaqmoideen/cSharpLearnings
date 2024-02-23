@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Assignemnt17 Reflection\Reflections\Reflections.csproj" />
+    <ProjectReference Include="..\..\..\src\Assignemnt17Reflection\Reflections\Reflections.csproj" />
   </ItemGroup>
 
 </Project>
