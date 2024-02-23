@@ -1,6 +1,6 @@
 ﻿namespace Assignments
 {/// <summary>
-/// Entity class to stores and access Expense entity
+/// Entity class to stores and access Expense entities
 /// </summary>
         public class ExpenseEntity
         {
