@@ -1,6 +1,5 @@
 ﻿namespace CodingAssesment1
-{
-    /// <summary>
+{   /// <summary>
     /// Employee Entity
     /// </summary>
     internal class Employee
@@ -13,30 +12,28 @@
         /// <param name="skills">skills of the employee</param>
         /// <param name="assignedTask">assigned taskof the employee</param>
         /// <param name="availableDays">Available days of the employee</param>
-        public Employee(string name, List<string> skills, List<string> assignedTask, double availableDays)
+        public Employee(string name, double workingHours, List<string> skills, string assignedTask, double availableDays)
         {
             this.Name = name;
-            WorkingHours = 8;
+            this.WorkingHours = workingHours;
             this.Skills = skills;
             this.AssignedTask = assignedTask;
             this.AvailableDays = availableDays;
         }
-
         /// <summary>
-        /// Gets or sets name
+        /// Gets or sets name 
         /// </summary>
         /// <value>
         /// Employee name
         /// </value>
         public string Name { get; set; }
-
         /// <summary>
         /// Gets or sets employee working hours
         /// </summary>
         /// <value>
         /// employee working hours
         /// </value>
-        public static double WorkingHours { get; set; }
+        public double WorkingHours { get; set;}
 
         /// <summary>
         /// Gets or sets Skills
@@ -52,7 +49,7 @@
         /// <value>
         /// task as string
         /// </value>
-        public List <string> AssignedTask { get; set; }
+        public string AssignedTask { get; set;}
 
         /// <summary>
         /// Gets or sets employee availale days
@@ -60,6 +57,6 @@
         /// <value>
         /// Employee availale days
         /// </value>
-        public double AvailableDays { get; set; }
+        public double AvailableDays { get; set;}
     }
 }
