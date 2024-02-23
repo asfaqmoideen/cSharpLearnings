@@ -59,7 +59,7 @@ namespace CodingAssesment1
             string employeeName = this._console.GetEmployeeName();
             Employee searchResult = this.SearchEmployeeFromTheList(employeeName);
             this._employees.Remove(searchResult);
-            Console.WriteLine("Employee Deleted");
+            Console.WriteLine($"Employee {employeeName} Deleted");
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace CodingAssesment1
         /// </summary>
         /// <param name="employeeName"> Emp</param>
         /// <returns>object of employee</returns>
-        public Employee SearchEmployeeFromTheList(string? employeeName)
+        public Employee SearchEmployeeFromTheList(string employeeName)
         {
             if (this._employees.Any())
             {
@@ -129,6 +129,16 @@ namespace CodingAssesment1
                     Console.WriteLine("Enter Valid Opton");
                     break;
             }
+        }
+
+        private Employee GetEmployeeDetails()
+        {
+            string employeeName = this._console.GetEmployeeName();
+            List<string> employeeSkill = this._console.GetEmployeeSkills();
+            double availableDays = this._console.GetEmployeeAvailableHours();
+            List<string> taskAssigned = new List<string>();
+            Employee employee = new Employee(employeeName, employeeSkill, taskAssigned, availableDays);
+            return employee;
         }
     }
 }
