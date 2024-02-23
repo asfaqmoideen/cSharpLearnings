@@ -91,7 +91,7 @@
         {
             string option = Console.ReadLine() !;
             Console.WriteLine($"Want to add another {format} ?\n 1.Yes\n Press any ket to skip");
-            return true ? option == "1" : false;
+            return option == "1";
         }
     }
 }
