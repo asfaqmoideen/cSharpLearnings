@@ -28,8 +28,8 @@ namespace CodingAssesment1
         /// <returns>Sorted list</returns>
         public List<Tasks> PrioritiseTheTasks()
         {
-           var prioritisedList = this._tasksManager.GetTasks().OrderBy(pi => pi.DeadlineInDays).ToList();
-           return prioritisedList;
+            var prioritisedList = this._tasksManager.GetTasks().OrderBy(pi => pi.DeadlineInDays).ToList();
+            return prioritisedList;
         }
 
         /// <summary>
@@ -42,18 +42,14 @@ namespace CodingAssesment1
             {
                 foreach (Employee employee in this._employeeManager.GetEmployees())
                 {
-                    bool isSkillMatched = employee.Skills.Contains(tasks.RequiredSkill);
-                    if (isSkillMatched)
+                    if (employee.Skills.Contains(tasks.RequiredSkill))
                     {
                         return (employee, tasks);
                     }
-                    else
-                    {
-                        return (null, null);
-                    }
                 }
             }
-            return (null, null);
+
+            throw new Exception("No Matching Employee Found");
         }
 
         /// <summary>
@@ -86,29 +82,22 @@ namespace CodingAssesment1
         /// <param name="skillMatchedEmployeeCount"> double value of skill matched employee count
         public void AssignTheTaskToEmployee()
         {
-            if (this.PrioritiseTheTasks().Any() && _employeeManager.GetEmployees().Any())
+            if (this.PrioritiseTheTasks().Any() && this._employeeManager.GetEmployees().Any())
             {
                 var (employee, tasks) = this.GetMatchedEmployeeForTask();
-                if (employee != null && tasks != null)
+                double skillMatchedEmployees = this.MatchedEmployeeCount();
+                double splittedHours = tasks.RequiredHours / skillMatchedEmployees;
+                if (tasks.RequiredHours > 0)
                 {
-                    double skillMatchedEmployees = this.MatchedEmployeeCount();
-                    double splittedHours = tasks.RequiredHours / skillMatchedEmployees;
-                    if (tasks.RequiredHours > 0)
-                    {
-                        employee.AssignedTask.Add(tasks.Name);
+                    employee.AssignedTask.Add(tasks.Name);
 
-                        double employeeWillWorkFor = employee.AvailableDays * Employee.WorkingHours;
+                    double employeeWillWorkFor = employee.AvailableDays * Employee.WorkingHours;
 
-                        employee.AvailableDays -= splittedHours / Employee.WorkingHours;
+                    employee.AvailableDays -= splittedHours / Employee.WorkingHours;
 
-                        tasks.RequiredHours -= Employee.WorkingHours * employeeWillWorkFor;
+                    tasks.RequiredHours -= Employee.WorkingHours * employeeWillWorkFor;
 
-                        Console.WriteLine("Task : " + tasks.Name + "Allocated to: " + employee.Name);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No Matching Tasks");
+                    Console.WriteLine("Task : " + tasks.Name + "Allocated to: " + employee.Name);
                 }
             }
             else

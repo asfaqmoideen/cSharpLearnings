@@ -43,11 +43,7 @@ namespace CodingAssesment1
             bool isAddAnotherEmployee = true;
             while (isAddAnotherEmployee)
             {
-                string employeeName = this._console.GetEmployeeName();
-                List<string> employeeSkill = this._console.GetEmployeeSkills();
-                double availableDays = this._console.GetEmployeeAvailableHours();
-                List<string> taskAssigned = new List<string>();
-                Employee employee = new Employee(employeeName, employeeSkill, taskAssigned, availableDays);
+                Employee employee = this.GetEmployeeDetails();
                 this._employees.Add(employee);
                 Console.WriteLine("Totally, " + this._employees.Count() + " Employees Were Added");
                 isAddAnotherEmployee = this._console.IsAddAnotherTrue("Employee");
@@ -62,7 +58,7 @@ namespace CodingAssesment1
             string employeeName = this._console.GetEmployeeName();
             Employee searchResult = this.SearchEmployeeFromTheList(employeeName);
             this._employees.Remove(searchResult);
-            Console.WriteLine("Employee Deleted");
+            Console.WriteLine($"Employee {employeeName} Deleted");
         }
 
         /// <summary>
@@ -70,7 +66,7 @@ namespace CodingAssesment1
         /// </summary>
         /// <param name="employeeName"> Emp</param>
         /// <returns>object of employee</returns>
-        public Employee SearchEmployeeFromTheList(string? employeeName)
+        public Employee SearchEmployeeFromTheList(string employeeName)
         {
             if (this._employees != null)
             {
@@ -83,7 +79,7 @@ namespace CodingAssesment1
                 }
             }
 
-            return null;
+            throw new Exception("Employee not Found");
         }
 
         /// <summary>
@@ -135,6 +131,16 @@ namespace CodingAssesment1
                     Console.WriteLine("Enter Valid Opton");
                     break;
             }
+        }
+
+        private Employee GetEmployeeDetails()
+        {
+            string employeeName = this._console.GetEmployeeName();
+            List<string> employeeSkill = this._console.GetEmployeeSkills();
+            double availableDays = this._console.GetEmployeeAvailableHours();
+            List<string> taskAssigned = new List<string>();
+            Employee employee = new Employee(employeeName, employeeSkill, taskAssigned, availableDays);
+            return employee;
         }
     }
 }

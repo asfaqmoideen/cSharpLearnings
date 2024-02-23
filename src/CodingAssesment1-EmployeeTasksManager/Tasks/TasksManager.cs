@@ -43,33 +43,28 @@ namespace CodingAssesment1
             bool isAddAnothertask = false;
             while (isAddAnothertask)
             {
-                string taskName = this._taskConsole.GetTaskName();
-                string taskDescription = this._taskConsole.GetTaskDescription();
-                double requiredHours = this._taskConsole.GetTasksRequiredHours();
-                DateTime taskDeadline = this._taskConsole.GetTaskDeadline();
-                string requiredSkill = this._taskConsole.GetTaskRequiredSkills();
-                Tasks tasks = new Tasks(taskName, requiredHours, taskDeadline, requiredSkill, taskDescription);
+                Tasks tasks = this.GetTaskDetails();
                 this._tasks.Add(tasks);
                 isAddAnothertask = this._taskConsole.IsAddAnother("Task");
             }
         }
 
         /// <summary>
-        /// Removes employee from the list
+        /// Removes tasks from the list
         /// </summary>
         public void RemoveTask()
         {
             string taskName = this._taskConsole.GetTaskName();
             Tasks searchResult = this.SearchTasksFromTheList(taskName);
             this._tasks.Remove(searchResult);
-            Console.WriteLine("Employee Deleted");
+            Console.WriteLine($"Task {taskName} Deleted");
         }
 
         /// <summary>
-        /// Traverse through the list and returns employee reference
+        /// Traverse through the list and returns task reference
         /// </summary>
-        /// <param name="taskName"> Emp</param>
-        /// <returns>object of employee</returns>
+        /// <param name="taskName"> Task name</param>
+        /// <returns>object of task</returns>
         public Tasks SearchTasksFromTheList(string taskName)
         {
             if (this._tasks != null)
@@ -83,11 +78,11 @@ namespace CodingAssesment1
                 }
             }
 
-            return null;
+            throw new Exception("Task Not found");
         }
 
         /// <summary>
-        /// Shows all the Employees
+        /// Shows all the Tasks
         /// </summary>
         public void ViewAllTasks()
         {
@@ -128,6 +123,16 @@ namespace CodingAssesment1
                     Console.WriteLine("Enter Valid Opton");
                     break;
             }
+        }
+        private Tasks GetTaskDetails()
+        {
+            string taskName = this._taskConsole.GetTaskName();
+            string taskDescription = this._taskConsole.GetTaskDescription();
+            double requiredHours = this._taskConsole.GetTasksRequiredHours();
+            DateTime taskDeadline = this._taskConsole.GetTaskDeadline();
+            string requiredSkill = this._taskConsole.GetTaskRequiredSkills();
+            Tasks tasks = new Tasks(taskName, requiredHours, taskDeadline, requiredSkill, taskDescription);
+            return tasks;
         }
     }
 }

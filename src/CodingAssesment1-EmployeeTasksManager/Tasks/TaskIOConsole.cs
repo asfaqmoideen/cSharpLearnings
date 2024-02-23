@@ -11,11 +11,11 @@
         /// <returns>task name as string</returns>
         public string GetTaskName()
         {
-            string? taskName;
+            string taskName;
             do
             {
                 Console.WriteLine("Enter Task Name");
-                taskName = Console.ReadLine();
+                taskName = Console.ReadLine() !;
             }
             while (taskName.Length == 0);
             return taskName;
@@ -27,11 +27,11 @@
         /// <returns>Task description as string</returns>
         public string GetTaskDescription()
         {
-            string? taskDescription;
+            string taskDescription;
             do
             {
                 Console.WriteLine("Enter Task Description");
-                taskDescription = Console.ReadLine();
+                taskDescription = Console.ReadLine() !;
             }
             while (taskDescription.Length == 0);
             return taskDescription;
@@ -43,11 +43,11 @@
         /// <returns>required skill as string</returns>
         public string GetTaskRequiredSkills()
         {
-            string? requiredSkills;
+            string requiredSkills;
             do
             {
                 Console.WriteLine("Enter Tasks Required Skills");
-                requiredSkills = Console.ReadLine();
+                requiredSkills = Console.ReadLine() !;
             }
             while (requiredSkills.Length == 0);
             return requiredSkills;
@@ -77,12 +77,13 @@
         public DateTime GetTaskDeadline()
         {
             DateTime taskDeadline;
-            bool isdeadlineInDaysDouble;
             Console.WriteLine("Enter Deadline date");
-            while(DateTime.TryParse(Console.ReadLine(), out taskDeadline) && taskDeadline > DateTime.Now)
+
+            while (DateTime.TryParse(Console.ReadLine() !, out taskDeadline) && taskDeadline > DateTime.Now)
             {
                 Console.WriteLine("Invaid Date Input");
             }
+
             return taskDeadline;
         }
 
@@ -93,7 +94,7 @@
         /// <param name="format">format</param>
         public bool IsAddAnother(string format)
         {
-            string option = Console.ReadLine();
+            string option = Console.ReadLine() !;
             Console.WriteLine($"Want to add another {format} ?\n 1.Yes\n Press any ket to skip");
             return true ? option == "1" : false;
         }
