@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PluginController\PluginController.csproj" />
+    <ProjectReference Include="..\PluginController\PluginController.csproj"/>
   </ItemGroup>
 
 </Project>

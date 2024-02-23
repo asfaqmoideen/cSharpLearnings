@@ -49,6 +49,10 @@
                     PluginManager pluginManager = new PluginManager();
                     pluginManager.ExecutePluginManager();
                     break;
+                case ReflectionOperations.SerializationAPI:
+                    APIController aPIController = new APIController();
+                    aPIController.ExecuteSerilizer();
+                    break;
                 case ReflectionOperations.Quit:
                     return true;
                 default:
