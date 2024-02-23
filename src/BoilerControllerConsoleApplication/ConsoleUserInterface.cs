@@ -11,18 +11,18 @@
         /// <returns>Integer value </returns>
         public static int GetOptionFromTheUser()
         {
-            int userOption;
-            Console.WriteLine("Enter a Option to Perform");
-            while (!ConsoleInputValidator.IsOptionValid(Console.ReadLine() !, out userOption))
+            string userOption;
+            Console.WriteLine("Enter a Operation to Perform.");
+            while (!ConsoleInputValidator.IsOptionValid(userOption = Console.ReadLine() !))
             {
-                Console.WriteLine("Enter a Valid Option (0 - 5)");
+                Console.WriteLine("Enter a Valid Option (0 - 5).");
             }
 
-            return userOption;
+            return int.Parse(userOption);
         }
 
         /// <summary>
-        /// Gets userconfirmation
+        /// Gets userconfirmation for specific uses cases.
         /// </summary>
         /// <param name="useCaseForConfirmation"> Information to get confirmation</param>
         /// <returns>true if yes, else false</returns>

@@ -54,7 +54,7 @@ namespace BoilerControllerConsole
                 case BoilerControllerOperations.ExitApplication:
                     return true;
                 default:
-                    Console.WriteLine("Invalid Option");
+                    Console.WriteLine("Please enter the input ranging from 0 - 6");
                     break;
             }
 

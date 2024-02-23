@@ -12,18 +12,18 @@ namespace BoilerControllerConsole
          /// </summary>
         private static void Main()
         {
-            bool stopFlag = false;
-            MainMenuOperationsManager operationsManager = new();
+            bool exitFlag = false;
+            MainMenuOperationsManager operationsManager = new ();
 
-            while (!stopFlag)
+            while (!exitFlag)
             {
                 try
                 {
-                    stopFlag = operationsManager.ExecuteMainMenu();
+                    exitFlag = operationsManager.ExecuteMainMenu();
                 }
-                catch (Exception globalException)
+                catch (Exception exception)
                 {
-                    Console.WriteLine(globalException.Message);
+                    Console.WriteLine(exception.Message);
                 }
             }
         }

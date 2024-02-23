@@ -9,10 +9,10 @@
         /// Validtaes and Parses User Input to Integer
         /// </summary>
         /// <param name="userInputFormConsole">Users input as string value</param>
-        /// <param name="userOption">Parsed Integer Value</param>
         /// <returns>True if its valid</returns>
-        public static bool IsOptionValid(string userInputFormConsole, out int userOption)
+        public static bool IsOptionValid(string userInputFormConsole)
         {
+            int userOption;
             if (string.IsNullOrEmpty(userInputFormConsole))
             {
                 throw new ArgumentNullException("Input Should hold some value");
@@ -22,7 +22,6 @@
                 throw new Exception("Option Should be a Number");
             }
 
-            int.TryParse(userInputFormConsole, out userOption);
             return true;
         }
     }

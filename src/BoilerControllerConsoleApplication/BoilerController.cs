@@ -7,9 +7,9 @@ namespace BoilerControllerConsole
     /// </summary>
     public class BoilerController
     {
-        private string _systemStatus = " ";
         private string _logFilePath = "Boiler Log.txt";
-        private BoilerSwitches _switches = new(false, false);
+        private Boiler _boiler = new (false, false);
+        private TimerController _timerController = new TimerController();
 
         /// <summary>
         /// Handles the interlock switch
@@ -23,11 +23,11 @@ namespace BoilerControllerConsole
                 this.ToogleInterlock();
             }
 
-            var displayInterLockSwitch = this._switches.InterLock ? $"Inter Lock Switch toggled to Open" : $"Interlock switch is Closed";
+            var displayInterLockSwitch = this._boiler.InterLock ? $"Inter Lock Switch toggled to Open" : $"Interlock switch is Closed";
 
             this.ShowSwitchPositions();
 
-            this.WriteTOLogFile(displayInterLockSwitch);
+            this.WriteToFile(displayInterLockSwitch);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace BoilerControllerConsole
                 using (StreamReader reader = File.OpenText(this._logFilePath))
                 {
                     string readString;
-                    while ((readString = reader.ReadLine()) != null)
+                    while ((readString = reader.ReadLine() !) != null)
                     {
                         Console.WriteLine(readString);
                     }
@@ -57,24 +57,20 @@ namespace BoilerControllerConsole
         /// </summary>
         public void StartBoilerSequence()
         {
-            if (!this._switches.InterLock && !this._switches.LockoutReset)
+            if (!this._boiler.InterLock && !this._boiler.LockoutReset)
             {
                 throw new InvalidOperationException("Switches are in Open State - Please Close Switches to Start Boiler Sequence");
             }
 
             Console.WriteLine("You're All set to Start the Boiler  Sequence");
-            TimerController timerControllerPrepurge = new("Pre-Purge");
-            this.WriteTOLogFile("Pre-Purge Started");
-            timerControllerPrepurge.RunTimer();
-            this.WriteTOLogFile("Pre-Purge Completed");
 
-            TimerController timerControllerIgnition = new("Ignition");
-            this.WriteTOLogFile("Ignition Started");
-            timerControllerIgnition.RunTimer();
-            this.WriteTOLogFile("Ignition Completed");
+            this.StartPrePurge();
 
-            this._systemStatus = "Operational";
-            this.WriteTOLogFile(this._systemStatus);
+            this.StartIgnition();
+
+            this._boiler.Status = Boiler.SystemStatus.Opeational;
+
+            this.WriteToFile(nameof(Boiler.SystemStatus.Opeational));
         }
 
         /// <summary>
@@ -82,14 +78,10 @@ namespace BoilerControllerConsole
         /// </summary>
         public void StopBoilerSequence()
         {
-            if (!_systemStatus.Equals("Operational"))
+            if (!(this._boiler.Status == Boiler.SystemStatus.Opeational))
             {
                 throw new InvalidOperationException("System status is not in Operational Mode");
             }
-
-            this._systemStatus = "Stopped";
-            this.WriteTOLogFile(this._systemStatus);
-            this._switches = new (false, false);
         }
 
         /// <summary>
@@ -101,14 +93,14 @@ namespace BoilerControllerConsole
 
             if (ConsoleUserInterface.GetUserConfirmation("To Change Swicth State"))
             {
-                this._switches.LockoutReset = true;
+                this._boiler.LockoutReset = true;
             }
 
-            var displayLockoutResetSwitch = this._switches.LockoutReset ? $"Lockout Reset Switch toggled to Open" : $"Lockout Reset switch is Closed";
+            var displayLockoutResetSwitch = this._boiler.LockoutReset ? $"Lockout Reset Switch toggled to Open" : $"Lockout Reset switch is Closed";
 
             this.ShowSwitchPositions();
 
-            this.WriteTOLogFile(displayLockoutResetSwitch);
+            this.WriteToFile(displayLockoutResetSwitch);
         }
 
         /// <summary>
@@ -121,29 +113,29 @@ namespace BoilerControllerConsole
 
         private void ShowSwitchPositions()
         {
-            var displayInterLockSwitch = this._switches.InterLock ? $"Inter Lock Switch is Open" : $"Interlock switch is Closed";
+            var displayInterLockSwitch = this._boiler.InterLock ? $"Inter Lock Switch is Open" : $"Interlock switch is Closed";
             Console.WriteLine(displayInterLockSwitch);
-            var displayLockoutResetSwitch = this._switches.LockoutReset ? $"Lockout Reset Switch is Open" : $"Lockout Reset switch is Closed";
+            var displayLockoutResetSwitch = this._boiler.LockoutReset ? $"Lockout Reset Switch is Open" : $"Lockout Reset switch is Closed";
             Console.WriteLine(displayLockoutResetSwitch);
         }
 
         private void ToogleInterlock()
         {
-            if (!this._switches.LockoutReset)
+            if (!this._boiler.LockoutReset)
             {
                 throw new Exception("First Open Reset Lockout Switch");
             }
 
-            this._switches.InterLock = true;
-            this._systemStatus = "Ready";
-            this.WriteTOLogFile(this._systemStatus);
+            this._boiler.InterLock = true;
+            this._boiler.Status = Boiler.SystemStatus.Ready;
+            this.WriteToFile(nameof(Boiler.SystemStatus.Ready));
         }
 
         /// <summary>
         /// Writes to the file with time stamp
         /// </summary>
         /// <param name="stringtoPrintInLogFile">data to be written in the File</param>
-        private void WriteTOLogFile(string stringtoPrintInLogFile)
+        private void WriteToFile(string stringtoPrintInLogFile)
         {
             if (!File.Exists(this._logFilePath))
             {
@@ -153,6 +145,22 @@ namespace BoilerControllerConsole
                     writer.Write("," + DateTime.Now);
                 }
             }
+        }
+
+        private void StartIgnition()
+        {
+            this._boiler.Status = Boiler.SystemStatus.Ingnition;
+            this.WriteToFile("Ignition Started");
+            this._timerController.RunTimer();
+            this.WriteToFile("Ignition Completed");
+        }
+
+        private void StartPrePurge()
+        {
+            this._boiler.Status = Boiler.SystemStatus.PrePurge;
+            this.WriteToFile("Pre-Purge Started");
+            this._timerController.RunTimer();
+            this.WriteToFile("Pre-Purge Completed");
         }
     }
 }
