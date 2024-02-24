@@ -1,4 +1,4 @@
-﻿namespace AdvancedMultiThreading
+﻿namespace Assignment18_MultiThreading
 {
     /// <summary>
     /// Operates the math function in MultiThreading 
@@ -10,16 +10,18 @@
         /// </summary>
         public void MultiThreadingExecutor()
         {
-            Thread thread1 = new Thread(sumofInteger => MathCalculations.CalculateSumOfIntegerArray());
-            Thread thread2 = new Thread(sumOfRandom => MathCalculations.SortRandomArrayandSum());
+            int sumOfInteger = 0;
+            int sumOfRandom = 0;
+            Thread thread1 = new Thread(() => sumOfInteger = MathCalculations.CalculateSumOfIntegerArray());
+            Thread thread2 = new Thread(() => sumOfRandom = MathCalculations.SortRandomArrayandSum());
 
             thread1.Start();
             thread2.Start();
             thread1.Join();
             thread2.Join();
 
-            Console.WriteLine(thread1);
-            Console.WriteLine(thread2);
+            Console.WriteLine(sumOfInteger);
+            Console.WriteLine(sumOfRandom);
         }
     }
 }

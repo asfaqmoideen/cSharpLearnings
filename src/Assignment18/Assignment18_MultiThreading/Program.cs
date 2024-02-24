@@ -1,6 +1,4 @@
-﻿using Assignment18_MultiThreading;
-
-namespace Assignments
+﻿namespace Assignment18_MultiThreading
 {
     /// <summary>
     /// Initiates the program Execution

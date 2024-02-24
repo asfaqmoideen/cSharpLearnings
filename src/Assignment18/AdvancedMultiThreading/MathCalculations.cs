@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace AdvancedMultiThreading
+namespace Assignment18_MultiThreading
 {
     /// <summary>
     /// Program that holds many methdos in Async methods
@@ -18,9 +18,10 @@ namespace AdvancedMultiThreading
 
             for (int i = 0; i < integerArrayToSum.Length; i++)
             {
+                integerArrayToSum[i] = i;
                 sum += integerArrayToSum[i];
             }
-
+            
             return sum;
         }
 
@@ -36,9 +37,9 @@ namespace AdvancedMultiThreading
 
             for (int i = 0; i < randomArrayToSum.Length; i++)
             {
-                randomArrayToSum[i] = random.Next(100);
+                randomArrayToSum[i] = random.Next(100000);
+                sum += randomArrayToSum[i];
             }
-
             return sum;
         }
     }
