@@ -46,7 +46,7 @@ namespace BoilerControllerConsole
                     this._boilerController.RunInterLockSwitch();
                     break;
                 case BoilerControllerOperations.RunResetLockout:
-                    this._boilerController.RunResetLockout();
+                    this._boilerController.LockoutReset();
                     break;
                 case BoilerControllerOperations.EventLog:
                     this._boilerController.ShowEventLog();
