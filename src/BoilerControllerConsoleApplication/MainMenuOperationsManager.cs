@@ -27,7 +27,7 @@ namespace BoilerControllerConsole
         public bool ExecuteMainMenu()
         {
             ShowMainMenu();
-            int userOption = ConsoleUserInterface.GetOptionFromTheUser();
+            int userOption = BoilerViews.GetOptionFromTheUser();
 
             BoilerControllerOperations operationToBePerformed = (BoilerControllerOperations)userOption;
 

@@ -8,14 +8,61 @@
         private int _invokeCount = 0;
         private int _maxCount = 10;
         private Boiler _boiler;
+        private LogFileService _logFileService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BoilerService"/> class.
         /// </summary>
         /// <param name="boiler">Boiler</param>
-        public BoilerService(Boiler boiler)
+        /// <param name="logFileService">Log file service</param>
+        public BoilerService(Boiler boiler, LogFileService logFileService)
         {
             this._boiler = boiler;
+            this._logFileService = logFileService;
+        }
+
+        /// <summary>
+        /// Displays the Switch Positions
+        /// </summary>
+        public void DisplaySwitchPositions()
+        {
+            var displayInterLockSwitch = this._boiler.InterLock ? $"Inter Lock Switch is Open" : $"Interlock switch is Closed";
+            Console.WriteLine(displayInterLockSwitch);
+            var displayLockoutResetSwitch = this._boiler.LockoutReset ? $"Lockout Reset Switch is Open" : $"Lockout Reset switch is Closed";
+            Console.WriteLine(displayLockoutResetSwitch);
+        }
+
+        /// <summary>
+        /// Starts the Ignition Procces
+        /// </summary>
+        public void StartIgnition()
+        {
+            this._boiler.Status = Boiler.SystemStatus.Ingnition;
+            this._logFileService.WriteToFile("Ignition Started");
+            this.RunTimer();
+            this._logFileService.WriteToFile("Ignition Completed");
+        }
+
+        /// <summary>
+        /// Starts the pre-purge
+        /// </summary>
+        public void StartPrePurge()
+        {
+            this._boiler.Status = Boiler.SystemStatus.PrePurge;
+            this._logFileService.WriteToFile("Pre-Purge Started");
+            this.RunTimer();
+            this._logFileService.WriteToFile("Pre-Purge Completed");
+        }
+
+        /// <summary>
+        /// Resest the Boiler
+        /// </summary>
+        public void ResetBoiler()
+        {
+            this._boiler.Status = Boiler.SystemStatus.Lockout;
+            this._logFileService.WriteToFile(nameof(Boiler.SystemStatus.Lockout));
+            this._boiler.LockoutReset = false;
+            this._boiler.InterLock = false;
         }
 
         /// <summary>
@@ -27,7 +74,7 @@
 
             Console.WriteLine($"{DateTime.Now} Starting{this._boiler.Status}.\n");
 
-            var stateTimer = new Timer(TimerStatus, autoEvent, 1000, 250);
+            var stateTimer = new Timer(this.TimerStatus !, autoEvent, 1000, 250);
 
             autoEvent.WaitOne();
             stateTimer.Dispose();

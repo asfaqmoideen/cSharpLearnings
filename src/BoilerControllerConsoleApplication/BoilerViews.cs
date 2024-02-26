@@ -1,9 +1,9 @@
 ﻿namespace BoilerControllerConsole
 {
     /// <summary>
-    /// Gets Valid Input from the user 
+    /// Gets Valid Input from the user
     /// </summary>
-    public class ConsoleUserInterface
+    public class BoilerViews
     {
         /// <summary>
         /// gets option to perform from the main menu

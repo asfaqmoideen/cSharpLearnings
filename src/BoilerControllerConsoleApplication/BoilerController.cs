@@ -8,7 +8,7 @@ namespace BoilerControllerConsole
     public class BoilerController
     {
         private Boiler _boiler;
-        private BoilerService _timerController;
+        private BoilerService _service;
         private LogFileService _logFileService;
 
         /// <summary>
@@ -17,8 +17,10 @@ namespace BoilerControllerConsole
         public BoilerController()
         {
             this._boiler = new (false, false);
-            this._timerController = new BoilerService(this._boiler);
             this._logFileService = new LogFileService();
+            this._service = new BoilerService(this._boiler, this._logFileService);
+            this._logFileService.WriteToFile("Boiler Controller Initialzed");
+            this._boiler.Status = Boiler.SystemStatus.Lockout;
         }
 
         /// <summary>
@@ -26,16 +28,16 @@ namespace BoilerControllerConsole
         /// </summary>
         public void RunInterLockSwitch()
         {
-            this.DisplaySwitchPositions();
+            this._service.DisplaySwitchPositions();
 
-            if (ConsoleUserInterface.GetUserConfirmation("To Change Swicth State"))
+            if (BoilerViews.GetUserConfirmation("To Change Swicth State"))
             {
                 this.ToogleInterlock();
             }
 
             var displayInterLockSwitch = this._boiler.InterLock ? $"Inter Lock Switch toggled to Open" : $"Interlock switch is Closed";
 
-            this.DisplaySwitchPositions();
+            this._service.DisplaySwitchPositions();
 
             this._logFileService.WriteToFile(displayInterLockSwitch);
         }
@@ -61,29 +63,18 @@ namespace BoilerControllerConsole
         /// </summary>
         public void LockoutReset()
         {
-            this.DisplaySwitchPositions();
+            this._service.DisplaySwitchPositions();
 
-            if (ConsoleUserInterface.GetUserConfirmation("To Change Swicth State"))
+            if (BoilerViews.GetUserConfirmation("To Change Swicth State"))
             {
                 this._boiler.LockoutReset = true;
             }
 
             var displayLockoutResetSwitch = this._boiler.LockoutReset ? $"Lockout Reset Switch toggled to Open" : $"Lockout Reset switch is Closed";
 
-            this.DisplaySwitchPositions();
+            this._service.DisplaySwitchPositions();
 
             this._logFileService.WriteToFile(displayLockoutResetSwitch);
-        }
-
-        /// <summary>
-        /// Displays the Switch Positions
-        /// </summary>
-        public void DisplaySwitchPositions()
-        {
-            var displayInterLockSwitch = this._boiler.InterLock ? $"Inter Lock Switch is Open" : $"Interlock switch is Closed";
-            Console.WriteLine(displayInterLockSwitch);
-            var displayLockoutResetSwitch = this._boiler.LockoutReset ? $"Lockout Reset Switch is Open" : $"Lockout Reset switch is Closed";
-            Console.WriteLine(displayLockoutResetSwitch);
         }
 
         /// <summary>
@@ -106,35 +97,13 @@ namespace BoilerControllerConsole
 
             Console.WriteLine("You're All set to Start the Boiler  Sequence");
 
-            this.StartPrePurge();
+            this._service.StartPrePurge();
 
-            this.StartIgnition();
+            this._service.StartIgnition();
 
             this._boiler.Status = Boiler.SystemStatus.Opeational;
 
             this._logFileService.WriteToFile(nameof(Boiler.SystemStatus.Opeational));
-        }
-
-        /// <summary>
-        /// Starts the Ignition Procces
-        /// </summary>
-        public void StartIgnition()
-        {
-            this._boiler.Status = Boiler.SystemStatus.Ingnition;
-            this._logFileService.WriteToFile("Ignition Started");
-            this._timerController.RunTimer();
-            this._logFileService.WriteToFile("Ignition Completed");
-        }
-
-        /// <summary>
-        /// Starts the pre-purge
-        /// </summary>
-        public void StartPrePurge()
-        {
-            this._boiler.Status = Boiler.SystemStatus.PrePurge;
-            this._logFileService.WriteToFile("Pre-Purge Started");
-            this._timerController.RunTimer();
-            this._logFileService.WriteToFile("Pre-Purge Completed");
         }
 
         /// <summary>
@@ -147,7 +116,7 @@ namespace BoilerControllerConsole
                 throw new InvalidOperationException("System status is not in Operational Mode");
             }
 
-            this.ResetBoiler();
+            this._service.ResetBoiler();
         }
 
         /// <summary>
@@ -160,18 +129,7 @@ namespace BoilerControllerConsole
                 throw new InvalidOperationException("System status is not in Operational Mode");
             }
 
-            this.ResetBoiler();
-        }
-
-        /// <summary>
-        /// Resest the Boiler
-        /// </summary>
-        public void ResetBoiler()
-        {
-            this._boiler.Status = Boiler.SystemStatus.Lockout;
-            this._logFileService.WriteToFile(nameof(Boiler.SystemStatus.Lockout));
-            this._boiler.LockoutReset = false;
-            this._boiler.InterLock = false;
+            this._service.ResetBoiler();
         }
     }
 }

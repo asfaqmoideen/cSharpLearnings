@@ -6,6 +6,7 @@
     public class LogFileService
     {
         private string _logFilePath = "Boiler Log.txt";
+
         /// <summary>
         /// Writes to the file with time stamp
         /// </summary>
@@ -31,7 +32,7 @@
                 using (StreamReader reader = File.OpenText(this._logFilePath))
                 {
                     string readString;
-                    while ((readString = reader.ReadLine()!) != null)
+                    while ((readString = reader.ReadLine() !) != null)
                     {
                         Console.WriteLine(readString);
                     }
