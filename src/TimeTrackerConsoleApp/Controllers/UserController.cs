@@ -35,9 +35,10 @@ namespace TimeTrackerConsoleApp
 
             this._users.Add(newUser);
 
-            this._userLog.AddToLog(newUser);
+            // this._userLog.AddToLog(newUser);
 
-            UserViews.PrintMessage($"Totally {this._users.Count()} were added");
+            string userNoun = this._users.Count == 1 ? "User was" : "Users were";
+            UserViews.PrintMessage($"Totally {this._users.Count()} {userNoun} Added");
         }
 
         /// <summary>

@@ -5,7 +5,17 @@
     /// </summary>
     public class UserFrontPanelController
     {
-        private enum FromPanelOption
+        private UserController _userController;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserFrontPanelController"/> class.
+        /// </summary>
+        public UserFrontPanelController()
+        {
+            this._userController = new UserController();
+        }
+
+        private enum FrontPanelOptions
         {
             Quit,
             SignIn,
@@ -22,17 +32,17 @@
 
             int userOption = UserViews.GetOptionFromTheUser();
 
-            FromPanelOption operationToPerform = (FromPanelOption)userOption;
+            FrontPanelOptions operationToPerform = (FrontPanelOptions)userOption;
 
             switch (operationToPerform)
             {
-                case FromPanelOption.SignIn:
+                case FrontPanelOptions.SignIn:
                     this.ShowFrontPanelMenu();
                     break;
-                case FromPanelOption.SignUp:
-                    this.ShowFrontPanelMenu();
+                case FrontPanelOptions.SignUp:
+                    this._userController.AddUser();
                     break;
-                case FromPanelOption.Quit:
+                case FrontPanelOptions.Quit:
                     return true;
             }
 
@@ -41,9 +51,9 @@
 
         private void ShowFrontPanelMenu()
         {
-            Console.WriteLine("1." + FromPanelOption.SignIn);
-            Console.WriteLine("2." + FromPanelOption.SignUp);
-            Console.WriteLine("0." + FromPanelOption.Quit);
+            Console.WriteLine("1." + FrontPanelOptions.SignIn);
+            Console.WriteLine("2." + FrontPanelOptions.SignUp);
+            Console.WriteLine("0." + FrontPanelOptions.Quit);
         }
     }
 }

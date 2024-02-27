@@ -48,9 +48,9 @@
         public string GetUsername()
         {
             string userName;
-            while (!UserInpuValidator.IsStringValid(userName = UserViews.GetStringFromUser("Enter user Name")))
+            while (UserInpuValidator.IsStringValid(userName = UserViews.GetStringFromUser("Enter Username")))
             {
-                UserViews.PrintMessage("Enter Valid userName");
+                UserViews.PrintMessage("Enter Valid Username");
             }
 
             return userName;
@@ -70,10 +70,9 @@
         private string GetNewPassword()
         {
             string passwordFirstAttempt = UserViews.GetStringFromUser("Enter password");
-            string passwordSecondAttempt = UserViews.GetStringFromUser("Again Enter Password");
-            if (passwordFirstAttempt != passwordSecondAttempt)
+            while (passwordFirstAttempt != UserViews.GetStringFromUser("Again Enter Password"))
             {
-                throw new Exception("Password doesn't Match");
+                UserViews.PrintMessage("Passwords Doesn't Match");
             }
 
             return passwordFirstAttempt;
@@ -82,7 +81,7 @@
         private string GetNameOfTheUser()
         {
             string name;
-            while (!UserInpuValidator.IsStringValid(name = UserViews.GetStringFromUser("Enter Name")))
+            while (UserInpuValidator.IsStringValid(name = UserViews.GetStringFromUser("Enter Name")))
             {
                 UserViews.PrintMessage("Enter Valid Name");
             }
@@ -97,6 +96,7 @@
             while (this._users.Any(p => p.UserName == newUserName))
             {
                 UserViews.PrintMessage("Enter Unique User Name");
+                newUserName = this.GetUsername();
             }
 
             return newUserName;

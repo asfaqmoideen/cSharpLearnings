@@ -28,9 +28,20 @@ namespace TimeTrackerConsoleApp
             return Console.ReadLine() !;
         }
 
-        internal static int GetOptionFromTheUser()
+        /// <summary>
+        /// gets option to perform from the main menu
+        /// </summary>
+        /// <returns>Integer value </returns>
+        public static int GetOptionFromTheUser()
         {
-            throw new NotImplementedException();
+            string userOption;
+            Console.WriteLine("Enter a Operation to Perform.");
+            while (!UserInpuValidator.IsOptionValid(userOption = Console.ReadLine()!))
+            {
+                Console.WriteLine("Enter a Valid Option as Number");
+            }
+
+            return int.Parse(userOption);
         }
 
         /// <summary>
