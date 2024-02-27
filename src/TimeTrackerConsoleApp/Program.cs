@@ -7,8 +7,7 @@
     {
         private static void Main()
         {
-            Console.WriteLine("Time Tracker Console Applicaton");
-            Console.ReadKey();
+            
         }
     }
 }

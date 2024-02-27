@@ -45,4 +45,8 @@ The Appliction to be developed in the basis of MCV Archeitecture for long term s
 
 - Creating unit tests for Controller, Service layer functionalities. 
 
+#### Storage 
+- The user details will be stored in seperate file which have User Attributes with Log file location
+- A new log file will created for new user who are added, That contains the User's task Attributes
+
 

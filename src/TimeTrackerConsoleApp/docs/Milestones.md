@@ -9,7 +9,7 @@
 	- Categorisation of tasks
 	- Storage of User Profiles and Tasks
 	- Task operations - time stamp, manual adjustment
-	
+		
 - Day 3 - 29/2/2024
 	- Reports and Insights
 	- Exporting Reports
