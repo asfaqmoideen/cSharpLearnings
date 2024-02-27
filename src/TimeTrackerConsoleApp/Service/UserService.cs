@@ -5,6 +5,7 @@
     /// </summary>
     public class UserService
     {
+        private readonly int _maxWrongPassword = 3;
         private List<User> _users;
         private int _userId = 1;
 
@@ -15,6 +16,40 @@
         public UserService(List<User> users)
         {
             this._users = users;
+        }
+
+        /// <summary>
+        /// Validates the user Credentials
+        /// </summary>
+        /// <returns>true if valid</returns>
+        /// <param name="user">objcet user</param>
+        public bool IsUserCredentialsValid(out User user)
+        {
+            user = this.SearchUserWithUserName(this.GetUsername());
+            if (user == null)
+            {
+                throw new Exception("User name not Found");
+            }
+
+            return this.IsValidPassword(user);
+        }
+
+        private bool IsValidPassword(User user)
+        {
+            bool isPasswordValid = user.Password == UserViews.GetStringFromUser("Enter Password");
+
+            if (!isPasswordValid)
+            {
+                for (int i = this._maxWrongPassword; i > 0 && !isPasswordValid; i--)
+                {
+                    UserViews.PrintMessage($"Wrong password try again, {i} tries left ");
+                    isPasswordValid = user.Password == UserViews.GetStringFromUser("Enter Password");
+                }
+
+                throw new Exception("Max wrong password Entries");
+            }
+
+            return isPasswordValid;
         }
 
         /// <summary>
@@ -48,9 +83,9 @@
         public string GetUsername()
         {
             string userName;
-            while (UserInpuValidator.IsStringValid(userName = UserViews.GetStringFromUser("Enter Username")))
+            while (!UserInpuValidator.IsStringValid(userName = UserViews.GetStringFromUser("Enter Username")))
             {
-                UserViews.PrintMessage("Enter Valid Username");
+                UserViews.PrintMessage("Try Again");
             }
 
             return userName;
@@ -81,7 +116,7 @@
         private string GetNameOfTheUser()
         {
             string name;
-            while (UserInpuValidator.IsStringValid(name = UserViews.GetStringFromUser("Enter Name")))
+            while (!UserInpuValidator.IsStringValid(name = UserViews.GetStringFromUser("Enter Name")))
             {
                 UserViews.PrintMessage("Enter Valid Name");
             }

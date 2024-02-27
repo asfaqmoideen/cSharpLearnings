@@ -37,7 +37,7 @@
             switch (operationToPerform)
             {
                 case FrontPanelOptions.SignIn:
-                    this.ShowFrontPanelMenu();
+                    this._userController.ExecuteTaskControlsForExistingUser();
                     break;
                 case FrontPanelOptions.SignUp:
                     this._userController.AddUser();

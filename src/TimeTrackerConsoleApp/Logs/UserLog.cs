@@ -1,5 +1,4 @@
-﻿
-namespace TimeTrackerConsoleApp
+﻿namespace TimeTrackerConsoleApp
 {
     internal class UserLog
     {

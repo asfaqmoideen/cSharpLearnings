@@ -1,51 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace TimeTrackerConsoleApp
 {
-    /// <summary>
-    /// Controls the Attributes of User
-    /// </summary>
-    public class UserController
+    internal class TaskController
     {
-        private List<User> _users;
-        private UserService _userSerive;
-        private UserLog _userLog;
-        private TaskController _taskController;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserController"/> class.
-        /// </summary>
-        public UserController()
+        public TaskController()
         {
-            this._users = new List<User>();
-            this._userSerive = new UserService(this._users);
-            this._userLog = new UserLog();
-            this._taskController = new TaskController();
         }
 
         /// <summary>
-        /// Execute Task Controls for Existig User
-        /// </summary>
-        public void ExecuteTaskControlsForExistingUser()
-        {
-            if (!this._users.Any())
-            {
-                throw new Exception("No users were added yet");
-            }
-
-            if (this._userSerive.IsUserCredentialsValid(out User user))
-            {
-                this._taskController.ExecuteTaskController();
-            }
-        }
-
-        /// <summary>
-        /// Add user to the in-memory List
+        /// Adds a new task
         /// </summary>
         public void AddUser()
         {

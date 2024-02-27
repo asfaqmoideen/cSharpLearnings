@@ -12,7 +12,18 @@
         /// <returns>True if valid</returns>
         public static bool IsStringValid(string stringToValidate)
         {
-            return string.IsNullOrEmpty(stringToValidate) || stringToValidate.Any(char.IsDigit);
+            if (string.IsNullOrEmpty(stringToValidate))
+            {
+                UserViews.PrintMessage("Value Should not be empty");
+                return false;
+            }
+            else if (stringToValidate.Any(char.IsDigit))
+            {
+                UserViews.PrintMessage("Should not conatain digits");
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>

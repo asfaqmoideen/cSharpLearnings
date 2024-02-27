@@ -1,5 +1,4 @@
-﻿
-namespace TimeTrackerConsoleApp
+﻿namespace TimeTrackerConsoleApp
 {
     /// <summary>
     /// User interface for User controls
@@ -24,7 +23,7 @@ namespace TimeTrackerConsoleApp
         /// <returns>string</returns>
         public static string GetStringFromUser(string useCase)
         {
-            Console.WriteLine(useCase);
+            Console.Write(useCase + " :");
             return Console.ReadLine() !;
         }
 
