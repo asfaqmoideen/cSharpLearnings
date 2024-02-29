@@ -1,38 +1,51 @@
-﻿
+﻿using System.Threading.Tasks;
+using TimeTrackerConsoleApp.Service;
+
 namespace TimeTrackerConsoleApp
 {
-    internal class TaskController
+    /// <summary>
+    /// Conrols the task attributes
+    /// </summary>
+    public class TaskController
     {
+        private List<Tasks> _tasks;
+        private TaskService _taskService;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TaskController"/> class.
+        /// </summary>
         public TaskController()
         {
+            this._tasks = new List<Tasks>();
+            this._taskService = new TaskService();
         }
 
         /// <summary>
         /// Adds a new task
         /// </summary>
-        public void AddUser()
+        public void AddNewTask()
         {
-            User newUser = this._userSerive.GetUserDetails();
+            Tasks newTask = this._taskService.GetTaskDetails();
 
-            this._users.Add(newUser);
+            this._tasks.Add(newTask);
 
             // this._userLog.AddToLog(newUser);
-            string userNoun = this._users.Count == 1 ? "User was" : "Users were";
-            UserViews.PrintMessage($"Totally {this._users.Count()}  {userNoun}  Added");
+            string taskNoun = this._tasks.Count == 1 ? "task was" : "tasks were";
+            UserViews.PrintMessage($"Totally {this._tasks.Count()}  {taskNoun}  Added");
         }
 
         /// <summary>
         /// Remove user from the list
         /// </summary>
-        public void RemoveUser()
+        public void RemoveTask()
         {
-            string userName = this._userSerive.GetUsername();
+            string userName = this._taskService.GetTaskName();
 
-            User userToBeDeleted = this._userSerive.SearchUserWithUserName(userName);
+            Tasks taskToBeDeleted = this._taskService.SearchUserWithUserName(userName);
 
             if (UserViews.GetConfirmation($"Remove User with {userToBeDeleted.Name} and {userToBeDeleted.Id}"))
             {
-                this._users.Remove(userToBeDeleted);
+                this._tasks.Remove(userToBeDeleted);
                 this._userLog.RemoveFromLog(userToBeDeleted);
                 UserViews.PrintMessage($"User With {userToBeDeleted.Name} Removed Succesfully");
                 return;
@@ -44,11 +57,11 @@ namespace TimeTrackerConsoleApp
         /// <summary>
         /// Updates the user details
         /// </summary>
-        public void UpdateUser()
+        public void UpdateTask()
         {
-            string userName = this._userSerive.GetUsername();
+            string userName = this._taskService.GetTaskName();
 
-            User userToBeUpdated = this._userSerive.SearchUserWithUserName(userName);
+            User userToBeUpdated = this._taskService.SearchUserWithUserName(userName);
 
             if (UserViews.GetConfirmation($"Edit User with {userToBeUpdated.Name} and {userToBeUpdated.Id}"))
             {
